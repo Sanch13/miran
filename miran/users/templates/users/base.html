@@ -14,7 +14,9 @@
     {% bootstrap_css %}
     {% bootstrap_javascript %}
 
-    {% block css %}<link rel="stylesheet" href="{% static 'css/main.css' %}">{% endblock css %}
+    {% block css %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    {% endblock css %}
 
 </head>
 <body>
@@ -26,12 +28,20 @@
         <li class="nav-item">
             <a class="nav-link link-light" href="">Список сотрудников</a>
         </li>
+        <li>
+            {% if user.is_authenticated %}
+                <a class="nav-link" href="{% url 'users:logout' %}">Выход</a>
+                <span class="name-user">Пользователь: {{ user.first_name }} {{ user.last_name }}</span>
+            {% else %}
+                <a class="nav-link" href="{% url 'users:login' %}">Вход</a>
+            {% endif %}
+        </li>
     </ul>
 </div>
 
 <div class="container">
-{% block content %}
-{% endblock %}
+    {% block content %}
+    {% endblock %}
 </div>
 
 <script src=""></script>

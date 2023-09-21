@@ -16,3 +16,14 @@ class UserRegistrationForm(UserCreationForm):
         model = User
         fields = (
             'first_name', 'last_name', 'username', 'email', 'password1', 'password2')
+
+
+class UserLoginForm(AuthenticationForm):  # Унаследовали форму от Джанго
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Введите имя пользователя'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Введите пароль'}))
+
+    # переопределяем username, password из стандартной формы Джанго
+
+    class Meta:
+        model = User
+        fields = ('username', 'password')
