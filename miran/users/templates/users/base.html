@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block title %}
+    <title>Главная страница</title>
+    {% endblock title %}
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+    {% block css %}<link rel="stylesheet" href="{% static 'css/main.css' %}">{% endblock css %}
+
+</head>
+<body>
+<div class="container">
+    <ul class="nav bg-info nav_style">
+        <li class="nav-item">
+            <a class="nav-link link-light" href="/">HOME</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link link-light" href="">Список сотрудников</a>
+        </li>
+    </ul>
+</div>
+
+{% block content %}
+{% endblock %}
+
+<script src=""></script>
+</body>
