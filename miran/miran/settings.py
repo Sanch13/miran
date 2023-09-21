@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 from secret_settings import settings
@@ -121,3 +120,16 @@ STATICFILES_DIRS = (BASE_DIR, 'static')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = settings.EMAIL_HOST
+EMAIL_PORT = settings.EMAIL_PORT
+
+EMAIL_USE_TLS = settings.EMAIL_USE_TLS
+EMAIL_USE_SSL = settings.EMAIL_USE_SSL
+
+EMAIL_HOST_USER = settings.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = settings.EMAIL_HOST_PASSWORD
+
+DEFAULT_FROM_EMAIL = settings.DEFAULT_FROM_EMAIL

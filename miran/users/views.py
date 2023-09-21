@@ -1,6 +1,12 @@
 from django.contrib import auth, messages
 from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+from django.contrib.auth.views import (
+    PasswordResetView,
+    PasswordResetDoneView,
+    PasswordResetConfirmView,
+    PasswordResetCompleteView
+)
 
 from .forms import UserRegistrationForm, UserLoginForm
 
@@ -45,3 +51,22 @@ def login(request):
         form = UserLoginForm()
     context = {'form': form}
     return render(request, 'users/registration/login.html', context=context)
+
+
+class PassResetView(PasswordResetView):
+    template_name = 'users/registration/password_reset_form.html'
+    email_template_name = 'users/registration/password_reset_email.html'
+    success_url = reverse_lazy("users:password_reset_done")
+
+
+class PassResetDoneView(PasswordResetDoneView):
+    template_name = 'users/registration/password_reset_done.html'
+
+
+class PassResetConfirmView(PasswordResetConfirmView):
+    template_name = 'users/registration/password_reset_confirm.html'
+    success_url = reverse_lazy("users:password_reset_complete")
+
+
+class PassResetCompleteView(PasswordResetCompleteView):
+    template_name = 'users/registration/password_reset_complete.html'

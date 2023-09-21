@@ -13,11 +13,13 @@ class Settings(BaseSettings):
     # HOST: str
     # PORT: str
 
-    # EMAIL: str
-    # EMAIL_HOST_USER: str
-    # EMAIL_HOST_PASSWORD: str
-    # EMAIL_PORT: str
-    # EMAIL_USE_TLS: bool
+    EMAIL_HOST: str
+    EMAIL_PORT: int
+    DEFAULT_FROM_EMAIL: str
+    EMAIL_HOST_USER: str
+    EMAIL_HOST_PASSWORD: str
+    EMAIL_USE_TLS: bool
+    EMAIL_USE_SSL: bool
 
     # SOCIAL_AUTH_FACEBOOK_KEY: str
     # SOCIAL_AUTH_FACEBOOK_SECRET: str
