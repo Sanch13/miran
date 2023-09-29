@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'users.apps.UsersConfig',
+    'books.apps.BooksConfig',
 
     'django_extensions',
     'bootstrap5',
