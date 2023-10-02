@@ -1,4 +1,8 @@
 from django.db import models
+from django.utils.text import slugify
+from django.urls import reverse
+
+from .utils import generate_qr_code
 
 
 class Book(models.Model):
@@ -8,10 +12,26 @@ class Book(models.Model):
 
     author = models.CharField(max_length=250)
     title = models.CharField(max_length=250)
-    description = models.TextField(max_length=1000)
-    qr_code = models.ImageField(upload_to=f"books/{author}_{title}/",
-                                blank=True,
+    description = models.TextField(max_length=1000,
+                                   blank=True)
+    qr_code = models.ImageField(blank=True,
                                 null=True)
+    slug = models.SlugField(unique=True,
+                            blank=True)
     status = models.CharField(max_length=5,
                               choices=Status.choices,
                               default=Status.OPEN)
+
+    def __str__(self):
+        return f"{self.author} {self.title}"
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(f"{self.author}-{self.title}")
+        book_url = self.get_absolute_url()
+        if not self.qr_code:
+            self.qr_code = generate_qr_code(instance=self, book_url=book_url)
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse(viewname="books:detail", args=[self.slug])

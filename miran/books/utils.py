@@ -1,9 +1,7 @@
 import qrcode
 
-from django.conf import settings
 
-
-def generate_qr_code(instance):
+def generate_qr_code(instance, book_url):
     qr = qrcode.QRCode(
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_L,
@@ -11,6 +9,11 @@ def generate_qr_code(instance):
         border=4,
     )
 
-# def print_book(path=settings.BASE_DIR):
-#     print(path) # D:\projects\miran\miran
+    qr.add_data(book_url)
+    qr.make(fit=True)
 
+    image = qr.make_image(fill_color="black", back_color="white")
+    file_path = f"books/media/{instance.slug}.png"
+    image.save(file_path, "PNG")
+
+    return file_path
