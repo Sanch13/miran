@@ -1,0 +1,15 @@
+
+
+
+# AbstractUser
+# ['password', 'last_login', 'is_superuser', 'username', 'first_name', 'last_name',
+# 'email', 'is_staff', 'is_active', 'date_joined', 'groups', 'user_permissions']
+
+# ADD models=='profile'
+# fields: (User: 'first_name', 'last_name',), 'image', 'work_phone', 'personal_phone', 'gender', 'date_of_birth', 'about'
+# Социальные профили (Social Profiles): Поля для хранения информации о социальных профилях пользователя,
+# если ваше приложение интегрируется с социальными сетями.
+
+User - One-to-One - Profile
+
+Library - One-to-Many, Foreign Key - Book
