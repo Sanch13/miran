@@ -1,5 +1,7 @@
 import qrcode
 
+from django.conf import settings
+
 
 def generate_qr_code(instance, book_url):
     qr = qrcode.QRCode(
@@ -8,8 +10,11 @@ def generate_qr_code(instance, book_url):
         box_size=10,
         border=4,
     )
+    print(settings.ALLOWED_HOSTS)
+    absolute_url = settings.ALLOWED_HOSTS[0] + book_url
+    print(absolute_url)
 
-    qr.add_data(book_url)
+    qr.add_data(absolute_url)
     qr.make(fit=True)
 
     image = qr.make_image(fill_color="black", back_color="white")
