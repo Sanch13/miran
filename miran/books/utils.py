@@ -17,8 +17,7 @@ def generate_qr_code(instance, book_url):
     qr.make(fit=True)
 
     image = qr.make_image(fill_color="black", back_color="white")
-    # file_path = f"books/{instance.slug}.png"
-    file_path = f"{instance.slug}.png"
-    image.save(file_path, "PNG")
+    file_path = f"books/{instance.slug}.png"
+    image.save("media/" + file_path, "PNG")
 
     return file_path
