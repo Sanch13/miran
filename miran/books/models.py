@@ -1,5 +1,6 @@
+from slugify import slugify
+
 from django.db import models
-from django.utils.text import slugify
 from django.urls import reverse
 
 from .utils import generate_qr_code
@@ -16,7 +17,8 @@ class Book(models.Model):
                                    blank=True)
     qr_code = models.ImageField(blank=True,
                                 null=True)
-    slug = models.SlugField(unique=True,
+    slug = models.SlugField(max_length=250,
+                            unique=True,
                             blank=True)
     status = models.CharField(max_length=5,
                               choices=Status.choices,

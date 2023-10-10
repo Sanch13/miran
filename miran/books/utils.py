@@ -10,9 +10,8 @@ def generate_qr_code(instance, book_url):
         box_size=10,
         border=4,
     )
-    print(settings.ALLOWED_HOSTS)
-    absolute_url = settings.ALLOWED_HOSTS[0] + book_url
-    print(absolute_url)
+
+    absolute_url = 'http://' + settings.ALLOWED_HOSTS[0] + ':8000' + book_url
 
     qr.add_data(absolute_url)
     qr.make(fit=True)

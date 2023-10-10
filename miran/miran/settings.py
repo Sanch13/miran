@@ -2,14 +2,13 @@ from pathlib import Path
 
 from secret_settings import settings
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = settings.SECRET_KEY
 
 DEBUG = settings.DEBUG
 
-ALLOWED_HOSTS = [settings.ALLOWED_HOSTS]
+ALLOWED_HOSTS = [settings.ALLOWED_HOSTS, ]
 
 AUTH_USER_MODEL = "users.User"
 LOGIN_REDIRECT_URL = '/'
@@ -79,9 +78,6 @@ DATABASES = {
 #     }
 # }
 
-# Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -97,10 +93,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/4.2/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -109,16 +101,12 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
-
 STATIC_URL = 'static/'
-
 STATICFILES_DIRS = (BASE_DIR, 'static')
+# STATIC_ROOT = (BASE_DIR, 'static')
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
