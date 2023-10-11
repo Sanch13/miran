@@ -1,0 +1,10 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block title %}
+<title>{{ book.author }} - {{ book.title }}</title>
+{% endblock title %}
+
+{% block content %}
+<p> Вы успешно взяли книгу <b>{{book.author}}</b> - <b>{{ book.title}}</b> </p>
+{% endblock content %}

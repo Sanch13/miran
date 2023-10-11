@@ -4,6 +4,7 @@ from django.db import models
 from django.urls import reverse
 
 from .utils import generate_qr_code
+from django.conf import settings
 
 
 class Book(models.Model):
@@ -37,3 +38,17 @@ class Book(models.Model):
 
     def get_absolute_url(self):
         return reverse(viewname="books:detail", args=[self.slug])
+
+
+class History(models.Model):
+    user = models.ForeignKey(to=settings.AUTH_USER_MODEL,
+                             related_name="user",
+                             on_delete=models.CASCADE)
+    book = models.OneToOneField(to=Book,
+                                on_delete=models.PROTECT)
+    date_start = models.DateTimeField(auto_created=True,
+                                      blank=True,
+                                      null=True)
+    date_end = models.DateTimeField(auto_created=True,
+                                    blank=True,
+                                    null=True)

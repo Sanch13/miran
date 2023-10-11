@@ -6,13 +6,28 @@
 {% endblock title %}
 
 {% block content %}
-
-<h2>Автор книги: {{ book.author }}</h2>
-<h2>Название книги: {{ book.title }}</h2>
-<h2>Статус книги: {{ book.status }}</h2>
-<h2>QR-code книги: </h2>
 <div>
-    <img src="{{ book.qr_code.url }}">
+    <p>Автор книги: <b>{{ book.author }}</b></p>
+    <p>Название книги: <b>{{ book.title }}</b></p>
+    <p>Статус книги: <b>{{ book.status }}</b></p>
+    <p>QR-code книги: </p>
+    <img src="{{ book.qr_code.url }}"  width="200" height="200">
 </div>
+<div>
+    {% if user.is_authenticated %}
+        {% if book.status == 'CLOSE' %}
 
+            <p>Книгу взял пользователь  {{user.get_full_name|default:user.username}}</p>
+        {% else %}
+            <form method="post" action="{% url 'books:reg_book' %}">
+            {% csrf_token %}
+            <input type="hidden" name="slug" value="{{ book.slug }}">
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Взять книгу в пользование</button>
+        </form>
+        {% endif %}
+    {% else %}
+        <p>Только зарегистрированные пользователи могут брать книгу. <a href="{% url 'users:login' %}">Войти</a></p>
+    {% endif %}
+</div>
 {% endblock content %}

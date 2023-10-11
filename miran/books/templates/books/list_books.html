@@ -20,9 +20,9 @@
         {% for book in books %}
         <tr>
             <td><a href="{{ book.get_absolute_url }}">{{ book.author }}</a></td>
-            <td>{{ book.title }}</td>
+            <td><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></td>
             <td>{{ book.status }}</td>
-            <td>{{ book.description }}</td>
+            <td>{{ book.description|truncatewords:"50" }}</td>
         </tr>
         {% endfor %}
     </table>
