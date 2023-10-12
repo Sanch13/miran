@@ -11,23 +11,34 @@
     <p>Название книги: <b>{{ book.title }}</b></p>
     <p>Статус книги: <b>{{ book.status }}</b></p>
     <p>QR-code книги: </p>
-    <img src="{{ book.qr_code.url }}"  width="200" height="200">
+    <img src="{{ book.qr_code.url }}" width="200" height="200">
 </div>
-<div>
-    {% if user.is_authenticated %}
-        {% if book.status == 'CLOSE' %}
 
-            <p>Книгу взял пользователь  {{user.get_full_name|default:user.username}}</p>
+<div>
+    {% if book.status == 'CLOSE' %}
+        {% if book_user.user_id == user.id %}
+            <form method="post" action="{% url 'books:return_book' %}">
+                {% csrf_token %}
+                <input type="hidden" name="slug" value="{{ book.slug }}">
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Вернуть книгу в библиотеку</button>
+            </form>
         {% else %}
-            <form method="post" action="{% url 'books:reg_book' %}">
-            {% csrf_token %}
-            <input type="hidden" name="slug" value="{{ book.slug }}">
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Взять книгу в пользование</button>
-        </form>
+            <p>Книгу взял в пользование  <b>{{book_user}}</b></p>
         {% endif %}
     {% else %}
-        <p>Только зарегистрированные пользователи могут брать книгу. <a href="{% url 'users:login' %}">Войти</a></p>
+        {% if user.is_authenticated %}
+            <form method="post" action="{% url 'books:reg_book' %}">
+                {% csrf_token %}
+                <input type="hidden" name="slug" value="{{ book.slug }}">
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Взять книгу в пользование</button>
+            </form>
+        {% else %}
+            <p>Только зарегистрированные пользователи могут брать книгу. <a href="{% url 'users:login' %}">Войти</a></p>
+        {% endif %}
     {% endif %}
 </div>
+
+
 {% endblock content %}

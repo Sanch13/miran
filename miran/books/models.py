@@ -52,3 +52,6 @@ class History(models.Model):
     date_end = models.DateTimeField(auto_created=True,
                                     blank=True,
                                     null=True)
+
+    def __str__(self):
+        return f"{self.user}"

@@ -94,11 +94,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
 USE_I18N = True
 
+TIME_ZONE = 'Europe/Minsk'
 USE_TZ = True
 
 STATIC_URL = 'static/'
