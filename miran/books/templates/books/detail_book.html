@@ -6,6 +6,17 @@
 {% endblock title %}
 
 {% block content %}
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="container-fluid p-0">
+        <div class="alert">
+            {{ message }}
+        </div>
+    </div>
+    {% endfor %}
+{% endif %}
+
 <div>
     <p>Автор книги: <b>{{ book.author }}</b></p>
     <p>Название книги: <b>{{ book.title }}</b></p>
@@ -16,29 +27,58 @@
 
 <div>
     {% if book.status == 'CLOSE' %}
-        {% if book_user.user_id == user.id %}
-            <form method="post" action="{% url 'books:return_book' %}">
-                {% csrf_token %}
-                <input type="hidden" name="slug" value="{{ book.slug }}">
-                {{ form.as_p }}
-                <button type="submit" class="btn btn-primary">Вернуть книгу в библиотеку</button>
-            </form>
-        {% else %}
-            <p>Книгу взял в пользование  <b>{{book_user}}</b></p>
-        {% endif %}
+    {% if book_user.user_id == user.id %}
+    <form method="post" action="{% url 'books:return_book' %}">
+        {% csrf_token %}
+        <input type="hidden" name="slug" value="{{ book.slug }}">
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Вернуть книгу в библиотеку</button>
+    </form>
     {% else %}
-        {% if user.is_authenticated %}
-            <form method="post" action="{% url 'books:reg_book' %}">
-                {% csrf_token %}
-                <input type="hidden" name="slug" value="{{ book.slug }}">
-                {{ form.as_p }}
-                <button type="submit" class="btn btn-primary">Взять книгу в пользование</button>
-            </form>
-        {% else %}
-            <p>Только зарегистрированные пользователи могут брать книгу. <a href="{% url 'users:login' %}">Войти</a></p>
-        {% endif %}
+    <p>Книгу взял в пользование <b>{{book_user}}</b></p>
+    {% endif %}
+    {% else %}
+    {% if user.is_authenticated %}
+    <form method="post" action="{% url 'books:reg_book' %}">
+        {% csrf_token %}
+        <input type="hidden" name="slug" value="{{ book.slug }}">
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Взять книгу в пользование</button>
+    </form>
+    {% else %}
+    <p>Только зарегистрированные пользователи могут брать книгу. <a href="{% url 'users:login' %}">Войти</a>
+    </p>
+    {% endif %}
     {% endif %}
 </div>
+<script>
+    function showMessage(message) {
+        const popup = document.getElementById("popup");
+        const popupMessage = document.querySelector(".popup-message");
+        popupMessage.textContent = message;
+        popup.style.display = "block";
+        popup.style.opacity = 1;
 
+        setTimeout(function () {
+            let opacity = 1;
+            const fadeOutInterval = setInterval(function () {
+                if (opacity <= 0) {
+                    clearInterval(fadeOutInterval);
+                    popup.style.display = "none";
+                } else {
+                    opacity -= 0.05;
+                    popup.style.opacity = opacity;
+                }
+            }, 100);
+        }, 5000);  // Скрыть сообщение через 5 секунд
+    }
 
+    // Вызов функции с сообщением
+     {% if messages %}
+            {% for message in messages %}
+                showMessage("{{ message }}");
+            {% endfor %}
+    {% endif %}
+
+</script>
 {% endblock content %}

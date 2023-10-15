@@ -44,8 +44,8 @@ class History(models.Model):
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL,
                              related_name="user",
                              on_delete=models.CASCADE)
-    book = models.OneToOneField(to=Book,
-                                on_delete=models.PROTECT)
+    book = models.ForeignKey(to=Book,
+                             on_delete=models.PROTECT)
     date_start = models.DateTimeField(auto_created=True,
                                       blank=True,
                                       null=True)
