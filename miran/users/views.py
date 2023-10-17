@@ -27,8 +27,8 @@ def registration(request):
                              'Вы успешно зарегистрировались! '
                              'Войдите под своим логином и паролем в систему')
             return redirect(reverse('users:login'))
-        else:
-            print(form.errors)
+        # else:
+        #     messages.error(request=request, )
     else:
         form = UserRegistrationForm()
     context = {'form': form}

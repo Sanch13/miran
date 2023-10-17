@@ -12,6 +12,21 @@
 <!--            {{ form.errors }}-->
 <!--        </div>-->
 <!--    {% endif %}-->
+
+{% if messages or form.errors %}
+<div class="alert {% if messages %} alert-success {% else %} alert-warning {% endif %}
+        alert-dismissible fade show" role="alert" style="margin-top: 50px;">
+    {% if messages %}
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
+    {% else %}
+    {{ form.non_field_errors }}
+    {% endif %}
+</div>
+{% endif %}
+
+
 <div class="col-md-8">
     <h3>Регистрация пользователя</h3>
 </div>
