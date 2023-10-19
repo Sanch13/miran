@@ -17,6 +17,11 @@ class UserRegistrationForm(UserCreationForm):
         fields = (
             'first_name', 'last_name', 'username', 'email', 'password1', 'password2')
 
+    def __init__(self, *args, **kwargs):
+        super(UserRegistrationForm, self).__init__(*args, **kwargs)
+        for field_name, filed in self.fields.items():
+            filed.widget.attrs['class'] = 'form-control'
+
 
 class UserLoginForm(AuthenticationForm):  # Унаследовали форму от Джанго
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Введите имя пользователя'}))
