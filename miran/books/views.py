@@ -62,12 +62,10 @@ def return_book(request):
     if request.method == 'POST':
         slug = request.POST.get("slug", None)
         book = get_object_or_404(Book, slug=slug)
-        print(type(book), book.pk, book.id)
         book.status = Book.Status.OPEN
         book.save()
 
         user = get_object_or_404(User, username=request.user.username)
-        print(type(user), user.pk, user.id)
 
         user_history = History.objects.filter(user=user, book=book).order_by("date_start").last()
         user_history.date_end = timezone.now() + timedelta(hours=3)
