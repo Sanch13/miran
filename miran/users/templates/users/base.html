@@ -22,17 +22,17 @@
     <header class="header">
         <div class="container-xl">
             <div class="row">
-                <div class="col-12">
-                    <nav class="nav nav-pills justify-content-center">
+                <div class="col-xl-12">
+                    <nav class="nav nav-pills justify-content-xl-center">
                         <a class="nav-link" href="/">Главная</a>
                         <a class="nav-link" href="#">Список сотрудников</a>
                         <a class="nav-link" href="{% url 'books:list_books' %}">Библиотека</a>
-                        <div>{% if user.is_authenticated %}
-                            <a class="nav-link" href="{% url 'users:logout' %}">Выход</a>
-                            {% else %}
-                            <a class="nav-link" href="{% url 'users:login' %}">Вход</a>
-                            {% endif %}
-                        </div>
+                        {% if user.is_authenticated %}
+                        {{user}}
+                        <a class="nav-link" href="{% url 'users:logout' %}">Выход</a>
+                        {% else %}
+                        <a class="nav-link" href="{% url 'users:login' %}">Вход</a>
+                        {% endif %}
                     </nav>
                 </div>
             </div>

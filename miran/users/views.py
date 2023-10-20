@@ -48,7 +48,9 @@ def login(request):
     else:
         form = UserLoginForm()
     context = {'form': form}
-    return render(request, 'users/registration/login.html', context=context)
+    return render(request=request,
+                  template_name='users/registration/login.html',
+                  context=context)
 
 
 class PassResetView(PasswordResetView):
