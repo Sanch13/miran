@@ -1,11 +1,32 @@
 nav {
     background: #3e3f3f;
+    /*padding: 0 0 0 0;*/
     box-shadow: 0 0 10px rgba(20, 20, 20, 0.86);
+    border-radius: 3px;
 }
 
-.navbar-expand-xl {
-    padding-top: 0;
-    padding-bottom: 0;
+.navbar {
+    padding: 5px 0 5px 0;
+}
+
+.navbar-nav {
+    padding-right: 0;
+}
+
+.main {
+    padding: 70px 10px;
+}
+
+@media (max-width: 768px) {
+    header, footer {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main {
+        padding: 70px;
+    }
 }
 
 .nav-link {
@@ -19,3 +40,25 @@ nav {
 .nav-link:focus {
     color: #66cc66;
 }
+
+.list-books {
+    border-collapse: collapse;
+    /*table-layout: fixed;*/
+    width: 100%;
+}
+
+th {
+    text-align: center;
+    border: 1px solid black;
+    padding: 5px;
+    /*width: 20%;*/
+}
+
+td {
+    text-align: left;
+    padding: 5px;
+    border: 1px solid black;
+    background-color: #e0ece7;
+    /*width: 40%;*/
+}
+

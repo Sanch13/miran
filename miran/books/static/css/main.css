@@ -1,36 +1,48 @@
-/*html,*/
-/*body {*/
-/*    height: 100%;*/
-/*}*/
-
-/*.wrapper {*/
-/*    min-height: 100%;*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*}*/
-
-/*.header {*/
-/*}*/
-
-/*.main {*/
-/*    flex-grow: 1;*/
-/*}*/
-
-/*.footer {}*/
-
 /*nav {*/
 /*    background: #3e3f3f;*/
 /*    box-shadow: 0 0 10px rgba(20, 20, 20, 0.86);*/
+/*    height: 50px;*/
+/*    border-radius: 3px;*/
 /*}*/
 
-/*.nav-link {*/
-/*    color: #e6e0e0;*/
+/*.navbar-expand-xl {*/
+/*    padding-top: 0;*/
+/*    padding-bottom: 0;*/
 /*}*/
 
-/*.nav-link:hover {*/
-/*    color: #66cc66;*/
+/*main {*/
+/*    margin-top: 55px;*/
 /*}*/
 
-/*.nav-link:focus {*/
-/*    color: #66cc66;*/
-/*}*/
+.nav-link {
+    color: #e6e0e0;
+}
+
+.nav-link:hover {
+    color: #66cc66;
+}
+
+.nav-link:focus {
+    color: #66cc66;
+}
+
+table {
+    border-collapse: collapse;
+    /*table-layout: fixed;*/
+    width: 100%;
+}
+
+th {
+    text-align: center;
+    border: 1px solid black;
+    padding: 5px;
+    /*width: 20%;*/
+}
+
+td {
+    text-align: left;
+    padding: 5px;
+    border: 1px solid black;
+    background-color: #c1d6cc;
+    /*width: 40%;*/
+}

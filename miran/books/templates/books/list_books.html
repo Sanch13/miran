@@ -10,19 +10,21 @@
 {% endblock css %}
 
 {% block content %}
-<h1>Список книг</h1>
-<div>
+<h1 class="text-center">Список книг</h1>
+<div >
     <table class="list_books">
         <th>Автор</th>
         <th>Название книги</th>
         <th>Статус книги</th>
+        <th>Пользователь</th>
         <th>Краткое описание книги</th>
         {% for book in books %}
         <tr>
             <td><a href="{{ book.get_absolute_url }}">{{ book.author }}</a></td>
             <td><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></td>
-            <td>{{ book.status }}</td>
-            <td>{{ book.description|truncatewords:"50" }}</td>
+            <td style="text-align: center">{{ book.status }}</td>
+            <td style="text-align: center">{{ user }}</td>
+            <td>{{ book.description|truncatewords:"20" }}</td>
         </tr>
         {% endfor %}
     </table>

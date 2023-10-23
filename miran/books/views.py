@@ -1,5 +1,6 @@
 from datetime import timedelta
 
+from django.db.models import Case, When, Value, CharField, F, Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.contrib import messages
@@ -11,6 +12,15 @@ from users.models import User
 
 def list_books(request):
     books = Book.objects.all()
+    books_with_history = Book.objects.annotate(
+        borrower=Case(
+            When(Q(history__date_end__isnull=True), then=F('history__user__username')),
+            default=Value(''), output_field=CharField()
+        )
+    )
+    print(books_with_history)
+    for obj in books_with_history:
+        print(obj, )
     context = {
         "books": books
     }
@@ -23,11 +33,6 @@ def detail(request, slug):
     book = get_object_or_404(Book, slug=slug)
     if book.status == "CLOSE":
         book_user = History.objects.filter(book=book).order_by("date_start").last()
-        # book_user = History.objects.filter(book=book).order_by("-date_start").first()
-        # book_user = History.objects.filter(book=book).annotate(last_book=Max("date_start")).last()
-        print(request.user.id)
-        print(book_user.user_id)
-        print(book_user.date_start)
         context = {
             "book": book,
             "book_user": book_user,
