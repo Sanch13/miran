@@ -17,147 +17,194 @@
     {% endblock css %}
 
 </head>
-<body style="padding: 60px 60px">
+<body>
 
-<header class="container-xl fixed-top">
-    <nav class="navbar navbar-expand-md">
-        <div class="navbar-nav container-fluid">
-            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+<header class="container-xl">
+    <nav class="navbar navbar-expand-md fixed-top container-xl">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarCollapse" aria-controls="navbarCollapse"
                     aria-expanded="false" aria-label="Переключить навигацию">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="d-flex justify-content-start px-4">
-                <a href="#">
+            <div class="d-flex justify-content-start px-2">
+                <a href="https://www.miran-bel.com/" target="_blank">
                     <img
                             src="{% static 'img/logo.webp' %}"
                             class="d-inline-block align-top"
-                            height="50"
+                            height="40"
                             alt="Logo"
                             loading="lazy"
                     />
                 </a>
             </div>
-            <div class="navbar-nav container-fluid  justify-content-center">
-                <a class="nav-link" href="/">Главная</a>
-                <a class="nav-link" href="#">Список сотрудников</a>
-                <a class="nav-link" href="{% url 'books:list_books' %}">Библиотека</a>
-                <a class="nav-link" href="/">Link</a>
-                <a class="nav-link" href="/">Link</a>
-            </div>
-            <div class="d-flex justify-content-end px-4">
-                {% if user.is_authenticated %}
-                <div class="dropdown">
-                    <a class="dropdown-toggle-no-caret"
-                       id="navbarDropdownMenuAvatar"
-                       type="button"
-                       data-bs-toggle="dropdown"
-                       aria-expanded="false">
-                        <img
-                                src="{% static 'img/avatar.webp' %}"
-                                class="rounded-circle"
-                                height="40"
-                                alt=""
-                                loading="lazy"
-                        />
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuAvatar">
-                        <li><h1 class="dropdown-header">{{user}}</h1></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Мой профиль</a></li>
-                        <li><a class="dropdown-item" href="#">Settings</a></li>
-                        <li><a class="dropdown-item" href="{% url 'users:logout' %}">Выход</a></li>
-                    </ul>
-                </div>
-                {% else %}
-                <a class="nav-link" href="{% url 'users:registration' %}"> Регистрация </a>
-                <span style="color: #cbe5f1; padding-left: 5px; padding-right: 5px">|</span>
-                <a class="nav-link" href="{% url 'users:login' %}"> Вход </a>
-                {% endif %}
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav container-fluid justify-content-center me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Список сотрудников</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'books:list_books' %}">Библиотека</a>
+                    </li>
+                    <!--                    <li class="nav-item">-->
+                    <!--                        <a class="nav-link" href="#">Link</a>-->
+                    <!--                    </li>-->
+                    <li class="">
+                        {% if user.is_authenticated %}
+                        <div class="dropdown">
+                            <a class="dropdown-toggle-no-caret"
+                               id="navbarDropdownMenuAvatar"
+                               type="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                <img
+                                        src="{% static 'img/avatar.webp' %}"
+                                        class="rounded-circle"
+                                        height="40"
+                                        alt=""
+                                        loading="lazy"
+                                />
+                            </a>
+                            <ul class="dropdown-menu"
+                                aria-labelledby="navbarDropdownMenuAvatar">
+                                <li><h1 class="dropdown-header">{{user}}</h1></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Мой профиль</a></li>
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><a class="dropdown-item"
+                                       href="{% url 'users:logout' %}">Выход</a>
+                                </li>
+                            </ul>
+                        </div>
+                        {% else %}
+                        <ul class="navbar-nav container-fluid justify-content-center me-auto mb-2 mb-md-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'users:registration' %}">Регистрация</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'users:login' %}">Вход</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Поиск"
+                           aria-label="Поиск">
+                    <button class="btn btn-outline-success" type="submit">Поиск</button>
+                </form>
+
             </div>
         </div>
     </nav>
 </header>
 
-<main class="main container-xl">
-    {% block content %}
-    <h1>First string</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-    <h1>Last string</h1>
-    {% endblock %}
+<main class="container-xl">
+
+        {% block content %}
+        <h1>First string</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+        <h1>Last string</h1>
+        {% endblock %}
 
 </main>
 
-<footer class="footer container-xl fixed-bottom">
-    <nav class="navbar navbar-expand-md">
-        <div class="navbar-nav container-fluid justify-content-center">
-            <a class="nav-link" href="https://facebook.com/miran.bel" target="_blank">
-                <img src="{% static 'img/fb.webp' %}"/>
-            </a>
-            <a class="nav-link" href="https://www.instagram.com/miran.upakovka/" target="_blank">
-                <img src="{% static 'img/instagram.webp' %}"/>
-            </a>
-            <a class="nav-link" href="https://www.pinterest.com/miran0934/pins/" target="_blank">
-                <img src="{% static 'img/pinterest.webp' %}"/>
-            </a>
-            <a class="nav-link"
-               href="https://www.youtube.com/channel/UC9Fme9Vcdy0lDHWdMdHu0MQ?view_as=subscriber"
-               target="_blank">
-                <img src="{% static 'img/youtube.webp' %}"/>
-            </a>
+<footer class="container-xl">
+    <nav class="navbar fixed-bottom navbar-expand-sm container-xl">
+        <div class="container-fluid">
+            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse2" aria-controls="navbarCollapse2"
+                    aria-expanded="false" aria-label="Переключить навигацию">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse justify-content-center" id="navbarCollapse2"
+                 style="">
+                <ul class="navbar-nav">
+                    <li class="nav-item  ">
+                        <a class="nav-link  py-0" href="https://facebook.com/miran.bel"
+                           target="_blank">
+                            <img src="{% static 'img/fb.webp' %}"/>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-0" href="https://www.instagram.com/miran.upakovka/"
+                           target="_blank">
+                            <img src="{% static 'img/instagram.webp' %}"/>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-0" href="https://www.pinterest.com/miran0934/pins/"
+                           target="_blank">
+                            <img src="{% static 'img/pinterest.webp' %}"/>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link py-0"
+                           href="https://www.youtube.com/channel/UC9Fme9Vcdy0lDHWdMdHu0MQ?view_as=subscriber"
+                           target="_blank">
+                            <img src="{% static 'img/youtube.webp' %}"/>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 </footer>
 
 <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
 </body>
+

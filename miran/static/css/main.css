@@ -1,20 +1,16 @@
 nav {
     background: #3e3f3f;
-    /*padding: 0 0 0 0;*/
     box-shadow: 0 0 10px rgba(20, 20, 20, 0.86);
-    border-radius: 3px;
+    border-radius: 4px;
 }
 
-.navbar {
-    padding: 5px 0 5px 0;
+main {
+    padding-top: 60px;
+    padding-bottom: 60px;
 }
 
 .navbar-nav {
     padding-right: 0;
-}
-
-.main {
-    padding: 70px 10px;
 }
 
 @media (max-width: 768px) {
