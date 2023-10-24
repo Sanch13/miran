@@ -26,7 +26,13 @@
             <td>{{ book.author }}</td>
             <td>{{ book.title }}</td>
             <td style="text-align: center">{{ book.status }}</td>
-            <td style="text-align: center">{{ user }}</td>
+            <td style="text-align: center">
+                {% if book.status == 'CLOSE' %}
+                {{user_book.user}}
+                {% else %}
+
+                {% endif %}
+            </td>
             <td>{{ book.description|truncatewords:20 }}</td>
         </tr>
         {% endfor %}

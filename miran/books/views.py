@@ -12,17 +12,37 @@ from users.models import User
 
 def list_books(request):
     books = Book.objects.all()
-    books_with_history = Book.objects.annotate(
-        borrower=Case(
-            When(Q(history__date_end__isnull=True), then=F('history__user__username')),
-            default=Value(''), output_field=CharField()
-        )
-    )
-    print(books_with_history)
-    for obj in books_with_history:
-        print(obj, )
+    user_values = books.values('history__user__username')
+    for o in books:
+        print(o.__dict__)
+        print()
+    print
+
+
+    # books_with_history = Book.objects.annotate(
+    #     user_username=Case(
+    #         # When(history__date_start__isnull=False, then=F('history__user__username')),
+    #         When(history__date_end__isnull=True, then=F('history__user__username')),
+    #         default=Value(''),
+    #         output_field=CharField()
+    #     )
+    # )
+    #
+    # for i in books_with_history:
+    #     print(i.__dict__)
+
+    # user_book = Book.objects.filter(
+    #     Q(history__date_start__isnull=False, history__date_end__isnull=True)).annotate(
+    #     user=F('history__user__username')
+    # )
+    #
+    # for obj in user_book:
+    #     print(obj.user)
+
+
     context = {
-        "books": books
+        "books": books,
+        # "user_book": user_book
     }
     return render(request=request,
                   template_name="books/list_books.html",
