@@ -11,22 +11,40 @@
 
 {% block content %}
 <h1 class="text-center">Список книг</h1>
-<div >
-    <table class="list_books">
-        <th>Автор</th>
-        <th>Название книги</th>
-        <th>Статус книги</th>
-        <th>Пользователь</th>
-        <th>Краткое описание книги</th>
+<div>
+    <table class="table table-hover table-bordered table-sm align-middle">
+        <thead class="table-secondary">
+        <th class="text-center align-bottom">Автор</th>
+        <th class="text-center align-bottom">Название книги</th>
+        <th class="text-center align-bottom">Статус книги</th>
+        <th class="text-center align-bottom">Пользователь</th>
+        <th class="text-center align-bottom">Краткое описание книги</th>
+        </thead>
+        <tbody>
         {% for book in books %}
-        <tr>
-            <td><a href="{{ book.get_absolute_url }}">{{ book.author }}</a></td>
-            <td><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></td>
+        <tr class="table-row-link" data-href="{{ book.get_absolute_url }}">
+            <td>{{ book.author }}</td>
+            <td>{{ book.title }}</td>
             <td style="text-align: center">{{ book.status }}</td>
             <td style="text-align: center">{{ user }}</td>
-            <td>{{ book.description|truncatewords:"20" }}</td>
+            <td>{{ book.description|truncatewords:20 }}</td>
         </tr>
         {% endfor %}
+        </tbody>
     </table>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const tableRows = document.querySelectorAll('.table-row-link');
+        tableRows.forEach((row) => {
+            row.addEventListener('click', function () {
+                const href = this.getAttribute('data-href');
+                if (href) {
+                    window.location.href = href;
+                }
+            });
+        });
+    });
+</script>
 {% endblock content %}
