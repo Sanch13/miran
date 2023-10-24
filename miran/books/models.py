@@ -24,6 +24,9 @@ class Book(models.Model):
     status = models.CharField(max_length=5,
                               choices=Status.choices,
                               default=Status.OPEN)
+    reader = models.CharField(max_length=100,
+                              blank=True,
+                              default='')
 
     def __str__(self):
         return f"{self.author} {self.title}"

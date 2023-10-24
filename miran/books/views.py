@@ -1,6 +1,7 @@
 from datetime import timedelta
 
-from django.db.models import Case, When, Value, CharField, F, Q
+from django.db.models import Case, When, Value, CharField, F, ExpressionWrapper, Q
+from django.db.models.functions import Concat
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.contrib import messages
@@ -11,38 +12,23 @@ from users.models import User
 
 
 def list_books(request):
-    books = Book.objects.all()
-    user_values = books.values('history__user__username')
-    for o in books:
-        print(o.__dict__)
-        print()
-    print
-
-
-    # books_with_history = Book.objects.annotate(
-    #     user_username=Case(
-    #         # When(history__date_start__isnull=False, then=F('history__user__username')),
-    #         When(history__date_end__isnull=True, then=F('history__user__username')),
+    # books = Book.objects.annotate(
+    #     user=Case(
+    #         When(history__date_start__isnull=False, history__date_end__isnull=True,
+    #              then=ExpressionWrapper(
+    #             Concat('history__user__first_name', Value(' '), 'history__user__last_name'),
+    #             output_field=CharField()
+    #         )),
     #         default=Value(''),
     #         output_field=CharField()
     #     )
     # )
-    #
-    # for i in books_with_history:
-    #     print(i.__dict__)
+    books = Book.objects.all()
 
-    # user_book = Book.objects.filter(
-    #     Q(history__date_start__isnull=False, history__date_end__isnull=True)).annotate(
-    #     user=F('history__user__username')
-    # )
-    #
-    # for obj in user_book:
-    #     print(obj.user)
-
-
+    for i in books:
+        print(i.__dict__)
     context = {
         "books": books,
-        # "user_book": user_book
     }
     return render(request=request,
                   template_name="books/list_books.html",
@@ -72,6 +58,7 @@ def reg_book(request):
         user = get_object_or_404(User, username=request.user.username)
         book = Book.objects.get(slug=slug)
         book.status = Book.Status.CLOSE
+        book.reader = str(user)
         book.save()
         History.objects.create(user=user,
                                book=book,
@@ -88,6 +75,7 @@ def return_book(request):
         slug = request.POST.get("slug", None)
         book = get_object_or_404(Book, slug=slug)
         book.status = Book.Status.OPEN
+        book.reader = ''
         book.save()
 
         user = get_object_or_404(User, username=request.user.username)

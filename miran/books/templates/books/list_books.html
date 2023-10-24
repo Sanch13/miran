@@ -28,9 +28,8 @@
             <td style="text-align: center">{{ book.status }}</td>
             <td style="text-align: center">
                 {% if book.status == 'CLOSE' %}
-                {{user_book.user}}
+                {{ book.reader }}
                 {% else %}
-
                 {% endif %}
             </td>
             <td>{{ book.description|truncatewords:20 }}</td>
