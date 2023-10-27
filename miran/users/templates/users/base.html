@@ -19,54 +19,47 @@
 </head>
 <body>
 
-<header class="container-xl">
-    <nav class="navbar navbar-expand-md fixed-top container-xl">
+<header class="container">
+    <nav class="navbar navbar-expand-md fixed-top py-0">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarCollapse" aria-controls="navbarCollapse"
                     aria-expanded="false" aria-label="Переключить навигацию">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="d-flex justify-content-start px-2">
+
+            <div class="collapse navbar-collapse py-2" id="navbarCollapse">
                 <a href="https://www.miran-bel.com/" target="_blank">
                     <img
-                            src="{% static 'img/logo.webp' %}"
+                            src="{% static 'img/miran-logo.webp' %}"
                             class="d-inline-block align-top"
-                            height="40"
+                            height="56"
                             alt="Logo"
                             loading="lazy"
                     />
                 </a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav container-fluid justify-content-center me-auto mb-2 mb-md-0">
+                <ul class="navbar-nav me-auto container-fluid justify-content-center align-items-center">
                     <li class="nav-item">
                         <a class="nav-link" href="/">Главная</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Список сотрудников</a>
-                    </li>
+                    <!--                    <li class="nav-item">-->
+                    <!--                        <a class="nav-link" href="#">Список сотрудников</a>-->
+                    <!--                    </li>-->
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'books:list_books' %}">Библиотека</a>
                     </li>
                     <!--                    <li class="nav-item">-->
                     <!--                        <a class="nav-link" href="#">Link</a>-->
                     <!--                    </li>-->
-                    <li class="">
+                    <li class="nav-item px-5">
                         {% if user.is_authenticated %}
                         <div class="dropdown">
-                            <a class="dropdown-toggle-no-caret"
+                            <a class="dropdown-toggle-no-caret nav-link"
                                id="navbarDropdownMenuAvatar"
                                type="button"
                                data-bs-toggle="dropdown"
                                aria-expanded="false">
-                                <img
-                                        src="{% static 'img/avatar.webp' %}"
-                                        class="rounded-circle"
-                                        height="40"
-                                        alt=""
-                                        loading="lazy"
-                                />
+                                {{ user.email }}
                             </a>
                             <ul class="dropdown-menu"
                                 aria-labelledby="navbarDropdownMenuAvatar">
@@ -75,7 +68,6 @@
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li><a class="dropdown-item" href="#">Мой профиль</a></li>
-                                <li><a class="dropdown-item" href="#">Settings</a></li>
                                 <li><a class="dropdown-item"
                                        href="{% url 'users:logout' %}">Выход</a>
                                 </li>
@@ -83,9 +75,9 @@
                         </div>
                         {% else %}
                         <ul class="navbar-nav container-fluid justify-content-center me-auto mb-2 mb-md-0">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'users:registration' %}">Регистрация</a>
-                            </li>
+                            <!--                            <li class="nav-item">-->
+                            <!--                                <a class="nav-link" href="{% url 'users:registration' %}">Регистрация</a>-->
+                            <!--                            </li>-->
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'users:login' %}">Вход</a>
                             </li>
@@ -94,11 +86,12 @@
 
                     </li>
                 </ul>
-                <form class="d-flex">
+                    <form class="d-flex col-3">
                     <input class="form-control me-2" type="search" placeholder="Поиск"
                            aria-label="Поиск">
-                    <button class="btn btn-outline-success" type="submit">Поиск</button>
-                </form>
+                    <button class="btn btn-miran" type="submit">Поиск</button>
+                    </form>
+
 
             </div>
         </div>
@@ -107,64 +100,64 @@
 
 <main class="container-xl">
 
-        {% block content %}
-        <h1>First string</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-        <h1>Last string</h1>
-        {% endblock %}
+    {% block content %}
+    <h1>First string</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Lorem!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+    <h1>Last string</h1>
+    {% endblock %}
 
 </main>
 
 <footer class="container-xl">
-    <nav class="navbar fixed-bottom navbar-expand-sm container-xl">
+    <nav class="navbar fixed-bottom navbar-expand-sm">
         <div class="container-fluid">
             <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarCollapse2" aria-controls="navbarCollapse2"

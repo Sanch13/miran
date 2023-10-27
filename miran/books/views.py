@@ -12,17 +12,6 @@ from users.models import User
 
 
 def list_books(request):
-    # books = Book.objects.annotate(
-    #     user=Case(
-    #         When(history__date_start__isnull=False, history__date_end__isnull=True,
-    #              then=ExpressionWrapper(
-    #             Concat('history__user__first_name', Value(' '), 'history__user__last_name'),
-    #             output_field=CharField()
-    #         )),
-    #         default=Value(''),
-    #         output_field=CharField()
-    #     )
-    # )
     books = Book.objects.all()
 
     for i in books:
@@ -37,11 +26,17 @@ def list_books(request):
 
 def detail(request, slug):
     book = get_object_or_404(Book, slug=slug)
+    book_history = History.objects.filter(book=book)
+    print(book_history)
+    for i in book_history:
+        print(i.__dict__)
     if book.status == "CLOSE":
         book_user = History.objects.filter(book=book).order_by("date_start").last()
+
         context = {
             "book": book,
             "book_user": book_user,
+            "book_history": book_history,
         }
     else:
         context = {

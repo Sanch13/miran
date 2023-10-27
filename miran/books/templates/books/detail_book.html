@@ -8,49 +8,117 @@
 {% block content %}
 
 {% if messages %}
-    {% for message in messages %}
-    <div class="container-fluid p-0">
-        <div class="alert">
-            {{ message }}
-        </div>
+{% for message in messages %}
+<div class="container-fluid p-0">
+    <div class="alert">
+        {{ message }}
     </div>
-    {% endfor %}
+</div>
+{% endfor %}
 {% endif %}
 
-<div>
-    <p>Автор книги: <b>{{ book.author }}</b></p>
-    <p>Название книги: <b>{{ book.title }}</b></p>
-    <p>Статус книги: <b>{{ book.status }}</b></p>
-    <p>QR-code книги: </p>
-    <img src="{{ book.qr_code.url }}" width="200" height="200">
+
+<div class="row py-1">
+    <div class="col-lg-3">
+        <div style="text-align: center">
+            <p class="my-0">QR-code книги: </p>
+            <img src="{{ book.qr_code.url }}" width="200" height="200">
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <div class="row">
+            <div class="col-2">
+                <p>Автор книги: </p>
+            </div>
+            <div class="col-10">
+                <p><b>{{ book.author }}</b></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <p>Название книги: </p>
+            </div>
+            <div class="col-10">
+                <p><b>{{ book.title }}</b></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <p>Статус книги: </p>
+            </div>
+            <div class="col-10">
+                <p><b>{{ book.status }}</b></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <p>Краткое описание книги: </p>
+            </div>
+            <div class="col-10">
+                <p><i><b>{{ book.description }}</b></i></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                {% if book.status == "CLOSE" %}
+                <p>Книгу взял в пользование:</p>
+                {% endif %}
+            </div>
+            <div class="col-10">
+                <p><b>{{book_user}} </b></p>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div>
-    {% if book.status == 'CLOSE' %}
-    {% if book_user.user_id == user.id %}
-    <form method="post" action="{% url 'books:return_book' %}">
-        {% csrf_token %}
-        <input type="hidden" name="slug" value="{{ book.slug }}">
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Вернуть книгу в библиотеку</button>
-    </form>
-    {% else %}
-    <p>Книгу взял в пользование <b>{{book_user}}</b></p>
-    {% endif %}
-    {% else %}
-    {% if user.is_authenticated %}
-    <form method="post" action="{% url 'books:reg_book' %}">
-        {% csrf_token %}
-        <input type="hidden" name="slug" value="{{ book.slug }}">
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Взять книгу в пользование</button>
-    </form>
-    {% else %}
-    <p>Только зарегистрированные пользователи могут брать книгу. <a href="{% url 'users:login' %}">Войти</a>
-    </p>
-    {% endif %}
-    {% endif %}
+<div class="container-fluid p-2">
+    <div class="text-center">
+        {% if book.status == 'CLOSE' %}
+        {% if book_user.user_id == user.id %}
+        <form method="post" action="{% url 'books:return_book' %}">
+            {% csrf_token %}
+            <input type="hidden" name="slug" value="{{ book.slug }}">
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Вернуть книгу в библиотеку</button>
+        </form>
+        {% endif %}
+        {% else %}
+        {% if user.is_authenticated %}
+        <form method="post" action="{% url 'books:reg_book' %}">
+            {% csrf_token %}
+            <input type="hidden" name="slug" value="{{ book.slug }}">
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Взять книгу в пользование</button>
+        </form>
+        {% else %}
+        <p>Только зарегистрированные пользователи могут брать книгу. <a
+                href="{% url 'users:login' %}">Войти</a>
+        </p>
+        {% endif %}
+        {% endif %}
+    </div>
 </div>
+
+<h3 style="text-align: center">История книги</h3>
+<div>
+    <table class="table table-bordered">
+        <thead class="table-secondary">
+        <th class="text-center align-bottom">Пользователь</th>
+        <th class="text-center align-bottom">Дата взятия</th>
+        <th class="text-center align-bottom">Дата возврата</th>
+        </thead>
+        <tbody>
+        {% for book in book_history %}
+            <tr>
+                <td>{{book.book_id}}1</td>
+                <td>{{book.date_start}}2</td>
+                <td>{{book}}3</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
 <script>
     function showMessage(message) {
         const popup = document.getElementById("popup");
@@ -74,11 +142,17 @@
     }
 
     // Вызов функции с сообщением
-     {% if messages %}
-            {% for message in messages %}
-                showMessage("{{ message }}");
-            {% endfor %}
-    {% endif %}
+    {%
+        if messages %}
+    {%
+        for message in messages %}
+    showMessage("{{ message }}");
+    {%
+        endfor %
+    }
+    {%
+        endif %
+    }
 
 </script>
 {% endblock content %}
