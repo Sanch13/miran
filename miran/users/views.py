@@ -23,8 +23,8 @@ def registration(request):
         form = UserRegistrationForm(data=request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request,
-                             'Вы успешно зарегистрировались! '
+            messages.success(request=request,
+                             message='Вы успешно зарегистрировались! '
                              'Войдите под своим логином и паролем в систему')
             return redirect(reverse('users:login'))
     else:
@@ -45,6 +45,9 @@ def login(request):
             if user and user.is_active:
                 auth.login(request, user)
                 return redirect(reverse('home'))
+        else:
+            messages.error(request=request,
+                           message='Пожалуйста, введите правильный Email и пароль.')
     else:
         form = UserLoginForm()
     context = {'form': form}

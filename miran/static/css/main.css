@@ -44,3 +44,18 @@ main {
     background-color: #C4D126;
 }
 
+.dropdown-menu {
+    padding: 10px 5px 7px 5px; /* Выравниваем текст по центру */
+}
+
+.dropdown-header {
+    padding: 2px;
+    font-size: 20px; /* Изменяем размер заголовка */
+    color: #360c60;
+    text-align: center;
+}
+
+.dropdown-divider {
+    margin: 7px 0; /* Добавляем немного отступа перед и после разделителя */
+}
+

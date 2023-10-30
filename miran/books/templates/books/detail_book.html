@@ -60,12 +60,12 @@
         </div>
         <div class="row">
             <div class="col-2">
-                {% if book.status == "CLOSE" %}
+                {% if reader %}
                 <p>Книгу взял в пользование:</p>
                 {% endif %}
             </div>
             <div class="col-10">
-                <p><b>{{book_user}} </b></p>
+                <p><b>{{ reader }} </b></p>
             </div>
         </div>
     </div>
@@ -74,12 +74,12 @@
 <div class="container-fluid p-2">
     <div class="text-center">
         {% if book.status == 'CLOSE' %}
-        {% if book_user.user_id == user.id %}
+        {% if reader.user_id == user.id %}
         <form method="post" action="{% url 'books:return_book' %}">
             {% csrf_token %}
             <input type="hidden" name="slug" value="{{ book.slug }}">
             {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Вернуть книгу в библиотеку</button>
+            <button type="submit" class="btn btn-miran">Вернуть книгу в библиотеку</button>
         </form>
         {% endif %}
         {% else %}
@@ -88,7 +88,7 @@
             {% csrf_token %}
             <input type="hidden" name="slug" value="{{ book.slug }}">
             {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Взять книгу в пользование</button>
+            <button type="submit" class="btn btn-miran">Взять книгу в пользование</button>
         </form>
         {% else %}
         <p>Только зарегистрированные пользователи могут брать книгу. <a
@@ -103,6 +103,7 @@
 <div>
     <table class="table table-bordered">
         <thead class="table-secondary">
+        <th class="text-center align-bottom">Номер</th>
         <th class="text-center align-bottom">Пользователь</th>
         <th class="text-center align-bottom">Дата взятия</th>
         <th class="text-center align-bottom">Дата возврата</th>
@@ -110,9 +111,10 @@
         <tbody>
         {% for book in book_history %}
             <tr>
-                <td>{{book.book_id}}1</td>
-                <td>{{book.date_start}}2</td>
-                <td>{{book}}3</td>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ book }}</td>
+                <td>{{ book.date_start|date:"d b Y h:m" }}</td>
+                <td>{{ book.date_end|date:"d b Y h:m" }}</td>
             </tr>
         {% endfor %}
         </tbody>

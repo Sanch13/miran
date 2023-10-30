@@ -14,8 +14,6 @@ from users.models import User
 def list_books(request):
     books = Book.objects.all()
 
-    for i in books:
-        print(i.__dict__)
     context = {
         "books": books,
     }
@@ -27,21 +25,14 @@ def list_books(request):
 def detail(request, slug):
     book = get_object_or_404(Book, slug=slug)
     book_history = History.objects.filter(book=book)
-    print(book_history)
-    for i in book_history:
-        print(i.__dict__)
-    if book.status == "CLOSE":
-        book_user = History.objects.filter(book=book).order_by("date_start").last()
 
-        context = {
-            "book": book,
-            "book_user": book_user,
-            "book_history": book_history,
-        }
-    else:
-        context = {
-            "book": book,
-        }
+    context = {
+        "book": book,
+        "book_history": book_history,
+        "reader": History.objects.filter(book=book).order_by("date_start").last() if
+        book.status == "CLOSE" else ''
+    }
+
     return render(request=request,
                   template_name="books/detail_book.html",
                   context=context)
@@ -60,9 +51,9 @@ def reg_book(request):
                                date_start=timezone.now() + timedelta(hours=3))
         context = {"user": user,
                    "book": book}
-    return render(request=request,
-                  template_name="books/reg_book.html",
-                  context={})
+        return render(request=request,
+                      template_name="books/reg_book.html",
+                      context=context)
 
 
 def return_book(request):

@@ -27,6 +27,7 @@ class Book(models.Model):
     reader = models.CharField(max_length=100,
                               blank=True,
                               default='')
+    year = models.PositiveSmallIntegerField(default=0)
 
     def __str__(self):
         return f"{self.author} {self.title}"
