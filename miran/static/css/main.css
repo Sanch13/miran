@@ -38,3 +38,9 @@ main {
     color: #C4D126;
     border: #C4D126 2px solid;
 }
+
+.table-hover > tbody > tr:hover > * {
+    color: #000000;
+    background-color: #C4D126;
+}
+
