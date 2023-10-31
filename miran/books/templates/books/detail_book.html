@@ -19,6 +19,9 @@
 
 
 <div class="row py-1">
+    <div class="col-12 py-2">
+        <h2 class="text-center">{{ book.title }}</h2>
+    </div>
     <div class="col-lg-3">
         <div style="text-align: center">
             <p class="my-0">QR-code книги: </p>
@@ -36,10 +39,26 @@
         </div>
         <div class="row">
             <div class="col-2">
-                <p>Название книги: </p>
+                <p>Дата издания: </p>
             </div>
             <div class="col-10">
-                <p><b>{{ book.title }}</b></p>
+                <p><b>{{ book.year }}</b></p>
+            </div>
+        </div>
+<!--        <div class="row">-->
+<!--            <div class="col-2">-->
+<!--                <p>Название книги: </p>-->
+<!--            </div>-->
+<!--            <div class="col-10">-->
+<!--                <p><b>{{ book.title }}</b></p>-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="row">
+            <div class="col-2">
+                <p>Краткое описание книги: </p>
+            </div>
+            <div class="col-10">
+                <p><i><b>{{ book.description }}</b></i></p>
             </div>
         </div>
         <div class="row">
@@ -48,14 +67,6 @@
             </div>
             <div class="col-10">
                 <p><b>{{ book.status }}</b></p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-2">
-                <p>Краткое описание книги: </p>
-            </div>
-            <div class="col-10">
-                <p><i><b>{{ book.description }}</b></i></p>
             </div>
         </div>
         <div class="row">
@@ -113,8 +124,8 @@
             <tr>
                 <td>{{ forloop.counter }}</td>
                 <td>{{ book }}</td>
-                <td>{{ book.date_start|date:"d b Y h:m" }}</td>
-                <td>{{ book.date_end|date:"d b Y h:m" }}</td>
+                <td>{{ book.date_start }}</td>
+                <td>{{ book.date_end }}</td>
             </tr>
         {% endfor %}
         </tbody>

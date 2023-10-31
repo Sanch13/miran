@@ -25,7 +25,7 @@
         <div class="col-md-6">
             <div class="card mt-xl-4 mx-auto">
                 <div class="card-header text-center">
-                    <h4>Войти в систему</h4>
+                    <h5 class="my-2">Войти в систему</h5>
                 </div>
                 <div class="card-body">
                     <form action="{% url 'users:login' %}" method="post">
@@ -60,10 +60,10 @@
                 </div>
                 <div class="card-footer p-lg-3">
                     <div class="row">
-                        <div class="col-md-6 text-lg-start"><a class="nav-link"
+                        <div class="col-md-6 text-lg-start"><a class="link-acc"
                                 href="{% url 'users:registration' %}">Нужен аккаунт?
                             Зарегистрируйся!</a></div>
-                        <div class="col-md-6 text-lg-end"><a class="nav-link"
+                        <div class="col-md-6 text-lg-end"><a class="link-acc"
                                 href="{% url 'users:password_reset' %}">Забыли пароль?</a></div>
                     </div>
                 </div>

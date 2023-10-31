@@ -1,6 +1,15 @@
 nav {
-    background: #fff;
-    box-shadow: 0 0 18px rgba(0, 0, 0, 0.14);
+    background: #ffffff;
+    /*box-shadow: 0 0 9px rgb(196, 209, 38);*/
+    border-bottom: 1px solid  #c4d126;
+    z-index: 12;
+    /*border-radius: 4px;*/
+}
+
+nav-footer {
+    background: #515558;
+    /*box-shadow: 0 0 9px rgb(196, 209, 38);*/
+    border-top: 1px solid #c4d126;
     z-index: 12;
     border-radius: 4px;
 }
@@ -9,6 +18,13 @@ main {
     padding-top: 70px;
     padding-bottom: 70px;
 }
+.card-header {
+    background-color: #c4d126;
+}
+
+.card-footer {
+    background-color: #c4d126;
+}
 
 .nav-link {
     color: #000;
@@ -16,6 +32,14 @@ main {
 
 .nav-link:hover {
     color: #C4D126;
+}
+
+.link-acc {
+    color: #000;
+}
+
+.link-acc:hover {
+    color: #ffffff;
 }
 
 .form-control {
@@ -27,21 +51,42 @@ main {
     box-shadow: 0 0 12px rgba(196, 209, 38, 0.8);
 }
 
+.table-secondary {
+    /*--bs-table-bg: #5c6062;*/
+    /*--bs-table-color: #C4D126;*/
+    --bs-table-bg: #C4D126;
+    --bs-table-color: #212529;
+}
+
+/*.card-body {*/
+/*    --bs-card-bg: rgba(221, 224, 107, 0.69);*/
+/*}*/
+
+.card {
+    --bs-card-bg: rgba(241, 241, 235, 0.82);
+}
+
 .btn-miran {
     background-color: #C4D126;
-    color: white;
+    color: #000000;
     border: #C4D126 2px solid;
 }
 
 .btn-miran:hover {
-    background-color: #fafafa;
+    background-color: #5c6062;
     color: #C4D126;
-    border: #C4D126 2px solid;
+    /*border: #C4D126 2px solid;*/
 }
 
 .table-hover > tbody > tr:hover > * {
-    color: #000000;
-    background-color: #C4D126;
+    /*color: #ffffff;*/
+    /*background-color: #C4D126;*/
+    color: black;
+    background-color: #dde4e5;
+}
+
+.table > tbody {
+    --bs-table-bg: #F1F1EBD1;
 }
 
 .dropdown-menu {
@@ -51,7 +96,7 @@ main {
 .dropdown-header {
     padding: 2px;
     font-size: 20px; /* Изменяем размер заголовка */
-    color: #360c60;
+    color: #C4D126;
     text-align: center;
 }
 

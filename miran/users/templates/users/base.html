@@ -23,7 +23,7 @@
 <nav class="navbar navbar-expand-md fixed-top py-0">
     <div class="container-fluid">
 <!--              Logo-->
-        <a  class="navbar-brand ms-5 ps-5"
+        <a  class="navbar-brand mx-5 px-5"
             href="https://www.miran-bel.com/"
             target="_blank">
             <img src="{% static 'img/miran-logo.webp' %}" alt="logo" />
@@ -70,12 +70,12 @@
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item nav-link" href="#">Мой профиль</a></li>
                         <li><a class="dropdown-item nav-link"
-                               href="{% url 'users:logout' %}">Выход</a>
+                               href="{% url 'users:logout' %}">Выйти</a>
                         </li>
                     </ul>
                 </div>
                 {% else %}
-                <a class="nav-link" href="{% url 'users:login' %}">Вход</a>
+                <a class="nav-link" href="{% url 'users:login' %}">Войти</a>
                 {% endif %}
             </div>
 <!--                  Search-->
@@ -151,7 +151,7 @@
 </main>
 
 <footer>
-<nav class="navbar navbar-expand-md fixed-bottom py-1">
+<nav-footer class="navbar navbar-expand-md fixed-bottom py-1">
     <div class="container-fluid">
         <button class="navbar-toggler collapsed my-2"
                 type="button"
@@ -192,7 +192,7 @@
             </ul>
         </div>
     </div>
-</nav>
+</nav-footer>
 </footer>
 
 
