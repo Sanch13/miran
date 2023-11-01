@@ -7,9 +7,6 @@
 
 {% block content %}
 
-
-
-
 <div class="row py-1">
     <div class="col-12 py-2">
         <h2 class="text-center">{{ book.title }}</h2>
@@ -58,7 +55,7 @@
                 <p>Статус книги: </p>
             </div>
             <div class="col-10">
-                <p><b>{{ book.status }}</b></p>
+                <p><b>{% if book.status == 'CLOSE' %}В пользовании{% else %} Свободна {% endif %}</b></p>
             </div>
         </div>
         <div class="row">
@@ -113,11 +110,11 @@
 <h3 style="text-align: center">История прочтения книги</h3>
 <div>
     <table class="table table-bordered">
-        <thead class="table-secondary">
-        <th class="text-center align-bottom">Номер</th>
-        <th class="text-center align-bottom">Пользователь</th>
-        <th class="text-center align-bottom">Дата выдачи</th>
-        <th class="text-center align-bottom">Дата возврата</th>
+        <thead class="table-secondary" style=" height: 50px;">
+        <th class="text-center align-middle">Номер</th>
+        <th class="text-center align-middle">Пользователь</th>
+        <th class="text-center align-middle">Дата выдачи</th>
+        <th class="text-center align-middle">Дата возврата</th>
         </thead>
         <tbody>
         {% for book in book_history %}

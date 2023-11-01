@@ -5,15 +5,12 @@
 <title>Список книг</title>
 {% endblock title %}
 
-{% block css %}
-<link rel="stylesheet" href="{% static 'css/main.css' %}">
-{% endblock css %}
-
 {% block content %}
+
 <h1 class="text-center">Список книг</h1>
 <div>
-    <table class="table table-hover table-bordered table-sm align-middle">
-        <thead class="table-secondary">
+    <table class="table table-hover table-bordered">
+        <thead class="table-secondary" style=" height: 50px;">
         <th class="text-center align-middle">Автор</th>
         <th class="text-center align-middle">Название книги</th>
         <th class="text-center align-middle px-1">Статус книги</th>
@@ -25,8 +22,10 @@
         <tr class="table-row-link" data-href="{{ book.get_absolute_url }}">
             <td>{{ book.author }}</td>
             <td>{{ book.title }}</td>
-            <td style="text-align: center">{% if book.status == 'CLOSE' %}В пользовании{% else %} Свободна {% endif %}</td>
-            <td style="text-align: center">
+            <td style="text-align: center; white-space: nowrap;" >
+                {% if book.status == 'CLOSE' %}В пользовании{% else %} Свободна {% endif %}
+            </td>
+            <td style="text-align: center; white-space: nowrap">
                 {% if book.status == 'CLOSE' %}
                 {{ book.reader }}
                 {% else %}

@@ -44,7 +44,11 @@ def login(request):
             user = auth.authenticate(username=username, password=password)
             if user and user.is_active:
                 auth.login(request, user)
-                return redirect(reverse('home'))
+                # Если user не авторизован и пытается взять книгу запоминаем его url. После
+                # авторизации перенаправляем его на предыдущую страницу книги. Если user пришел не
+                # с страницы книги перенаправляем его на список книг
+                next_url = request.session.get('next_url', 'books:list_books')
+                return redirect(next_url)
         else:
             messages.error(request=request,
                            message='Пожалуйста, введите правильный Email и пароль.')

@@ -21,6 +21,10 @@ def list_books(request):
 
 
 def detail(request, slug):
+    # Если user не авторизован запоминаем url
+    if not request.user.is_authenticated:
+        request.session['next_url'] = request.get_full_path()
+
     book = get_object_or_404(Book, slug=slug)
     book_history = History.objects.filter(book=book)
 
@@ -44,16 +48,13 @@ def reg_book(request):
         book.status = Book.Status.CLOSE
         book.reader = str(user)
         book.save()
+
         History.objects.create(user=user,
                                book=book,
                                date_start=timezone.now() + timedelta(hours=3))
-        context = {"user": user,
-                   "book": book}
-        messages.success(request=request, message="Вы успешно взяли книгу из библиотеки")
+        messages.success(request=request,
+                         message="Вы успешно взяли книгу из библиотеки")
         return redirect(reverse(viewname="books:detail", args=[slug], ))
-        # return render(request=request,
-        #               template_name="books/reg_book.html",
-        #               context=context)
 
 
 def return_book(request):
@@ -70,7 +71,6 @@ def return_book(request):
         user_history.date_end = timezone.now() + timedelta(hours=3)
         user_history.save()
 
-        messages.success(request=request, message="Вы успешно вернули книгу в библиотеку")
+        messages.success(request=request,
+                         message="Вы успешно вернули книгу в библиотеку")
         return redirect(reverse(viewname="books:detail", args=[slug], ))
-        # return render(request=request,
-        #               template_name="books/return_book.html")
