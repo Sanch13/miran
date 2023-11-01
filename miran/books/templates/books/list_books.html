@@ -16,7 +16,7 @@
         <thead class="table-secondary">
         <th class="text-center align-middle">Автор</th>
         <th class="text-center align-middle">Название книги</th>
-        <th class="text-center align-middle">Статус книги</th>
+        <th class="text-center align-middle px-1">Статус книги</th>
         <th class="text-center align-middle">Читатель </th>
         <th class="text-center align-middle">Краткое описание книги</th>
         </thead>
@@ -25,7 +25,7 @@
         <tr class="table-row-link" data-href="{{ book.get_absolute_url }}">
             <td>{{ book.author }}</td>
             <td>{{ book.title }}</td>
-            <td style="text-align: center">{{ book.status }}</td>
+            <td style="text-align: center">{% if book.status == 'CLOSE' %}В пользовании{% else %} Свободна {% endif %}</td>
             <td style="text-align: center">
                 {% if book.status == 'CLOSE' %}
                 {{ book.reader }}

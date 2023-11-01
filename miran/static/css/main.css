@@ -17,6 +17,7 @@ nav-footer {
 main {
     padding-top: 70px;
     padding-bottom: 70px;
+    /*background: #515558;*/
 }
 .card-header {
     background-color: #c4d126;
@@ -30,16 +31,22 @@ main {
     color: #000;
 }
 
+.nav-item {
+    font-size: 20px;
+}
+
 .nav-link:hover {
     color: #C4D126;
 }
 
 .link-acc {
     color: #000;
+    text-decoration: none;
 }
 
 .link-acc:hover {
     color: #ffffff;
+    text-decoration: none;
 }
 
 .form-control {
@@ -98,9 +105,13 @@ main {
     font-size: 20px; /* Изменяем размер заголовка */
     color: #C4D126;
     text-align: center;
+    background-color: #515558;
 }
 
 .dropdown-divider {
     margin: 7px 0; /* Добавляем немного отступа перед и после разделителя */
 }
 
+.h1 {
+    color: #c4d126;
+}

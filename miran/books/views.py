@@ -49,9 +49,11 @@ def reg_book(request):
                                date_start=timezone.now() + timedelta(hours=3))
         context = {"user": user,
                    "book": book}
-        return render(request=request,
-                      template_name="books/reg_book.html",
-                      context=context)
+        messages.success(request=request, message="Вы успешно взяли книгу из библиотеки")
+        return redirect(reverse(viewname="books:detail", args=[slug], ))
+        # return render(request=request,
+        #               template_name="books/reg_book.html",
+        #               context=context)
 
 
 def return_book(request):
