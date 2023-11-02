@@ -115,3 +115,10 @@ main {
 .h1 {
     color: #c4d126;
 }
+
+
+/*@media print {*/
+/*  #printableImage {*/
+/*    display: none;*/
+/*  }*/
+/*}*/

@@ -14,7 +14,11 @@
     <div class="col-lg-3">
         <div style="text-align: center">
             <p class="my-0">QR-code книги: </p>
-            <img src="{{ book.qr_code.url }}" width="200" height="200">
+            <img id="printableImage" src="{{ book.qr_code.url }}" width="200" height="200" style="max-width: 100%;
+            height: auto;">
+            <div>
+                <button id="printBut">Напечатать QR-code</button>
+            </div>
         </div>
     </div>
     <div class="col-lg-9">
@@ -34,14 +38,14 @@
                 <p><b>{{ book.year }}</b></p>
             </div>
         </div>
-<!--        <div class="row">-->
-<!--            <div class="col-2">-->
-<!--                <p>Название книги: </p>-->
-<!--            </div>-->
-<!--            <div class="col-10">-->
-<!--                <p><b>{{ book.title }}</b></p>-->
-<!--            </div>-->
-<!--        </div>-->
+        <!--        <div class="row">-->
+        <!--            <div class="col-2">-->
+        <!--                <p>Название книги: </p>-->
+        <!--            </div>-->
+        <!--            <div class="col-10">-->
+        <!--                <p><b>{{ book.title }}</b></p>-->
+        <!--            </div>-->
+        <!--        </div>-->
         <div class="row">
             <div class="col-2">
                 <p>Краткое описание книги: </p>
@@ -55,7 +59,9 @@
                 <p>Статус книги: </p>
             </div>
             <div class="col-10">
-                <p><b>{% if book.status == 'CLOSE' %}В пользовании{% else %} Свободна {% endif %}</b></p>
+                <p>
+                    <b>{% if book.status == 'CLOSE' %}В пользовании{%else%} Свободна {%endif%}</b>
+                </p>
             </div>
         </div>
         <div class="row">
@@ -74,10 +80,10 @@
 <div class="container-fluid p-2">
     {% if messages %}
     {% for message in messages %}
-        <div class="alert alert-success text-center col-5 mx-auto">
-            {{ message }}
-            <span id="countdown" class="ps-5 ms-5"></span>
-        </div>
+    <div class="alert alert-success text-center col-5 mx-auto">
+        {{ message }}
+        <span id="countdown" class="ps-5 ms-5"></span>
+    </div>
     {% endfor %}
     {% endif %}
     <div class="text-center">
@@ -118,27 +124,27 @@
         </thead>
         <tbody>
         {% for book in book_history %}
-            <tr class="text-center">
-                <td style="width: 100px;">{{ forloop.counter }}</td>
-                <td>{{ book }}</td>
-                <td>{{ book.date_start }}</td>
-                <td>  {% if book.date_end %} {{ book.date_end }} {% else %} {% endif %}</td>
-            </tr>
+        <tr class="text-center">
+            <td style="width: 100px;">{{ forloop.counter }}</td>
+            <td>{{ book }}</td>
+            <td>{{ book.date_start }}</td>
+            <td> {% if book.date_end %} {{ book.date_end }} {% else %} {% endif %}</td>
+        </tr>
         {% endfor %}
         </tbody>
     </table>
 </div>
 
 <script>
-     function hideErrorContainer() {
+    function hideErrorContainer() {
         const errorContainer = document.querySelector(".alert");
-            if (errorContainer) {
-                let countdown = 5;
-                const countdownSpan = document.getElementById("countdown");
+        if (errorContainer) {
+            let countdown = 5;
+            const countdownSpan = document.getElementById("countdown");
 
-                const countdownInterval = setInterval(function() {
-                    countdownSpan.innerText = `${countdown} сек.`;
-                    countdown--;
+            const countdownInterval = setInterval(function () {
+                countdownSpan.innerText = `${countdown} сек.`;
+                countdown--;
 
                 if (countdown < 0) {
                     errorContainer.style.display = "none";
@@ -146,10 +152,24 @@
                 }
             }, 1000);
         }
-     }
+    }
 
-    window.onload = function() {
+    window.onload = function () {
         setTimeout(hideErrorContainer);
     };
+
 </script>
+
+<script>
+    window.onload = function () {
+        var printBut = document.getElementById('printBut');
+        printBut.onclick = function () {
+            var win = window.open();
+            win.document.write('<img src="{{ book.qr_code.url }}" width="200" height="200">');
+            win.print();
+            win.close()
+        }
+    }
+</script>
+
 {% endblock content %}
