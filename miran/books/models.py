@@ -49,7 +49,7 @@ class History(models.Model):
                              related_name="user",
                              on_delete=models.CASCADE)
     book = models.ForeignKey(to=Book,
-                             on_delete=models.PROTECT)
+                             on_delete=models.CASCADE)
     date_start = models.DateTimeField(auto_created=True,
                                       blank=True,
                                       null=True)

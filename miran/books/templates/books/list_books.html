@@ -20,18 +20,18 @@
         <tbody>
         {% for book in books %}
         <tr class="table-row-link" data-href="{{ book.get_absolute_url }}">
-            <td>{{ book.author }}</td>
-            <td>{{ book.title }}</td>
-            <td style="text-align: center; white-space: nowrap;" >
+            <td class="align-middle">{{ book.author }}</td>
+            <td class="align-middle">{{ book.title }}</td>
+            <td style="white-space: nowrap;" class="text-center align-middle">
                 {% if book.status == 'CLOSE' %}В пользовании{% else %} Свободна {% endif %}
             </td>
-            <td style="text-align: center; white-space: nowrap">
+            <td style="white-space: nowrap" class="text-center align-middle">
                 {% if book.status == 'CLOSE' %}
                 {{ book.reader }}
                 {% else %}
                 {% endif %}
             </td>
-            <td>{{ book.description|truncatewords:20 }}</td>
+            <td class="align-middle">{{ book.description|truncatewords:20 }}</td>
         </tr>
         {% endfor %}
         </tbody>
