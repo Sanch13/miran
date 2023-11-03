@@ -17,7 +17,7 @@
             <img id="printableImage" src="{{ book.qr_code.url }}" width="200" height="200" style="max-width: 100%;
             height: auto;">
             <div>
-                <button id="printBut">Напечатать QR-code</button>
+                <button id="printBut" class="btn btn-miran btn-sm">Напечатать QR-code</button>
             </div>
         </div>
     </div>
@@ -66,6 +66,17 @@
         </div>
         <div class="row">
             <div class="col-2">
+                <p>История книги: </p>
+            </div>
+            <div class="col-10">
+                <p>
+<!--                    <a href="javascript:void(0);" id="toggleButton" onclick="toggleTable()>Показать</a>-->
+                    <button id="toggleButton" onclick="toggleTable()" class="btn btn-miran btn-sm" >Показать</button>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
                 {% if reader %}
                 <p>Книгу взял в пользование:</p>
                 {% endif %}
@@ -77,15 +88,29 @@
     </div>
 </div>
 
-<div class="container-fluid p-2">
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 10; margin-bottom: 50px;">
     {% if messages %}
     {% for message in messages %}
-    <div class="alert alert-success text-center col-5 mx-auto">
-        {{ message }}
-        <span id="countdown" class="ps-5 ms-5"></span>
-    </div>
+        <div class="alert alert-success text-center">
+            {{ message }}
+            <span id="countdown"></span>
+        </div>
     {% endfor %}
     {% endif %}
+</div>
+
+
+<div class="container-fluid p-2">
+
+<!--    {% if messages %}-->
+<!--    {% for message in messages %}-->
+<!--    <div class="alert alert-success text-center col-5 mx-auto">-->
+<!--        {{ message }}-->
+<!--        <span id="countdown" class="ps-5 ms-5"></span>-->
+<!--    </div>-->
+<!--    {% endfor %}-->
+<!--    {% endif %}-->
     <div class="text-center">
         {% if book.status == 'CLOSE' %}
         {% if reader.user_id == user.id %}
@@ -115,7 +140,8 @@
 
 <h3 style="text-align: center">История прочтения книги</h3>
 <div>
-    <table class="table table-bordered">
+<!--    <button id="toggleButton" onclick="toggleTable()">Показать</button>-->
+    <table class="table table-bordered" id="bookHistoryTable" style="display: none;">
         <thead class="table-secondary" style=" height: 50px;">
         <th class="text-center align-middle">Номер</th>
         <th class="text-center align-middle">Пользователь</th>
@@ -136,11 +162,25 @@
 </div>
 
 <script>
+    function toggleTable() {
+        var table = document.getElementById("bookHistoryTable");
+        var button = document.getElementById("toggleButton");
+        if (table.style.display === "none") {
+            table.style.display = "table";
+            button.innerText = "Скрыть";
+        } else {
+            table.style.display = "none";
+            button.innerText = "Показать";
+        }
+    }
+</script>
+
+<script>
     function hideErrorContainer() {
-        const errorContainer = document.querySelector(".alert");
+        const errorContainer = document.querySelectorAll(".alert");
         if (errorContainer) {
             let countdown = 5;
-            const countdownSpan = document.getElementById("countdown");
+            const countdownSpan = document.querySelector("countdown");
 
             const countdownInterval = setInterval(function () {
                 countdownSpan.innerText = `${countdown} сек.`;
@@ -155,9 +195,8 @@
     }
 
     window.onload = function () {
-        setTimeout(hideErrorContainer);
+        hideErrorContainer();
     };
-
 </script>
 
 <script>
