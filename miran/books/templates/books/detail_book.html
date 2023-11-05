@@ -74,10 +74,7 @@
                 <p>История книги: </p>
             </div>
             <div class="col-10">
-                <p>
-<!--                    <a href="javascript:void(0);" id="toggleButton" onclick="toggleTable()>Показать</a>-->
-                    <button id="toggleButton" onclick="toggleTable()" class="btn btn-miran btn-sm" >Показать</button>
-                </p>
+                <p><a id="toggleLink" onclick="toggle_table()" href="#">Показать</a></p>
             </div>
         </div>
         <div class="row">
@@ -143,10 +140,9 @@
     </div>
 </div>
 
-<h3 style="text-align: center">История прочтения книги</h3>
-<div>
-<!--    <button id="toggleButton" onclick="toggleTable()">Показать</button>-->
-    <table class="table table-bordered" id="bookHistoryTable" style="display: none;">
+<div class="container-fluid" id="bookHistoryTable" style="display: none">
+    <h3 style="text-align: center">История прочтения книги</h3>
+    <table class="table table-bordered" >
         <thead class="table-secondary" style=" height: 50px;">
         <th class="text-center align-middle">Номер</th>
         <th class="text-center align-middle">Пользователь</th>
@@ -165,20 +161,6 @@
         </tbody>
     </table>
 </div>
-
-<script>
-    function toggleTable() {
-        var table = document.getElementById("bookHistoryTable");
-        var button = document.getElementById("toggleButton");
-        if (table.style.display === "none") {
-            table.style.display = "table";
-            button.innerText = "Скрыть";
-        } else {
-            table.style.display = "none";
-            button.innerText = "Показать";
-        }
-    }
-</script>
 
 <!--<script>-->
 <!--    function hideErrorContainer() {-->
@@ -204,8 +186,9 @@
 <!--    };-->
 <!--</script>-->
 
-<
+
 
 <script src="{% static 'js/print_image.js' %}"></script>
+<script src="{% static 'js/toggle_table.js' %}"></script>
 
 {% endblock content %}

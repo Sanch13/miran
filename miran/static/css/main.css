@@ -116,20 +116,3 @@ main {
 .h1 {
     color: #c4d126;
 }
-
-
-/*@media print {*/
-/*    body * {*/
-/*        visibility: hidden;*/
-/*    }*/
-
-/*    #printableImage {*/
-/*        display: block;*/
-/*        visibility: visible;*/
-/*        width: 100px;*/
-/*        height: 100px;*/
-/*        position: absolute;*/
-/*        top: 0;*/
-/*        left: 0;*/
-/*    }*/
-/*}*/
