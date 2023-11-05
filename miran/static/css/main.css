@@ -1,7 +1,7 @@
 nav {
     background: #ffffff;
     /*box-shadow: 0 0 9px rgb(196, 209, 38);*/
-    border-bottom: 1px solid  #c4d126;
+    border-bottom: 1px solid #c4d126;
     z-index: 12;
     /*border-radius: 4px;*/
 }
@@ -19,6 +19,7 @@ main {
     padding-bottom: 70px;
     /*background: #515558;*/
 }
+
 .card-header {
     background-color: #c4d126;
 }
@@ -118,7 +119,17 @@ main {
 
 
 /*@media print {*/
-/*  #printableImage {*/
-/*    display: none;*/
-/*  }*/
+/*    body * {*/
+/*        visibility: hidden;*/
+/*    }*/
+
+/*    #printableImage {*/
+/*        display: block;*/
+/*        visibility: visible;*/
+/*        width: 100px;*/
+/*        height: 100px;*/
+/*        position: absolute;*/
+/*        top: 0;*/
+/*        left: 0;*/
+/*    }*/
 /*}*/
