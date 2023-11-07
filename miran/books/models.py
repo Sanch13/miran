@@ -12,10 +12,13 @@ class Book(models.Model):
         OPEN = "OPEN", "Open"
         CLOSE = "CLOSE", "Close"
 
-    author = models.CharField(max_length=250)
-    title = models.CharField(max_length=250)
+    author = models.CharField(max_length=250,
+                              verbose_name="Автор")
+    title = models.CharField(max_length=250,
+                             verbose_name="Название книги")
     description = models.TextField(max_length=1000,
-                                   blank=True)
+                                   blank=True,
+                                   verbose_name="Краткое описание книги")
     qr_code = models.ImageField(blank=True,
                                 null=True)
     slug = models.SlugField(max_length=250,
@@ -23,11 +26,17 @@ class Book(models.Model):
                             blank=True)
     status = models.CharField(max_length=5,
                               choices=Status.choices,
-                              default=Status.OPEN)
+                              default=Status.OPEN,
+                              verbose_name="Статус книги")
     reader = models.CharField(max_length=100,
                               blank=True,
                               default='')
-    year = models.PositiveSmallIntegerField(default=0)
+    year = models.PositiveSmallIntegerField(default=0,
+                                            verbose_name="Дата издания")
+
+    class Meta:
+        verbose_name = "Книги"
+        verbose_name_plural = "Книги"
 
     def __str__(self):
         return f"{self.author} {self.title}"
