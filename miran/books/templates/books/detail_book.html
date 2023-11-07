@@ -14,15 +14,17 @@
     <div class="col-lg-3">
         <div style="text-align: center">
             <p class="my-0">QR-code книги: </p>
-                <img src="{{ book.qr_code.url }}"
-                     id="printableImage"
-                     width="200"
-                     height="200"
-                     style="max-width: 100%;"
-                     alt="QR-code"
-                >
+            <img src="{{ book.qr_code.url }}"
+                 id="printableImage"
+                 width="200"
+                 height="200"
+                 style="max-width: 100%;"
+                 alt="QR-code"
+            >
             <div>
+                {% if request.user.is_staff %}
                 <a href="#" onclick="printImage()">Напечатать QR-code</a>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -43,14 +45,6 @@
                 <p><b>{{ book.year }}</b></p>
             </div>
         </div>
-        <!--        <div class="row">-->
-        <!--            <div class="col-2">-->
-        <!--                <p>Название книги: </p>-->
-        <!--            </div>-->
-        <!--            <div class="col-10">-->
-        <!--                <p><b>{{ book.title }}</b></p>-->
-        <!--            </div>-->
-        <!--        </div>-->
         <div class="row">
             <div class="col-2">
                 <p>Краткое описание книги: </p>
@@ -94,25 +88,16 @@
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 10; margin-bottom: 50px;">
     {% if messages %}
     {% for message in messages %}
-        <div class="alert alert-success text-center">
-            {{ message }}
-            <span id="countdown"></span>
-        </div>
+    <div class="alert alert-success text-center" id="message">
+        {{ message }}
+        <span id="countdown"></span>
+    </div>
     {% endfor %}
     {% endif %}
 </div>
 
 
 <div class="container-fluid p-2">
-
-<!--    {% if messages %}-->
-<!--    {% for message in messages %}-->
-<!--    <div class="alert alert-success text-center col-5 mx-auto">-->
-<!--        {{ message }}-->
-<!--        <span id="countdown" class="ps-5 ms-5"></span>-->
-<!--    </div>-->
-<!--    {% endfor %}-->
-<!--    {% endif %}-->
     <div class="text-center">
         {% if book.status == 'CLOSE' %}
         {% if reader.user_id == user.id %}
@@ -142,7 +127,7 @@
 
 <div class="container-fluid" id="bookHistoryTable" style="display: none">
     <h3 style="text-align: center">История прочтения книги</h3>
-    <table class="table table-bordered" >
+    <table class="table table-bordered">
         <thead class="table-secondary" style=" height: 50px;">
         <th class="text-center align-middle">Номер</th>
         <th class="text-center align-middle">Пользователь</th>
@@ -162,32 +147,7 @@
     </table>
 </div>
 
-<!--<script>-->
-<!--    function hideErrorContainer() {-->
-<!--        const errorContainer = document.querySelectorAll(".alert");-->
-<!--        if (errorContainer) {-->
-<!--            let countdown = 5;-->
-<!--            const countdownSpan = document.querySelector("countdown");-->
-
-<!--            const countdownInterval = setInterval(function () {-->
-<!--                countdownSpan.innerText = `${countdown} сек.`;-->
-<!--                countdown&#45;&#45;;-->
-
-<!--                if (countdown < 0) {-->
-<!--                    errorContainer.style.display = "none";-->
-<!--                    clearInterval(countdownInterval);-->
-<!--                }-->
-<!--            }, 1000);-->
-<!--        }-->
-<!--    }-->
-
-<!--    window.onload = function () {-->
-<!--        hideErrorContainer();-->
-<!--    };-->
-<!--</script>-->
-
-
-
+<script src="{% static 'js/hide_alert_msg.js' %}"></script>
 <script src="{% static 'js/print_image.js' %}"></script>
 <script src="{% static 'js/toggle_table.js' %}"></script>
 
