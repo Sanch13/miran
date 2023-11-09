@@ -111,6 +111,7 @@ main {
 
 .dropdown-divider {
     margin: 7px 0; /* Добавляем немного отступа перед и после разделителя */
+    border-top: 1px solid #C4D126;
 }
 
 .h1 {

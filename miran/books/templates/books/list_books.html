@@ -6,6 +6,17 @@
 {% endblock title %}
 
 {% block content %}
+<div class="container-xl">
+    <form action="{% url 'books:list_books' %}" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-5 form-control">
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-miran"> Найти </button>
+            </div>
+        </div>
+    </form>
+</div>
 
 <h1 class="text-center">Список книг</h1>
 <div>

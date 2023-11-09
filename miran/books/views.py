@@ -4,16 +4,33 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.contrib import messages
 from django.urls import reverse
+from django.db.models import Q
 
 from .models import Book, History
+from .forms import BookSearchForm
 from users.models import User
 
 
 def list_books(request):
-    books = Book.objects.all()
+    if request.method == "POST":
+        form = BookSearchForm(data=request.POST)
+        if form.is_valid():
+            search = form.cleaned_data.get('search')
+            books = Book.objects.filter(
+                Q(author__icontains=search) | Q(title__icontains=search)
+            )
+            form = BookSearchForm()
+            context = {
+                "books": books,
+                "form": form,
+            }
+        return render(request=request,
+                      template_name="books/list_books.html",
+                      context=context)
 
     context = {
-        "books": books,
+        "books": Book.objects.all(),
+        "form": BookSearchForm(),
     }
     return render(request=request,
                   template_name="books/list_books.html",
