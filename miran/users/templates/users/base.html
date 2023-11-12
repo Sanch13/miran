@@ -68,6 +68,11 @@
                         <li><h1 class="dropdown-header">{{user}}</h1></li>
                         <li><hr class="dropdown-divider"></li>
 <!--                        <li><a class="dropdown-item nav-link" href="#">Мой профиль</a></li>-->
+                        <li>
+                            {% if request.user.is_staff %}
+                            <a class="dropdown-item nav-link" href="{% url 'books:add_book' %}">Добавить книгу</a>
+                            {% endif %}
+                        </li>
                         <li><a class="dropdown-item nav-link"
                                href="{% url 'users:logout' %}">Выйти</a>
                         </li>

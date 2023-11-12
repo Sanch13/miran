@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.db.models import Q
 
 from .models import Book, History
-from .forms import BookSearchForm
+from .forms import BookSearchForm, AddBookForm
 from users.models import User
 
 
@@ -91,3 +91,13 @@ def return_book(request):
         messages.success(request=request,
                          message="Вы успешно вернули книгу в библиотеку")
         return redirect(reverse(viewname="books:detail", args=[slug], ))
+
+
+def add_book(request):
+    form = AddBookForm()
+    context = {
+        "form": form,
+    }
+    return render(request=request,
+                  template_name='books/add_book.html',
+                  context=context)
