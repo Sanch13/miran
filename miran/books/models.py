@@ -2,9 +2,10 @@ from slugify import slugify
 
 from django.db import models
 from django.urls import reverse
+from django.conf import settings
+from django.utils import timezone
 
 from .utils import generate_qr_code
-from django.conf import settings
 
 
 class Book(models.Model):
@@ -31,12 +32,13 @@ class Book(models.Model):
     reader = models.CharField(max_length=100,
                               blank=True,
                               default='')
-    year = models.PositiveSmallIntegerField(default=0,
-                                            verbose_name="Дата издания")
+    year = models.PositiveSmallIntegerField(verbose_name="Дата издания")
+    date_added = models.DateTimeField(default=timezone.now)
 
     class Meta:
         verbose_name = "Книги"
         verbose_name_plural = "Книги"
+        ordering = ("-date_added", "author")
 
     def __str__(self):
         return f"{self.author} {self.title}"

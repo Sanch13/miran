@@ -70,7 +70,10 @@
 <!--                        <li><a class="dropdown-item nav-link" href="#">Мой профиль</a></li>-->
                         <li>
                             {% if request.user.is_staff %}
-                            <a class="dropdown-item nav-link" href="{% url 'books:add_book' %}">Добавить книгу</a>
+                            <a class="dropdown-item nav-link"
+                               href="{% url 'books:add_book' %}">Добавить книгу</a>
+                            <a class="dropdown-item nav-link"
+                               href="{% url 'books:list_qr' %}">Список QR-code</a>
                             {% endif %}
                         </li>
                         <li><a class="dropdown-item nav-link"
@@ -121,7 +124,7 @@
         <div class="navbar-collapse collapse" id="navbarCollapse2">
             <ul class="navbar-nav mx-auto ">
                 <li class="nav-item">
-                    <a class="nav-link" href="#"
+                    <a class="nav-link" href="https://t.me/+6Hc2UWCNmfljYjNi"
                        target="_blank">
                         <img src="{% static 'img/tg3d.webp' %}"/>
                     </a>

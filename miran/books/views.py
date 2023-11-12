@@ -94,10 +94,32 @@ def return_book(request):
 
 
 def add_book(request):
+    if request.method == "POST":
+        form = AddBookForm(data=request.POST)
+        if form.is_valid():
+            author = form.cleaned_data.get("author", '')
+            title = form.cleaned_data.get("title", '')
+            description = form.cleaned_data.get("description", '')
+            year = form.cleaned_data.get("year", 0)
+            Book.objects.create(author=author,
+                                title=title,
+                                description=description,
+                                year=year)
+            return redirect(to=reverse("books:list_qr"))
+
     form = AddBookForm()
     context = {
         "form": form,
     }
     return render(request=request,
                   template_name='books/add_book.html',
+                  context=context)
+
+
+def list_qr(request):
+    context = {
+        "books": Book.objects.all(),
+    }
+    return render(request=request,
+                  template_name="books/list_qr.html",
                   context=context)
