@@ -1,0 +1,75 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Список книг с QR-code</title>
+{% endblock title %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card mt-xl-4 mx-auto">
+            <div class="card-header text-center">
+                <h5 class="my-2">Редактировать книгу</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{% url 'books:edit' book.slug %}">
+                    {% csrf_token %}
+<!--                    {{ form.as_p }}-->
+                    <div class="mb-3">
+                        <label for="id_author" class="form-label">Автор:</label>
+                        <input type="text" name="author" value="{{book.author}}"
+                               maxlength="250"
+                        class="form-control" required="" id="id_author">
+                    </div>
+<!--                    <div class="mb-3">-->
+<!--                        <label for="id_title" class="form-label">Название книги:</label>-->
+<!--                        <input type="text" name="title"-->
+<!--                               value="{{book.title}}" class="form-control"-->
+<!--                               maxlength="250" required="" id="id_title">-->
+<!--                    </div>-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="id_year">Дата издания:</label>-->
+<!--                        <input type="number" name="year" value="{{form.year}}" min="1900"-->
+<!--                               required=""-->
+<!--                               id="id_year">-->
+<!--                    </div>-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="id_description">Краткое описание книги:</label>-->
+<!--                        <textarea name="description" cols="40" rows="10" maxlength="1000"-->
+<!--                                  id="id_description">{{form.description}}}</textarea>-->
+<!--                    </div>-->
+                    <!--                    <div class="mb-3">-->
+                    <!--                        <label for="{{ book.author.id_for_label }}"-->
+                    <!--                               class="form-label"> Автор книги</label>-->
+                    <!--                        <input type="text" class="form-control" value="{{ book.author }}">-->
+                    <!--                    </div>-->
+                    <!--                    <div class="mb-3">-->
+                    <!--                        <label for="{{ form.title.id_for_label }}"-->
+                    <!--                               class="form-label"> Название книги </label>-->
+                    <!--                        <input type="text" class="form-control" value="{{ book.title}}">-->
+                    <!--                    </div>-->
+                    <!--                    <div class="mb-3">-->
+                    <!--                        <label for="{{ form.year.id_for_label }}"-->
+                    <!--                               class="form-label"> Год издания </label>-->
+                    <!--                        <input type="number" class="form-control" value="{{ book.year}}">-->
+                    <!--                    </div>-->
+                    <!--                    <div class="mb-3">-->
+                    <!--                        <label for="{{ form.description.id_for_label }}"-->
+                    <!--                               class="form-label">Краткое описание книги </label>-->
+                    <!--                        <textarea class="form-control"-->
+                    <!--                                  name="description" cols="40" rows="10" maxlength="1000"-->
+                    <!--                                   id="id_description">{{ book.description }}</textarea>-->
+                    <!--                    </div>-->
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-miran ">Сохранить изменения
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

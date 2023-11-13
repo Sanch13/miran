@@ -14,6 +14,7 @@
         <th class="text-center align-middle">Название книги</th>
         <th class="text-center align-middle">QR-code книги</th>
         <th class="text-center align-middle">На печать</th>
+        <th class="text-center align-middle">Редактировать</th>
         </thead>
         <tbody >
         {% for book in books %}
@@ -32,6 +33,9 @@
             <td class="align-middle py-0">
                 <a href="#" onclick="printImage('{{ book.slug }}')">Напечатать QR-code</a>
             </td>
+            <td
+                    class="align-middle py-0"><a href="{% url 'books:edit' book.slug %}">
+                Редактировать</a></td>
         </tr>
         {% endfor %}
         </tbody>

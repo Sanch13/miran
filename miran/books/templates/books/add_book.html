@@ -8,47 +8,47 @@
 {% block content %}
 
 <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card mt-xl-4 mx-auto">
-                <div class="card-header text-center">
-                    <h5 class="my-2">Добавить книгу в библиотеку</h5>
-                </div>
-                <div class="card-body">
-                    <form action="{% url 'books:add_book' %}" method="post">
-                        {% csrf_token %}
-                        <div class="mb-3">
-                            <label for="{{ form.author.id_for_label }}"
-                                   class="form-label"> Автор книги <span
-                                    class="text-danger"><b>*</b></span></label>
-                            {{ form.author }}
-                        </div>
-                        <div class="mb-3">
-                            <label for="{{ form.title.id_for_label }}"
-                                   class="form-label"> Название книги <span
-                                    class="text-danger"><b>*</b></span></label>
-                            {{ form.title }}
-                        </div>
-                        <div class="mb-3">
-                            <label for="{{ form.year.id_for_label }}"
-                                   class="form-label"> Год издания <span
-                                    class="text-danger"><b>*</b></span></label>
-                            {{ form.year }}
-                        </div>
-                        <div class="mb-3">
-                            <label for="{{ form.description.id_for_label }}"
-                                   class="form-label">Краткое описание книги </label>
-                            {{ form.description }}
-                        </div>
-                        <div>
-                            <p class="text-danger">Обязательное поле к заполнению <span class="text-danger"><b>*</b></span></p>
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-miran ">Записать книгу в БД</button>
-                        </div>
-                    </form>
-                </div>
+    <div class="col-md-6">
+        <div class="card mt-xl-4 mx-auto">
+            <div class="card-header text-center">
+                <h5 class="my-2">Добавить книгу в библиотеку</h5>
+            </div>
+            <div class="card-body">
+                <form action="{% url 'books:add_book' %}" method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="{{ form.author.id_for_label }}"
+                               class="form-label"> Автор книги <span
+                                class="text-danger"><b>*</b></span></label>
+                        {{ form.author }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ form.title.id_for_label }}"
+                               class="form-label"> Название книги <span
+                                class="text-danger"><b>*</b></span></label>
+                        {{ form.title }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ form.year.id_for_label }}"
+                               class="form-label"> Год издания <span
+                                class="text-danger"><b>*</b></span></label>
+                        {{ form.year }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ form.description.id_for_label }}"
+                               class="form-label">Краткое описание книги </label>
+                        {{ form.description }}
+                    </div>
+                    <div>
+                        <p class="text-danger">Обязательное поле к заполнению <span class="text-danger"><b>*</b></span></p>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-miran ">Записать книгу в БД</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 
 {% endblock content %}

@@ -3,11 +3,12 @@ from datetime import timedelta
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.contrib import messages
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.db.models import Q
+from django.views.generic.edit import UpdateView
 
 from .models import Book, History
-from .forms import BookSearchForm, AddBookForm
+from .forms import BookSearchForm, AddBookForm, EditBookForm
 from users.models import User
 
 
@@ -114,6 +115,14 @@ def add_book(request):
     return render(request=request,
                   template_name='books/add_book.html',
                   context=context)
+
+
+class EditBook(UpdateView):
+    # form_class = EditBookForm
+    model = Book
+    fields = ['author', 'title', 'description', 'year']
+    template_name = "books/edit_book.html"
+    success_url = reverse_lazy("books:list_qr")
 
 
 def list_qr(request):
