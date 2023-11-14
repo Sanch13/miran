@@ -8,7 +8,7 @@ from django.db.models import Q
 from django.views.generic.edit import UpdateView
 
 from .models import Book, History
-from .forms import BookSearchForm, AddBookForm, EditBookForm
+from .forms import BookSearchForm, AddBookForm
 from users.models import User
 
 

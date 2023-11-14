@@ -17,9 +17,10 @@
                 <form method="post" action="{% url 'books:edit' book.slug %}">
                     {% csrf_token %}
 <!--                    {{ form.as_p }}-->
+
                     <div class="mb-3">
                         <label for="id_author" class="form-label">Автор:</label>
-                        <input type="text" name="author" value="{{book.author}}"
+                        <input type="text" name="id_author" value="{{book.author}}"
                                maxlength="250"
                         class="form-control" required="" id="id_author">
                     </div>

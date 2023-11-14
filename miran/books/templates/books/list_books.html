@@ -19,12 +19,12 @@
 </div>
 
 <h1 class="text-center">Список книг</h1>
-<div>
+<div class="container-fluid">
     <table class="table table-hover table-bordered">
         <thead class="table-secondary" style=" height: 50px;">
         <th class="text-center align-middle">Автор</th>
         <th class="text-center align-middle">Название книги</th>
-        <th class="text-center align-middle px-1">Статус книги</th>
+        <th class="text-center align-middle">Статус книги</th>
         <th class="text-center align-middle">Читатель </th>
         <th class="text-center align-middle">Краткое описание книги</th>
         </thead>
@@ -34,7 +34,7 @@
             <td class="align-middle">{{ book.author }}</td>
             <td class="align-middle">{{ book.title }}</td>
             <td style="white-space: nowrap;" class="text-center align-middle">
-                {% if book.status == 'CLOSE' %}В пользовании{% else %} Свободна {% endif %}
+                {% if book.status == 'CLOSE' %} В пользовании {% else %} Свободна {% endif %}
             </td>
             <td style="white-space: nowrap" class="text-center align-middle">
                 {% if book.status == 'CLOSE' %}
