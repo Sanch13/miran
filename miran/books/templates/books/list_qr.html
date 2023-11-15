@@ -8,34 +8,52 @@
 {% block content %}
 
 <div class="my-2">
-    <table class="table table-hover table-bordered">
+    <table class="table table-bordered">
         <thead class="table-secondary">
         <th class="text-center align-middle">Автор</th>
         <th class="text-center align-middle">Название книги</th>
-        <th class="text-center align-middle">QR-code книги</th>
+<!--        <th class="text-center align-middle">QR-code книги</th>-->
         <th class="text-center align-middle">На печать</th>
-        <th class="text-center align-middle">Редактировать</th>
+        <th class="text-center align-middle">Действия с книгой</th>
         </thead>
-        <tbody >
+        <tbody>
         {% for book in books %}
         <tr>
             <td class="align-middle py-0">{{ book.author }}</td>
             <td class="align-middle py-0">{{ book.title }}</td>
             <td class="align-middle py-0">
                 <img src="{{ book.qr_code.url }}"
-                 id="{{ book.slug }}"
-                 width="30"
-                 height="30"
-                 style="max-width: 100%;"
-                 alt="QR-code"
+                     id="{{ book.slug }}"
+                     width="30"
+                     height="30"
+                     style="max-width: 100%;"
+                     alt="QR-code"
                 >
+            <a href="#" onclick="printQR('{{ book.slug }}')" class="btn btn-sm btn-secondary m-0 p-0">Напечатать QR-code</a>
             </td>
-            <td class="align-middle py-0">
-                <a href="#" onclick="printImage('{{ book.slug }}')">Напечатать QR-code</a>
+            <td style="white-space: nowrap;" class="text-center align-middle">
+                <a href="{% url 'books:edit' book.slug %}" class="btn btn-sm btn-primary m-0 p-0">Редактировать</a> |
+                <a href="#" class="btn btn-danger m-0 p-0" data-bs-toggle="modal"
+                   data-bs-target="#deleteModal">Удалить</a>
+                <div class="modal fade" id="deleteModal" tabindex="-1"
+                     aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                Вы уверены что хотите удалить книгу?
+                            </div>
+                            <div class="modal-footer m-auto">
+                                <a href="{% url 'books:delete' book.slug %}"
+                                   class="btn btn-danger">Удалить</a>
+                                <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Отмена
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </td>
-            <td
-                    class="align-middle py-0"><a href="{% url 'books:edit' book.slug %}">
-                Редактировать</a></td>
         </tr>
         {% endfor %}
         </tbody>
@@ -43,19 +61,19 @@
 </div>
 
 <script>
-    function printImage(id) {
-    const imageSrc = document.getElementById(id).src;
+    function printQR(id) {
+        const imageSrc = document.getElementById(id).src;
 
-    if (!imageSrc) {
+        if (!imageSrc) {
             console.error("Источник изображения не найден.");
             return;
         }
 
-    const imageSize = "width='100' height='100'";
-    const imageStyles = "style='position: absolute; top: 0; left: 0;'";
+        const imageSize = "width='100' height='100'";
+        const imageStyles = "style='position: absolute; top: 0; left: 0;'";
 
-    const printWindow = window.open('', '_blank');
-    const printDocument = `
+        const printWindow = window.open('', '_blank');
+        const printDocument = `
             <!DOCTYPE html>
             <html lang="">
             <head>
@@ -66,13 +84,13 @@
             </html>
         `;
 
-    printWindow.document.write(printDocument);
-    printWindow.document.close();
+        printWindow.document.write(printDocument);
+        printWindow.document.close();
 
-    printWindow.onload = function () {
-        printWindow.print();
-        printWindow.close();
-    };
-}
+        printWindow.onload = function () {
+            printWindow.print();
+            printWindow.close();
+        };
+    }
 </script>
 {% endblock content %}

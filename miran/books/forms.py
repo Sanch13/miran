@@ -16,3 +16,15 @@ class AddBookForm(forms.ModelForm):
         super(AddBookForm, self).__init__(*args, **kwargs)
         for field_name, filed in self.fields.items():
             filed.widget.attrs['class'] = 'form-control'
+
+
+class EditBookForm(forms.ModelForm):
+    class Meta:
+        model = Book
+        fields = ('author', 'title', 'year', 'description')
+
+    def __init__(self, *args, **kwargs):
+        super(EditBookForm, self).__init__(*args, **kwargs)
+        for field_name, filed in self.fields.items():
+            filed.widget.attrs['class'] = 'form-control'
+

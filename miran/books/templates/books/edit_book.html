@@ -7,6 +7,8 @@
 
 {% block content %}
 
+
+
 <div class="row justify-content-center">
     <div class="col-md-6">
         <div class="card mt-xl-4 mx-auto">
@@ -14,16 +16,16 @@
                 <h5 class="my-2">Редактировать книгу</h5>
             </div>
             <div class="card-body">
-                <form method="post" action="{% url 'books:edit' book.slug %}">
+                <form method="post">
                     {% csrf_token %}
-<!--                    {{ form.as_p }}-->
+                    {{ form.as_p }}
 
-                    <div class="mb-3">
-                        <label for="id_author" class="form-label">Автор:</label>
-                        <input type="text" name="id_author" value="{{book.author}}"
-                               maxlength="250"
-                        class="form-control" required="" id="id_author">
-                    </div>
+<!--                    <div class="mb-3">-->
+<!--                        <label for="id_author" class="form-label">Автор:</label>-->
+<!--                        <input type="text" name="id_author" value="{{book.author}}"-->
+<!--                               maxlength="250"-->
+<!--                        class="form-control" required="" id="id_author">-->
+<!--                    </div>-->
 <!--                    <div class="mb-3">-->
 <!--                        <label for="id_title" class="form-label">Название книги:</label>-->
 <!--                        <input type="text" name="title"-->

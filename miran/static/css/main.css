@@ -98,12 +98,12 @@ main {
 }
 
 .dropdown-menu {
-    padding: 10px 5px 7px 5px; /* Выравниваем текст по центру */
+    padding: 10px 5px 7px 5px;
 }
 
 .dropdown-header {
     padding: 2px;
-    font-size: 20px; /* Изменяем размер заголовка */
+    font-size: 20px;
     color: #C4D126;
     text-align: center;
     background-color: #515558;

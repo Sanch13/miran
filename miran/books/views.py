@@ -1,5 +1,6 @@
 from datetime import timedelta
 
+from django.http import HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.contrib import messages
@@ -8,7 +9,7 @@ from django.db.models import Q
 from django.views.generic.edit import UpdateView
 
 from .models import Book, History
-from .forms import BookSearchForm, AddBookForm
+from .forms import BookSearchForm, AddBookForm, EditBookForm
 from users.models import User
 
 
@@ -117,12 +118,40 @@ def add_book(request):
                   context=context)
 
 
-class EditBook(UpdateView):
-    # form_class = EditBookForm
-    model = Book
-    fields = ['author', 'title', 'description', 'year']
-    template_name = "books/edit_book.html"
-    success_url = reverse_lazy("books:list_qr")
+# class EditBook(UpdateView):
+#     form_class = EditBookForm
+# model = Book
+# fields = ['author', 'title', 'description', 'year']
+# template_name = "books/edit_book.html"
+# success_url = reverse_lazy("books:list_qr")
+
+
+def edit_book(request, slug):
+    book = Book.objects.get(slug=slug)
+    if request.method == "POST":
+        book.author = request.POST.get("author")
+        book.title = request.POST.get("title")
+        book.year = request.POST.get("year")
+        book.description = request.POST.get("description")
+        book.save()
+        return redirect(to="books:list_qr")
+
+    form = EditBookForm(instance=book)
+    context = {
+        "form": form,
+    }
+    return render(request=request,
+                  template_name="books/edit_book.html",
+                  context=context)
+
+
+def delete_book(request, slug):
+    try:
+        book = Book.objects.get(slug=slug)
+        book.delete()
+        return redirect(to="books:list_qr")
+    except :
+        return HttpResponseNotFound("<h2>Невозможно удалить</h2>")
 
 
 def list_qr(request):

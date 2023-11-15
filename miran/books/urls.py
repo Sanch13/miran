@@ -12,5 +12,7 @@ urlpatterns = [
     path('return_book/', views.return_book, name='return_book'),
     path('add_book/', views.add_book, name='add_book'),
     path('list_qr/', views.list_qr, name='list_qr'),
-    path('edit/<slug:slug>/', views.EditBook.as_view(), name='edit'),
+    # path('edit/<slug:slug>/', views.EditBook.as_view(), name='edit'),
+    path('edit/<slug:slug>/', views.edit_book, name='edit'),
+    path('delete/<slug:slug>/', views.delete_book, name='delete'),
 ]

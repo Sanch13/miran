@@ -7,28 +7,37 @@
 
 {% block content %}
 
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb my-1">
+        <!--    <li class="breadcrumb-item"><a href="#">Главная</a></li>-->
+        <li class="breadcrumb-item"><a href="{% url 'books:list_books' %}">Список книг</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ book.title }}</li>
+    </ol>
+</nav>
+
 <div class="row py-1">
+
     <div class="col-12 py-2">
         <h2 class="text-center">{{ book.title }}</h2>
     </div>
-<!--    <div class="col-lg-3">-->
-<!--        <div style="text-align: center">-->
-<!--            <p class="my-0">QR-code книги: </p>-->
-<!--            <img src="{{ book.qr_code.url }}"-->
-<!--                 id="printableImage"-->
-<!--                 width="200"-->
-<!--                 height="200"-->
-<!--                 style="max-width: 100%;"-->
-<!--                 alt="QR-code"-->
-<!--            >-->
-<!--            <div>-->
-<!--                {% if request.user.is_staff %}-->
-<!--                <a href="#" onclick="printImage()">Напечатать QR-code</a>-->
-<!--                {% endif %}-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-    <div class="col-lg-12">
+    <div class="col-lg-3">
+        {% if request.user.is_staff %}
+        <div style="text-align: center">
+            <p class="my-0">QR-code книги: </p>
+            <img src="{{ book.qr_code.url }}"
+                 id="printableImage"
+                 width="200"
+                 height="200"
+                 style="max-width: 100%;"
+                 alt="QR-code"
+            >
+            <div>
+                <a href="#" onclick="printImage()">Напечатать QR-code</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <div class="col-lg-9">
         <div class="row">
             <div class="col-2">
                 <p>Автор книги: </p>
@@ -65,20 +74,20 @@
         </div>
         <div class="row">
             <div class="col-2">
-                <p>История книги: </p>
-            </div>
-            <div class="col-10">
-                <p><a id="toggleLink" onclick="toggle_table()" href="#">Показать</a></p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-2">
                 {% if reader %}
                 <p>Книгу взял в пользование:</p>
                 {% endif %}
             </div>
             <div class="col-10">
                 <p><b>{{ reader }} </b></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <p>История книги: </p>
+            </div>
+            <div class="col-10">
+                <p><a id="toggleLink" onclick="toggle_table()" href="#">Показать</a></p>
             </div>
         </div>
     </div>
@@ -95,7 +104,6 @@
     {% endfor %}
     {% endif %}
 </div>
-
 
 <div class="container-fluid p-2">
     <div class="text-center">
@@ -127,7 +135,7 @@
 
 <div class="container-fluid" id="bookHistoryTable" style="display: none">
     <h3 style="text-align: center">История прочтения книги</h3>
-    <table class="table table-bordered" style="border: 1px solid green">
+    <table class="table table-bordered">
         <thead class="table-secondary" style=" height: 50px;">
         <th class="text-center align-middle">Номер</th>
         <th class="text-center align-middle">Читатель</th>
@@ -149,5 +157,6 @@
 
 <script src="{% static 'js/hide_alert_msg.js' %}"></script>
 <script src="{% static 'js/toggle_table.js' %}"></script>
+<script src="{% static 'js/print_image.js' %}"></script>
 
 {% endblock content %}
