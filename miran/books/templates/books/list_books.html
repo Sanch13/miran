@@ -21,6 +21,8 @@
         <div class="row">
             <div class="col-5 form-control">
                 {{ form.as_p }}
+            </div>
+            <div class="col-5">
                 <button type="submit" class="btn btn-miran"> Найти </button>
             </div>
         </div>
@@ -36,22 +38,27 @@
         <th class="text-center align-middle">Статус книги</th>
         <th class="text-center align-middle">Читатель </th>
         <th class="text-center align-middle">Краткое описание книги</th>
+        {% if request.user.is_staff %}
+        <th class="text-center align-middle">На печать</th>
+        <th class="text-center align-middle">Действия с книгой</th>
+        {% endif %}
         </thead>
         <tbody>
         {% for book in books %}
-        <tr class="table-row-link" data-href="{{ book.get_absolute_url }}">
-            <td class="align-middle">{{ book.author }}</td>
-            <td class="align-middle">{{ book.title }}</td>
-            <td style="white-space: nowrap;" class="text-center align-middle">
+        <tr>
+            <td class="align-middle table-row-link" data-href="{{ book.get_absolute_url }}">{{ book.author }}</td>
+            <td class="align-middle table-row-link" data-href="{{ book.get_absolute_url }}">{{ book.title }}</td>
+            <td style="white-space: nowrap;" class="text-center align-middle table-row-link" data-href="{{ book.get_absolute_url }}">
                 {% if book.status == 'CLOSE' %} В пользовании {% else %} Свободна {% endif %}
             </td>
-            <td style="white-space: nowrap" class="text-center align-middle">
+            <td style="white-space: nowrap" class="text-center align-middle table-row-link" data-href="{{ book.get_absolute_url }}">
                 {% if book.status == 'CLOSE' %}
                 {{ book.reader }}
                 {% else %}
                 {% endif %}
             </td>
-            <td class="align-middle">{{ book.description|truncatewords:20 }}</td>
+            <td class="align-middle table-row-link" data-href="{{ book.get_absolute_url }}">{{ book.description|truncatewords:20 }}</td>
+        {% if request.user.is_staff %}
             <td class="align-middle py-0">
                 <img src="{{ book.qr_code.url }}"
                      id="{{ book.slug }}"
@@ -85,6 +92,8 @@
                     </div>
                 </div>
             </td>
+        {% endif %}
+
         </tr>
         {% endfor %}
         </tbody>

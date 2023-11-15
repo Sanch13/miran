@@ -54,6 +54,11 @@ def detail(request, slug):
         book.status == "CLOSE" else ''
     }
 
+    if request.user.is_staff:
+        return render(request=request,
+                      template_name="books/detail_book_staff.html",
+                      context=context)
+
     return render(request=request,
                   template_name="books/detail_book.html",
                   context=context)
@@ -107,7 +112,7 @@ def add_book(request):
                                 title=title,
                                 description=description,
                                 year=year)
-            return redirect(to=reverse("books:list_qr"))
+            return redirect(to=reverse("books:list_books"))
 
     form = AddBookForm()
     context = {
@@ -134,7 +139,7 @@ def edit_book(request, slug):
         book.year = request.POST.get("year")
         book.description = request.POST.get("description")
         book.save()
-        return redirect(to="books:list_qr")
+        return redirect(to="books:list_books")
 
     form = EditBookForm(instance=book)
     context = {
@@ -149,7 +154,7 @@ def delete_book(request, slug):
     try:
         book = Book.objects.get(slug=slug)
         book.delete()
-        return redirect(to="books:list_qr")
+        return redirect(to="books:list_books")
     except :
         return HttpResponseNotFound("<h2>Невозможно удалить</h2>")
 
