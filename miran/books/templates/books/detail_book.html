@@ -118,7 +118,7 @@
         {% endif %}
         {% else %}
         {% if user.is_authenticated %}
-        <form method="post" action="{% url 'books:reg_book' %}">
+        <form method="post" action="{% url 'books:get_book' %}">
             {% csrf_token %}
             <input type="hidden" name="slug" value="{{ book.slug }}">
             {{ form.as_p }}

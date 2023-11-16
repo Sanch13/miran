@@ -1,4 +1,6 @@
 from datetime import timedelta
+import time
+from pathlib import Path
 
 from django.http import HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404, redirect
@@ -6,7 +8,7 @@ from django.utils import timezone
 from django.contrib import messages
 from django.urls import reverse, reverse_lazy
 from django.db.models import Q
-from django.views.generic.edit import UpdateView
+from django.conf import settings
 
 from .models import Book, History
 from .forms import BookSearchForm, AddBookForm, EditBookForm
@@ -17,14 +19,16 @@ def list_books(request):
     if request.method == "POST":
         form = BookSearchForm(data=request.POST)
         if form.is_valid():
-            search = form.cleaned_data.get('search')
+            author = form.cleaned_data.get('author')
+            title = form.cleaned_data.get('title')
+            status = form.cleaned_data.get('status')
+            reader = form.cleaned_data.get('reader')
             books = Book.objects.filter(
-                Q(author__icontains=search) | Q(title__icontains=search)
+                Q(author__icontains=author) | Q(title__icontains=title)
             )
-            form = BookSearchForm()
             context = {
                 "books": books,
-                "form": form,
+                "form": BookSearchForm(data=request.POST),
             }
         return render(request=request,
                       template_name="books/list_books.html",
@@ -64,7 +68,7 @@ def detail(request, slug):
                   context=context)
 
 
-def reg_book(request):
+def get_book(request):
     if request.method == 'POST':
         slug = request.POST.get("slug", None)
         user = get_object_or_404(User, username=request.user.username)
@@ -114,7 +118,8 @@ def add_book(request):
                                 year=year)
             return redirect(to=reverse("books:list_books"))
 
-    form = AddBookForm()
+    else:
+        form = AddBookForm()
     context = {
         "form": form,
     }
@@ -123,23 +128,18 @@ def add_book(request):
                   context=context)
 
 
-# class EditBook(UpdateView):
-#     form_class = EditBookForm
-# model = Book
-# fields = ['author', 'title', 'description', 'year']
-# template_name = "books/edit_book.html"
-# success_url = reverse_lazy("books:list_qr")
-
-
 def edit_book(request, slug):
     book = Book.objects.get(slug=slug)
+
     if request.method == "POST":
-        book.author = request.POST.get("author")
-        book.title = request.POST.get("title")
-        book.year = request.POST.get("year")
-        book.description = request.POST.get("description")
-        book.save()
-        return redirect(to="books:list_books")
+        form = EditBookForm(data=request.POST)
+        if form.is_valid():
+            book.author = form.cleaned_data.get("author")
+            book.title = form.cleaned_data.get("title")
+            book.year = form.cleaned_data.get("year")
+            book.description = form.cleaned_data.get("description")
+            book.save()
+            return redirect(to="books:list_books")
 
     form = EditBookForm(instance=book)
     context = {
@@ -153,16 +153,9 @@ def edit_book(request, slug):
 def delete_book(request, slug):
     try:
         book = Book.objects.get(slug=slug)
+        # file = Path(f"{str(settings.MEDIA_ROOT)}\\books\\{str(book.qr_code)[6:]}")
+        # file.unlink()
         book.delete()
         return redirect(to="books:list_books")
-    except :
+    except Exception:
         return HttpResponseNotFound("<h2>Невозможно удалить</h2>")
-
-
-def list_qr(request):
-    context = {
-        "books": Book.objects.all(),
-    }
-    return render(request=request,
-                  template_name="books/list_qr.html",
-                  context=context)

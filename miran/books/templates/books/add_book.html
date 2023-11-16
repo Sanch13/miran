@@ -10,8 +10,8 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb my-1">
 <!--    <li class="breadcrumb-item"><a href="#">Главная</a></li>-->
-    <li class="breadcrumb-item active" aria-current="page">Добавить книгу</li>
-    <li class="breadcrumb-item"><a href="{% url 'books:list_qr' %}">Список книг</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'books:list_books' %}">Список книг</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Добавить книгу</li>
   </ol>
 </nav>
 
@@ -29,23 +29,35 @@
                                class="form-label"> Автор книги <span
                                 class="text-danger"><b>*</b></span></label>
                         {{ form.author }}
+                        {% for error in form.author.errors %}
+                        <div class="error-message text-danger">{{ error }}</div>
+                        {% endfor %}
                     </div>
                     <div class="mb-3">
                         <label for="{{ form.title.id_for_label }}"
                                class="form-label"> Название книги <span
                                 class="text-danger"><b>*</b></span></label>
                         {{ form.title }}
+                        {% for error in form.title.errors %}
+                        <div class="error-message text-danger">{{ error }}</div>
+                        {% endfor %}
                     </div>
                     <div class="mb-3">
                         <label for="{{ form.year.id_for_label }}"
                                class="form-label"> Год издания <span
                                 class="text-danger"><b>*</b></span></label>
                         {{ form.year }}
+                        {% for error in form.year.errors %}
+                        <div class="error-message text-danger">{{ error }}</div>
+                        {% endfor %}
                     </div>
                     <div class="mb-3">
                         <label for="{{ form.description.id_for_label }}"
                                class="form-label">Краткое описание книги </label>
                         {{ form.description }}
+                        {% for error in form.description.errors %}
+                        <div class="error-message text-danger">{{ error }}</div>
+                        {% endfor %}
                     </div>
                     <div>
                         <p class="text-danger">Обязательное поле к заполнению <span class="text-danger"><b>*</b></span></p>

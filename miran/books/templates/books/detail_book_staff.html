@@ -7,6 +7,14 @@
 
 {% block content %}
 
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb my-1">
+        <!--    <li class="breadcrumb-item"><a href="#">Главная</a></li>-->
+        <li class="breadcrumb-item"><a href="{% url 'books:list_books' %}">Список книг</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ book.title }}</li>
+    </ol>
+</nav>
+
 <div class="row py-1">
     <div class="col-12 py-2">
         <h2 class="text-center">{{ book.title }}</h2>
@@ -110,7 +118,7 @@
         {% endif %}
         {% else %}
         {% if user.is_authenticated %}
-        <form method="post" action="{% url 'books:reg_book' %}">
+        <form method="post" action="{% url 'books:get_book' %}">
             {% csrf_token %}
             <input type="hidden" name="slug" value="{{ book.slug }}">
             {{ form.as_p }}
