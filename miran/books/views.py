@@ -24,7 +24,6 @@ def list_books(request):
                 "form": BookSearchForm(),
             }
         elif form.is_valid():
-            print(form.cleaned_data)
             author = form.cleaned_data.get('author', '')
             title = form.cleaned_data.get('title', '')
             status = form.cleaned_data.get('status', '')
