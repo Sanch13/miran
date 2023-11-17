@@ -84,7 +84,7 @@
             </td>
 <!--            <td class="align-middle table-row-link" data-href="{{ book.get_absolute_url }}">{{ book.description|truncatewords:20 }}</td>-->
         {% if request.user.is_staff %}
-            <td class="align-middle py-0">
+            <td class="align-middle py-0 text-center">
                 <img src="{{ book.qr_code.url }}"
                      id="{{ book.slug }}"
                      width="30"
