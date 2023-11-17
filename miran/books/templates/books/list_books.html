@@ -18,36 +18,51 @@
 <div class="container-xl my-1">
     <form action="{% url 'books:list_books' %}" method="post">
         {% csrf_token %}
-        <div class="col-12">
-            <div class="row">
-            <div class="col-5">
-                {{ form.as_p }}
-
-<!--                <label for="id_author" class="form-label">Автор</label>-->
-<!--                <input type="text" class="form-control border-left-0"-->
-<!--                   id="id_username" name="username">-->
-
+            <div class="row border">
+                <div class="col-12 col-sm-3">
+                    <p>
+                        <label for="id_author">Author:</label>
+                        <input type="text" name="author" class="form-control" id="id_author" value="{{ author }}">
+                    </p>
+                    <p>
+                        <label for="id_title">Title:</label>
+                        <input type="text" name="title" class="form-control" id="id_title" value="{{ title }}">
+                    </p>
+                </div>
+                <div class="col-12 col-sm-3">
+                    <p>
+                        <label for="id_status">Статус книги:</label>
+                        <select name="status" class="form-control" id="id_status">
+                            <option value="" {% if status == '' %}selected{% endif %}>------------------</option>
+                            <option value="OPEN" {% if status == 'OPEN' %} selected {% endif %}>Свободна</option>
+                            <option value="CLOSE" {% if status == 'CLOSE' %}selected{% endif %}>В пользовании</option>
+                        </select>
+                    </p>
+                    <p>
+                        <label for="id_reader">Reader:</label>
+                        <input type="text" name="reader" maxlength="100" class="form-control"
+                               id="id_reader"  value="{{ reader }}">
+                    </p>
+                </div>
+                <div class="col-12 col-sm-3">
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-miran my-1">Применить фильтр</button>
+                        <button type="submit"  class="btn btn-miran my-1" name="clear_filter" value="1">Очистить фильтр</button>
+                    </div>
+                </div>
             </div>
-            <div class="col-5">
-            </div>
-            <div class="col-2">
-                <button type="submit" class="btn btn-miran"> Найти </button>
-            </div>
-        </div>
-        </div>
-
     </form>
 </div>
 
 <h1 class="text-center">Список книг</h1>
-<div class="container-xl">
+<div class="container-xl p-0">
     <table class="table table-hover table-bordered">
         <thead class="table-secondary" style=" height: 50px;">
         <th class="text-center align-middle">Автор</th>
         <th class="text-center align-middle">Название книги</th>
         <th class="text-center align-middle">Статус книги</th>
         <th class="text-center align-middle">Читатель </th>
-        <th class="text-center align-middle">Краткое описание книги</th>
+<!--        <th class="text-center align-middle">Краткое описание книги</th>-->
         {% if request.user.is_staff %}
         <th class="text-center align-middle">На печать</th>
         <th class="text-center align-middle">Действия с книгой</th>
@@ -58,16 +73,16 @@
         <tr>
             <td class="align-middle table-row-link" data-href="{{ book.get_absolute_url }}">{{ book.author }}</td>
             <td class="align-middle table-row-link" data-href="{{ book.get_absolute_url }}">{{ book.title }}</td>
-            <td style="white-space: nowrap;" class="text-center align-middle table-row-link" data-href="{{ book.get_absolute_url }}">
+            <td style="" class="text-center align-middle table-row-link" data-href="{{ book.get_absolute_url }}">
                 {% if book.status == 'CLOSE' %} В пользовании {% else %} Свободна {% endif %}
             </td>
-            <td style="white-space: nowrap" class="text-center align-middle table-row-link" data-href="{{ book.get_absolute_url }}">
+            <td style="" class="text-center align-middle table-row-link" data-href="{{ book.get_absolute_url }}">
                 {% if book.status == 'CLOSE' %}
                 {{ book.reader }}
                 {% else %}
                 {% endif %}
             </td>
-            <td class="align-middle table-row-link" data-href="{{ book.get_absolute_url }}">{{ book.description|truncatewords:20 }}</td>
+<!--            <td class="align-middle table-row-link" data-href="{{ book.get_absolute_url }}">{{ book.description|truncatewords:20 }}</td>-->
         {% if request.user.is_staff %}
             <td class="align-middle py-0">
                 <img src="{{ book.qr_code.url }}"

@@ -18,17 +18,25 @@ from users.models import User
 def list_books(request):
     if request.method == "POST":
         form = BookSearchForm(data=request.POST)
-        if form.is_valid():
-            author = form.cleaned_data.get('author')
-            title = form.cleaned_data.get('title')
-            status = form.cleaned_data.get('status')
-            reader = form.cleaned_data.get('reader')
-            books = Book.objects.filter(
-                Q(author__icontains=author) | Q(title__icontains=title)
-            )
+        if 'clear_filter' in request.POST:
+            context = {
+                "books": Book.objects.all(),
+                "form": BookSearchForm(),
+            }
+        elif form.is_valid():
+            print(form.cleaned_data)
+            author = form.cleaned_data.get('author', '')
+            title = form.cleaned_data.get('title', '')
+            status = form.cleaned_data.get('status', '')
+            reader = form.cleaned_data.get('reader', '')
+            books = form.filter_books(Book.objects.all())
             context = {
                 "books": books,
-                "form": BookSearchForm(data=request.POST),
+                "form": form,
+                'author': author,
+                'title': title,
+                'status': status,
+                'reader': reader
             }
         return render(request=request,
                       template_name="books/list_books.html",
