@@ -160,7 +160,7 @@ def edit_book(request, slug):
 def delete_book(request, slug):
     try:
         book = Book.objects.get(slug=slug)
-        # file = Path(f"{str(settings.MEDIA_ROOT)}\\books\\{str(book.qr_code)[6:]}")
+        # file = Path(f"{str(settings.MEDIA_ROOT)}/{str(book.qr_code)}")
         # file.unlink()
         book.delete()
         return redirect(to="books:list_books")

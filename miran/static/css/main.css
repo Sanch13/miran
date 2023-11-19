@@ -117,3 +117,9 @@ main {
 .h1 {
     color: #c4d126;
 }
+
+.search {
+    border: 1px solid #C4D126;
+    border-radius: 10px;
+    /*background-color: #0d6efd;*/
+}

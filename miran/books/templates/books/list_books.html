@@ -18,14 +18,17 @@
 <div class="container-xl my-1">
     <form action="{% url 'books:list_books' %}" method="post">
         {% csrf_token %}
-            <div class="row border">
+            <div class="row search">
+                <div>
+                    <h5 class="text-center mt-2">Фильтр поиска</h5>
+                </div>
                 <div class="col-12 col-sm-3">
                     <p>
-                        <label for="id_author">Author:</label>
+                        <label for="id_author">Автор книги:</label>
                         <input type="text" name="author" class="form-control" id="id_author" value="{{ author }}">
                     </p>
                     <p>
-                        <label for="id_title">Title:</label>
+                        <label for="id_title">Название книги:</label>
                         <input type="text" name="title" class="form-control" id="id_title" value="{{ title }}">
                     </p>
                 </div>
@@ -39,15 +42,21 @@
                         </select>
                     </p>
                     <p>
-                        <label for="id_reader">Reader:</label>
+                        <label for="id_reader">Читатель:</label>
                         <input type="text" name="reader" maxlength="100" class="form-control"
                                id="id_reader"  value="{{ reader }}">
                     </p>
                 </div>
-                <div class="col-12 col-sm-3">
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-miran my-1">Применить фильтр</button>
-                        <button type="submit"  class="btn btn-miran my-1" name="clear_filter" value="1">Очистить фильтр</button>
+                <div class="col-12 col-sm-3 d-flex justify-content-center">
+                    <div class="text-center mt-4">
+                        <p>
+                        <button type="submit" class="btn btn-miran btn-block">Применить
+                            фильтр</button>
+                        </p>
+                        <p>
+                        <button type="submit"  class="btn btn-miran mt-4 container-fluid" name="clear_filter"
+                                value="1">Очистить фильтр</button>
+                        </p>
                     </div>
                 </div>
             </div>
