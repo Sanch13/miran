@@ -1,0 +1,74 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block title %}
+<title> Добавить книгу в библиотеку</title>
+{% endblock title %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb my-1">
+<!--    <li class="breadcrumb-item"><a href="#">Главная</a></li>-->
+      <li class="breadcrumb-item"><a href="{% url 'books:list_books' %}">Список книг</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Добавить книгу</li>
+  </ol>
+</nav>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card mt-xl-4 mx-auto">
+            <div class="card-header text-center">
+                <h5 class="my-2">Добавить книгу в библиотеку</h5>
+            </div>
+            <div class="card-body">
+                <form action="{% url 'books:add_book' %}" method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="{{ form.author.id_for_label }}"
+                               class="form-label"> Автор книги <span
+                                class="text-danger"><b>*</b></span></label>
+                        {{ form.author }}
+                        {% for error in form.author.errors %}
+                        <div class="error-message text-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ form.title.id_for_label }}"
+                               class="form-label"> Название книги <span
+                                class="text-danger"><b>*</b></span></label>
+                        {{ form.title }}
+                        {% for error in form.title.errors %}
+                        <div class="error-message text-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ form.year.id_for_label }}"
+                               class="form-label"> Год издания <span
+                                class="text-danger"><b>*</b></span></label>
+                        {{ form.year }}
+                        {% for error in form.year.errors %}
+                        <div class="error-message text-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ form.description.id_for_label }}"
+                               class="form-label">Краткое описание книги </label>
+                        {{ form.description }}
+                        {% for error in form.description.errors %}
+                        <div class="error-message text-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        <p class="text-danger">Обязательное поле к заполнению <span class="text-danger"><b>*</b></span></p>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-miran ">Записать книгу в БД</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

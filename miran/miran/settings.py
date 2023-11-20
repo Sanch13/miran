@@ -2,18 +2,17 @@ from pathlib import Path
 
 from secret_settings import settings
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = settings.SECRET_KEY
 
 DEBUG = settings.DEBUG
 
-ALLOWED_HOSTS = [settings.ALLOWED_HOSTS]
+ALLOWED_HOSTS = [settings.ALLOWED_HOSTS, ]
 
 AUTH_USER_MODEL = "users.User"
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = 'books:list_books'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -24,6 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'users.apps.UsersConfig',
+    'books.apps.BooksConfig',
 
     'django_extensions',
     'bootstrap5',
@@ -93,19 +93,24 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-RU'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
 USE_TZ = True
 
 STATIC_URL = 'static/'
-
 STATICFILES_DIRS = (BASE_DIR, 'static')
+# STATIC_ROOT = BASE_DIR / 'static'
+
+
+# MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # STATIC_ROOT = (BASE_DIR, 'static')
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

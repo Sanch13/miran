@@ -1,6 +1,6 @@
-{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+{% load static %}
 
 <head>
     {% block title %}
@@ -10,42 +10,149 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% load bootstrap5 %}
-    {% bootstrap_css %}
-    {% bootstrap_javascript %}
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/main.css' %}" rel="stylesheet"/>
 
     {% block css %}
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
     {% endblock css %}
-
 </head>
 <body>
-<div class="container">
-    <ul class="nav bg-info nav_style">
-        <li class="nav-item">
-            <a class="nav-link link-light" href="/">HOME</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link link-light" href="">Список сотрудников</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link link-light" href="">Библиотека</a>
-        </li>
-        <li>
-            {% if user.is_authenticated %}
-                <a class="nav-link" href="{% url 'users:logout' %}">Выход</a>
-                <span class="name-user">Пользователь: {{ user.first_name }} {{ user.last_name }}</span>
-            {% else %}
-                <a class="nav-link" href="{% url 'users:login' %}">Вход</a>
-            {% endif %}
-        </li>
-    </ul>
-</div>
 
-<div class="container">
+<header>
+<nav class="navbar navbar-expand-md fixed-top py-0">
+    <div class="container-fluid">
+<!--              Logo-->
+        <a  class="navbar-brand mx-5 px-5"
+            href="https://www.miran-bel.com/"
+            target="_blank">
+            <img src="{% static 'img/miran-logo.webp' %}" alt="logo" />
+        </a>
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarID"
+                aria-controls="navbarID"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+<!--              Menu-->
+        <div class="collapse navbar-collapse" id="navbarID">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="/">Главная</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="#">Список сотрудников</a>-->
+<!--                </li>-->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'books:list_books' %}">Библиотека</a>
+                </li>
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="#">Link</a>-->
+<!--                </li>-->
+            </ul>
+<!--                  Login/Logout-->
+            <div class="me-3 pe-2">
+                {% if user.is_authenticated %}
+                <div class="dropdown">
+                    <a class="dropdown-toggle-no-caret nav-link"
+                       id="navbarDropdownMenuAvatar"
+                       type="button"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        {{ user.email }}
+                    </a>
+                    <ul class="dropdown-menu"
+                        aria-labelledby="navbarDropdownMenuAvatar">
+<!--                        <li><h1 class="dropdown-header">{{user}}</h1></li>-->
+<!--                        <li><hr class="dropdown-divider"></li>-->
+<!--                        <li><a class="dropdown-item nav-link" href="#">Мой профиль</a></li>-->
+                        <li>
+                            {% if request.user.is_staff %}
+                            <a class="dropdown-item nav-link"
+                               href="{% url 'books:add_book' %}">Добавить книгу</a>
+                            {% endif %}
+                        </li>
+                        <li><a class="dropdown-item nav-link"
+                               href="{% url 'users:logout' %}">Выйти</a>
+                        </li>
+                    </ul>
+                </div>
+                {% else %}
+                <a class="nav-link" href="{% url 'users:login' %}">Войти</a>
+                {% endif %}
+            </div>
+<!--                  Search-->
+            <form class="d-flex my-2">
+            <input class="form-control me-2 "
+                   type="search"
+                   placeholder="Поиск"
+                   aria-label="Поиск">
+            <button class="btn btn-miran" type="submit">Поиск</button>
+            </form>
+        </div>
+    </div>
+</nav>
+</header>
+
+<main class="container">
     {% block content %}
-    {% endblock %}
-</div>
 
-<script src=""></script>
+    {% endblock %}
+</main>
+
+<footer>
+<nav-footer class="navbar navbar-expand-md fixed-bottom py-1">
+    <div class="container-fluid">
+        <a  class="navbar-brand"
+            style="margin-left: 273px;"
+            href=""
+            target="_blank">
+        </a>
+        <button class="navbar-toggler collapsed my-2"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarCollapse2"
+                aria-controls="navbarCollapse2"
+                aria-expanded="false"
+                aria-label="Переключить навигацию">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse" id="navbarCollapse2">
+            <ul class="navbar-nav mx-auto ">
+                <li class="nav-item">
+                    <a class="nav-link" href="https://t.me/+6Hc2UWCNmfljYjNi"
+                       target="_blank">
+                        <img src="{% static 'img/tg3d.webp' %}"/>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.instagram.com/miran.upakovka/"
+                       target="_blank">
+                        <img src="{% static 'img/instagram.webp' %}"/>
+                    </a>
+                </li>
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="https://www.pinterest.com/miran0934/pins/"-->
+<!--                       target="_blank">-->
+<!--                        <img src="{% static 'img/pinterest.webp' %}"/>-->
+<!--                    </a>-->
+<!--                </li>-->
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="https://www.youtube.com/channel/UC9Fme9Vcdy0lDHWdMdHu0MQ?view_as=subscriber"
+                       target="_blank">
+                        <img src="{% static 'img/youtube.webp' %}"/>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div style="margin-right: 429px">
+        </div>
+    </div>
+</nav-footer>
+</footer>
+
+<script src="{% static 'js/bootstrap.bundle.js' %}"></script>
 </body>
