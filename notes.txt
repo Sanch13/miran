@@ -11,5 +11,5 @@
 # если ваше приложение интегрируется с социальными сетями.
 
 User - One-to-One - Profile
-
-Library - One-to-Many, Foreign Key - Book
+User - Foreign Key - History
+Book - One-to-One - History

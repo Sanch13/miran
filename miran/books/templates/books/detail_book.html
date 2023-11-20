@@ -1,0 +1,145 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block title %}
+<title>{{ book.author }} - {{ book.title }}</title>
+{% endblock title %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb my-1">
+        <!--    <li class="breadcrumb-item"><a href="#">Главная</a></li>-->
+        <li class="breadcrumb-item"><a href="{% url 'books:list_books' %}">Список книг</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ book.title }}</li>
+    </ol>
+</nav>
+
+<div class="row py-1">
+
+    <div class="col-12 py-2">
+        <h2 class="text-center">{{ book.title }}</h2>
+    </div>
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-2">
+                <p>Автор книги: </p>
+            </div>
+            <div class="col-10">
+                <p><b>{{ book.author }}</b></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <p>Дата издания: </p>
+            </div>
+            <div class="col-10">
+                <p><b>{{ book.year }}</b></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <p>Краткое описание книги: </p>
+            </div>
+            <div class="col-10">
+                <p><i><b>{{ book.description }}</b></i></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <p>Статус книги: </p>
+            </div>
+            <div class="col-10">
+                <p>
+                    <b>{% if book.status == 'CLOSE' %}В пользовании{%else%} Свободна {%endif%}</b>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                {% if reader %}
+                <p>Книгу взял в пользование:</p>
+                {% endif %}
+            </div>
+            <div class="col-10">
+                <p><b>{{ reader }} </b></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <p>История книги: </p>
+            </div>
+            <div class="col-10">
+                <p><a id="toggleLink" onclick="toggle_table()" href="#">Показать</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 10; margin-bottom: 50px;">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-success text-center" id="message">
+        {{ message }}
+        <span id="countdown"></span>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+
+<div class="container-fluid p-2">
+    <div class="text-center">
+        {% if book.status == 'CLOSE' %}
+        {% if reader.user_id == user.id %}
+        <form method="post" action="{% url 'books:return_book' %}">
+            {% csrf_token %}
+            <input type="hidden" name="slug" value="{{ book.slug }}">
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-miran">Вернуть книгу в библиотеку</button>
+        </form>
+        {% endif %}
+        {% else %}
+        {% if user.is_authenticated %}
+        <form method="post" action="{% url 'books:get_book' %}">
+            {% csrf_token %}
+            <input type="hidden" name="slug" value="{{ book.slug }}">
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-miran">Взять книгу в пользование</button>
+        </form>
+        {% else %}
+        <p>Только зарегистрированные пользователи могут брать книгу. <a
+                href="{% url 'users:login' %}">Войти</a>
+        </p>
+        {% endif %}
+        {% endif %}
+    </div>
+</div>
+
+<div class="container-fluid" id="bookHistoryTable" style="display: none">
+    <h3 style="text-align: center">История прочтения книги</h3>
+    <table class="table table-bordered">
+        <thead class="table-secondary" style=" height: 50px;">
+        <th class="text-center align-middle">Номер</th>
+        <th class="text-center align-middle">Читатель</th>
+        <th class="text-center align-middle">Дата выдачи</th>
+        <th class="text-center align-middle">Дата возврата</th>
+        </thead>
+        <tbody>
+        {% for book in book_history %}
+        <tr class="text-center">
+            <td style="width: 100px;">{{ forloop.counter }}</td>
+            <td>{{ book }}</td>
+            <td>{{ book.date_start }}</td>
+            <td> {% if book.date_end %} {{ book.date_end }} {% else %} {% endif %}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script src="{% static 'js/hide_alert_msg.js' %}"></script>
+<script src="{% static 'js/toggle_table.js' %}"></script>
+<script src="{% static 'js/print_image.js' %}"></script>
+
+{% endblock content %}

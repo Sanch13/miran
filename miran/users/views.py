@@ -12,10 +12,7 @@ from .forms import UserRegistrationForm, UserLoginForm
 
 
 def home(request):
-    context = {}
-    return render(request=request,
-                  template_name="users/base.html",
-                  context=context)
+    return redirect(to="books:list_books")
 
 
 def registration(request):
@@ -23,12 +20,10 @@ def registration(request):
         form = UserRegistrationForm(data=request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request,
-                             'Вы успешно зарегистрировались! '
+            messages.success(request=request,
+                             message='Вы успешно зарегистрировались! '
                              'Войдите под своим логином и паролем в систему')
             return redirect(reverse('users:login'))
-        else:
-            print(form.errors)
     else:
         form = UserRegistrationForm()
     context = {'form': form}
@@ -46,11 +41,20 @@ def login(request):
             user = auth.authenticate(username=username, password=password)
             if user and user.is_active:
                 auth.login(request, user)
-                return redirect(reverse('home'))
+                # Если user не авторизован и пытается взять книгу запоминаем его url. После
+                # авторизации перенаправляем его на предыдущую страницу книги. Если user пришел не
+                # с страницы книги перенаправляем его на список книг
+                next_url = request.session.get('next_url', 'books:list_books')
+                return redirect(next_url)
+        else:
+            messages.error(request=request,
+                           message='Пожалуйста, введите правильный Email и пароль.')
     else:
         form = UserLoginForm()
     context = {'form': form}
-    return render(request, 'users/registration/login.html', context=context)
+    return render(request=request,
+                  template_name='users/registration/login.html',
+                  context=context)
 
 
 class PassResetView(PasswordResetView):
