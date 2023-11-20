@@ -1,13 +1,11 @@
 from datetime import timedelta
-import time
 from pathlib import Path
 
 from django.http import HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.contrib import messages
-from django.urls import reverse, reverse_lazy
-from django.db.models import Q
+from django.urls import reverse
 from django.conf import settings
 
 from .models import Book, History
@@ -160,9 +158,9 @@ def edit_book(request, slug):
 def delete_book(request, slug):
     try:
         book = Book.objects.get(slug=slug)
-        # file = Path(f"{str(settings.MEDIA_ROOT)}/{str(book.qr_code)}")
-        # file.unlink()
+        file = Path(f"{str(settings.MEDIA_ROOT)}/{str(book.qr_code)}")
+        file.unlink()
         book.delete()
         return redirect(to="books:list_books")
     except Exception:
-        return HttpResponseNotFound("<h2>Невозможно удалить</h2>")
+        return HttpResponseNotFound("<h2>Невозможно удалить книгу</h2>")

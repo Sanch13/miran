@@ -12,10 +12,6 @@ from .forms import UserRegistrationForm, UserLoginForm
 
 
 def home(request):
-    # context = {}
-    # return render(request=request,
-    #               template_name="users/base.html",
-    #               context=context)
     return redirect(to="books:list_books")
 
 
