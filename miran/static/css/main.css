@@ -123,3 +123,8 @@ main {
     border-radius: 10px;
     /*background-color: #0d6efd;*/
 }
+
+.breadcrumb {
+    --bs-breadcrumb-divider-color: #0d6efd;
+    --bs-breadcrumb-item-active-color: #0d6efd;
+}
