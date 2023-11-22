@@ -66,10 +66,6 @@ main {
     --bs-table-color: #212529;
 }
 
-/*.card-body {*/
-/*    --bs-card-bg: rgba(221, 224, 107, 0.69);*/
-/*}*/
-
 .card {
     --bs-card-bg: rgba(241, 241, 235, 0.82);
 }
@@ -110,7 +106,7 @@ main {
 }
 
 .dropdown-divider {
-    margin: 7px 0; /* Добавляем немного отступа перед и после разделителя */
+    margin: 7px 0;
     border-top: 1px solid #C4D126;
 }
 

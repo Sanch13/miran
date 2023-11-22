@@ -28,15 +28,11 @@ class BookSearchForm(forms.ModelForm):
     class Meta:
         model = Book
         fields = ('author', 'title', 'status', 'reader')
-    # search = forms.CharField(max_length=100,
-    #                          required=False)
 
     def __init__(self, *args, **kwargs):
         super(BookSearchForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs["class"] = 'form-control'
-
-
 
 
 class AddBookForm(forms.ModelForm):
@@ -59,4 +55,3 @@ class EditBookForm(forms.ModelForm):
         super(EditBookForm, self).__init__(*args, **kwargs)
         for field_name, filed in self.fields.items():
             filed.widget.attrs['class'] = 'form-control'
-

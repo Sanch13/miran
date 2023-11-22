@@ -1,28 +1,121 @@
-/*nav {*/
-/*    background: #3e3f3f;*/
-/*    box-shadow: 0 0 10px rgba(20, 20, 20, 0.86);*/
-/*    height: 50px;*/
-/*    border-radius: 3px;*/
-/*}*/
+nav {
+    background: #ffffff;
+    /*box-shadow: 0 0 9px rgb(196, 209, 38);*/
+    border-bottom: 1px solid #c4d126;
+    z-index: 12;
+    /*border-radius: 4px;*/
+}
 
-/*.navbar-expand-xl {*/
-/*    padding-top: 0;*/
-/*    padding-bottom: 0;*/
-/*}*/
+nav-footer {
+    background: #515558;
+    /*box-shadow: 0 0 9px rgb(196, 209, 38);*/
+    border-top: 1px solid #c4d126;
+    z-index: 12;
+    /*border-radius: 4px;*/
+}
 
-/*main {*/
-/*    margin-top: 55px;*/
-/*}*/
+main {
+    padding-top: 70px;
+    padding-bottom: 70px;
+    /*background: #515558;*/
+}
 
-/*.nav-link {*/
-/*    color: #e6e0e0;*/
-/*}*/
+.card-header {
+    background-color: #c4d126;
+}
 
-/*.nav-link:hover {*/
-/*    color: #66cc66;*/
-/*}*/
+.card-footer {
+    background-color: #c4d126;
+}
 
-/*.nav-link:focus {*/
-/*    color: #66cc66;*/
-/*}*/
+.nav-link {
+    color: #000;
+}
 
+.nav-item {
+    font-size: 20px;
+}
+
+.nav-link:hover {
+    color: #C4D126;
+}
+
+.link-acc {
+    color: #000;
+    text-decoration: none;
+}
+
+.link-acc:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.form-control {
+    border: #C4D126 1px solid;
+}
+
+.form-control:focus {
+    border-color: #C4D126;
+    box-shadow: 0 0 12px rgba(196, 209, 38, 0.8);
+}
+
+.table-secondary {
+    /*--bs-table-bg: #5c6062;*/
+    /*--bs-table-color: #C4D126;*/
+    --bs-table-bg: #C4D126;
+    --bs-table-color: #212529;
+}
+
+.card {
+    --bs-card-bg: rgba(241, 241, 235, 0.82);
+}
+
+.btn-miran {
+    background-color: #C4D126;
+    color: #000000;
+    border: #C4D126 2px solid;
+}
+
+.btn-miran:hover {
+    background-color: #5c6062;
+    color: #C4D126;
+    /*border: #C4D126 2px solid;*/
+}
+
+.table-hover > tbody > tr:hover > * {
+    /*color: #ffffff;*/
+    /*background-color: #C4D126;*/
+    color: black;
+    background-color: #dde4e5;
+}
+
+.table > tbody {
+    --bs-table-bg: #F1F1EBD1;
+}
+
+.dropdown-menu {
+    padding: 10px 5px 7px 5px;
+}
+
+.dropdown-header {
+    padding: 2px;
+    font-size: 20px;
+    color: #C4D126;
+    text-align: center;
+    background-color: #515558;
+}
+
+.dropdown-divider {
+    margin: 7px 0;
+    border-top: 1px solid #C4D126;
+}
+
+.h1 {
+    color: #c4d126;
+}
+
+.search {
+    border: 1px solid #C4D126;
+    border-radius: 10px;
+    /*background-color: #0d6efd;*/
+}
