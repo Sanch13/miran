@@ -68,5 +68,9 @@ class History(models.Model):
                                     blank=True,
                                     null=True)
 
+    class Meta:
+        verbose_name = "История"
+        verbose_name_plural = "История"
+
     def __str__(self):
         return f"{self.user}"
