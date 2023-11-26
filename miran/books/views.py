@@ -117,11 +117,14 @@ def add_book(request):
             title = form.cleaned_data.get("title", '')
             description = form.cleaned_data.get("description", '')
             year = form.cleaned_data.get("year", 0)
-            Book.objects.create(author=author,
-                                title=title,
-                                description=description,
-                                year=year)
-            return redirect(to=reverse("books:list_books"))
+            try:
+                book = Book.objects.create(author=author,
+                                    title=title,
+                                    description=description,
+                                    year=year)
+            except Exception:
+                return ''
+            return redirect(reverse(viewname="books:detail", args=[book.slug], ))
 
     else:
         form = AddBookForm()
@@ -144,7 +147,7 @@ def edit_book(request, slug):
             book.year = form.cleaned_data.get("year")
             book.description = form.cleaned_data.get("description")
             book.save()
-            return redirect(to="books:list_books")
+            return redirect(reverse(viewname="books:detail", args=[book.slug], ))
 
     form = EditBookForm(instance=book)
     context = {

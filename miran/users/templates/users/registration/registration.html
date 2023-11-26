@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-<title>Регистрация пользователя</title>
+<title xmlns="http://www.w3.org/1999/html">Регистрация пользователя</title>
 {% endblock title %}
 
 {% block content %}
@@ -24,21 +24,15 @@
                             <div class="error-message text-danger">{{ error }}</div>
                             {% endfor %}
                         </div>
-<!--                        <div class="mb-3">-->
-<!--                            <label for="{{ form.username.id_for_label }}"-->
-<!--                                   class="form-label ">Адрес-->
-<!--                                электронной почты-->
-<!--                                <span class="text-danger"><b>*</b></span></label>-->
-<!--                            {{ form.username }}-->
-<!--                            {% for error in form.username.errors %}-->
-<!--                            <div class="error-message text-danger">{{ error }}</div>-->
-<!--                            {% endfor %}-->
-<!--                        </div>-->
                         <div class="mb-3">
                             <label for="{{ form.password1.id_for_label }}"
                                    class="form-label">Пароль <span class="text-danger"><b>*</b>
                             </span></label>
-                            {{ form.password1 }}
+                            <!--                            {{ form.password1 }}-->
+                            <input type="password" name="password1" placeholder="Введите пароль"
+                                   class="form-control" required="" id="id_password1">
+<!--                            <input type="checkbox" onclick="myFunction()">Show Password-->
+                            <a href="#" class="password-control" onclick="return show_hide_password(this);"></a>
                             {% for error in form.password1.errors %}
                             <div class="error-message text-danger">{{ error }}</div>
                             {% endfor %}
@@ -64,16 +58,9 @@
                                     class="text-danger"><b>*</b></span></label>
                             {{ form.last_name }}
                         </div>
-<!--                        <div class="mb-3">-->
-<!--                            <label for="{{ form.email.id_for_label }}" class="form-label">Адрес-->
-<!--                                электронной почты <span class="text-danger"><b>*</b></span></label>-->
-<!--                            {{ form.email }}-->
-<!--                            {% for error in form.email.errors %}-->
-<!--                            <div class="error-message text-danger">{{ error }}</div>-->
-<!--                            {% endfor %}-->
-<!--                        </div>-->
                         <div>
-                            <p class="text-danger">Обязательное поле к заполнению <span class="text-danger"><b>*</b></span></p>
+                            <p class="text-danger">Обязательное поле к заполнению <span
+                                    class="text-danger"><b>*</b></span></p>
                         </div>
                         <div class="text-center">
                             <button class="btn btn-miran" type="submit">Зарегистрироваться
@@ -85,4 +72,28 @@
         </div>
     </div>
 </div>
+
+<script>
+    // function myFunction() {
+    //     var x = document.getElementById("id_password1");
+    //     if (x.type === "password") {
+    //         x.type = "text";
+    //     } else {
+    //         x.type = "password";
+    //     }
+    // }
+
+    function show_hide_password(target){
+	var input = document.getElementById('id_password1');
+	if (input.getAttribute('type') == 'password') {
+		target.classList.add('view');
+		input.setAttribute('type', 'text');
+	} else {
+		target.classList.remove('view');
+		input.setAttribute('type', 'password');
+	}
+	return false;
+}
+
+</script>
 {% endblock content %}
