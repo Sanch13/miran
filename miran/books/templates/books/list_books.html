@@ -15,21 +15,21 @@
   </ol>
 </nav>
 
-<div class="container-xl my-1">
+<div class="container-xl my-1 pe-auto search">
     <form action="{% url 'books:list_books' %}" method="post">
         {% csrf_token %}
         <div class="row">
-            <div class="col-2 p-0">
+            <div class="col-2">
                 <p>Фильтр поиска: </p>
             </div>
-            <div class="col-10">
+            <div class="col-10 d-inline-flex">
                 <p><a id="toggleLink" onclick="toggle_table()" href="#">Показать</a></p>
             </div>
         </div >
-        <div class="row search container-fluid" id="bookHistoryTable" style="display: none">
-            <div>
-                <h5 class="text-center mt-2">Фильтр поиска</h5>
-            </div>
+        <div class="row container-xl container-fluid" id="bookHistoryTable" style="display: none">
+<!--            <div>-->
+<!--                <h5 class="text-center mt-2">Фильтр поиска</h5>-->
+<!--            </div>-->
             <div class="col-12 col-sm-3">
                 <p>
                     <label for="id_author">Автор книги:</label>
