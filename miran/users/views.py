@@ -35,6 +35,7 @@ def registration(request):
 def login(request):
     if request.method == 'POST':
         form = UserLoginForm(data=request.POST)
+        request.session['email_user'] = request.POST["username"]
         if form.is_valid():
             username = request.POST['username']
             password = request.POST['password']
