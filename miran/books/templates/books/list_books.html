@@ -7,30 +7,30 @@
 
 {% block content %}
 
-<nav aria-label="breadcrumb"  style="border-bottom: none">
-  <ol class="breadcrumb my-1">
+<!--<nav aria-label="breadcrumb" class="container-xl">-->
+<!--  <ol class="breadcrumb my-1">-->
 <!--    <li class="breadcrumb-item"><a href="#">Главная</a></li>-->
-    <li class="breadcrumb-item active" aria-current="page">Библиотека</li>
+<!--    <li class="breadcrumb-item active" aria-current="page">Библиотека</li>-->
 <!--    <li class="breadcrumb-item">Данные</li>-->
-  </ol>
-</nav>
+<!--  </ol>-->
+<!--</nav>-->
 
-<div class="container-xl my-1 pe-auto search">
-    <form action="{% url 'books:list_books' %}" method="post">
+<h1 class="text-center">Список книг</h1>
+
+<div class="container-xl position-relative">
+    <div class="row">
+        <div class="col-12 text-end pe-4">
+            <a id="toggleLink" onclick="toggle_search()" href="#">Показать фильтр поиска</a>
+        </div>
+    </div >
+</div>
+
+<div class="container-fluid my-1 p-0">
+    <div class="row container-fluid p-0 m-0 search"  id="bookHistoryTable" style="display: none; ">
+    <form action="{% url 'books:list_books' %}" method="post" >
         {% csrf_token %}
-        <div class="row">
-            <div class="col-2">
-                <p>Фильтр поиска: </p>
-            </div>
-            <div class="col-10 d-inline-flex">
-                <p><a id="toggleLink" onclick="toggle_table()" href="#">Показать</a></p>
-            </div>
-        </div >
-        <div class="row container-xl container-fluid" id="bookHistoryTable" style="display: none">
-<!--            <div>-->
-<!--                <h5 class="text-center mt-2">Фильтр поиска</h5>-->
-<!--            </div>-->
-            <div class="col-12 col-sm-3">
+        <div class="row container-fluid px-auto " >
+            <div class="col-12 col-sm-3 py-1">
                 <p>
                     <label for="id_author">Автор книги:</label>
                     <input type="text" name="author" class="form-control" id="id_author" value="{{ author }}">
@@ -40,7 +40,7 @@
                     <input type="text" name="title" class="form-control" id="id_title" value="{{ title }}">
                 </p>
             </div>
-            <div class="col-12 col-sm-3">
+            <div class="col-12 col-sm-3 py-1">
                 <p>
                     <label for="id_status">Статус книги:</label>
                     <select name="status" class="form-control" id="id_status">
@@ -55,7 +55,7 @@
                            id="id_reader"  value="{{ reader }}">
                 </p>
             </div>
-            <div class="col-12 col-sm-3 d-flex justify-content-center">
+            <div class="col-12 col-sm-3 d-flex justify-content-center py-1">
                 <div class="text-center mt-4">
                     <p>
                     <button type="submit" class="btn btn-miran btn-block">Применить
@@ -67,12 +67,12 @@
                     </p>
                 </div>
             </div>
-        </div>
+            </div>
     </form>
+    </div>
 </div>
 
-<h1 class="text-center">Список книг</h1>
-<div class="container-xl p-0">
+<div class="container-fluid p-0">
     <table class="table table-hover table-bordered">
         <thead class="table-secondary" style=" height: 50px;">
         <th class="text-center align-middle">Номер</th>
@@ -191,15 +191,15 @@
     }
 </script>
 <script>
-    function toggle_table() {
-    const table = document.getElementById("bookHistoryTable");
+    function toggle_search() {
+    const div = document.getElementById("bookHistoryTable");
     const link = document.getElementById("toggleLink");
-    if (table.style.display === "none") {
-        table.style.display = "inline-flex";
-        link.textContent = "Скрыть";
+    if (div.style.display === "none") {
+        div.style.display = "inline-flex";
+        link.textContent = "Скрыть фильтр поиска";
     } else {
-        table.style.display = "none";
-        link.textContent = "Показать";
+        div.style.display = "none";
+        link.textContent = "Показать фильтр поиска";
     }
 }
 </script>
