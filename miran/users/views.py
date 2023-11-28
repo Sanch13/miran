@@ -63,6 +63,14 @@ class PassResetView(PasswordResetView):
     email_template_name = 'users/registration/password_reset_email.html'
     success_url = reverse_lazy("users:password_reset_done")
 
+    def get(self, request, *args, **kwargs):
+        context = {
+            "email": request.session.get('email_user', '')
+        }
+        return render(request=request,
+                      template_name='users/registration/password_reset_form.html',
+                      context=context)
+
 
 class PassResetDoneView(PasswordResetDoneView):
     template_name = 'users/registration/password_reset_done.html'
