@@ -1,0 +1,120 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Список книг</title>
+{% endblock title %}
+
+{% block content %}
+
+<h1 class="text-center">Список книг</h1>
+
+<div class="container-xl position-relative">
+    <div class="row">
+        <div class="col-12 text-end pe-4">
+            <a id="" onclick="" href="{% url 'books:print_qr' %}">Распечатать все QR</a>
+            <a id="toggleLink" onclick="toggle_search()" href="#">Показать фильтр поиска</a>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid my-1 p-0">
+    <div class="row container-fluid p-0 m-0 search" id="bookHistoryTable" style="display: none; ">
+        <form action="{% url 'books:list_books' %}" method="post">
+            {% csrf_token %}
+            <div class="row container-fluid px-auto ">
+                <div class="col-12 col-sm-3 py-1">
+                    <p>
+                        <label for="id_author">Автор книги:</label>
+                        <input type="text" name="author" class="form-control" id="id_author"
+                               value="{{ author }}">
+                    </p>
+                    <p>
+                        <label for="id_title">Название книги:</label>
+                        <input type="text" name="title" class="form-control" id="id_title"
+                               value="{{ title }}">
+                    </p>
+                </div>
+                <div class="col-12 col-sm-3 py-1">
+                    <p>
+                        <label for="id_status">Статус книги:</label>
+                        <select name="status" class="form-control" id="id_status">
+                            <option value="" {% if status == '' %}selected{% endif %}>------------------</option>
+                            <option value="OPEN" {% if status == 'OPEN' %} selected {% endif %}>Свободна</option>
+                            <option value="CLOSE" {% if status == 'CLOSE' %}selected{% endif %}>В пользовании</option>
+                        </select>
+                    </p>
+                    <p>
+                        <label for="id_reader">Читатель:</label>
+                        <input type="text" name="reader" maxlength="100" class="form-control"
+                               id="id_reader" value="{{ reader }}">
+                    </p>
+                </div>
+                <div class="col-12 col-sm-3 d-flex justify-content-center py-1">
+                    <div class="text-center mt-4">
+                        <p>
+                            <button type="submit" class="btn btn-miran btn-block">Применить
+                                фильтр
+                            </button>
+                        </p>
+                        <p>
+                            <button type="submit" class="btn btn-miran mt-4 container-fluid"
+                                    name="clear_filter"
+                                    value="1">Очистить фильтр
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <h1>Hello</h1>
+</div>
+
+<div class="container-fluid">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for book in books %}
+        <div class="col-12 col-md-6 col-lg-4">
+        <div class="card border-success mb-3">
+            <div class="card-header bg-transparent border-success">{{ forloop.counter }}</div>
+            <img src="{{ book.qr_code.url }}"
+                 class="card-img-top"
+                  width="100"
+                  height="100"
+                  style="max-width: 100%;"
+                 alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{ book.title }}</h5>
+                <h5 class="card-title">{{ book.author }}</h5>
+                <p class="card-text">Это более широкая карточка с вспомогательным текстом ниже в
+                    качестве естественного перехода к дополнительному контенту. Этот контент немного
+                    длиннее.</p>
+                <p class="card-text"><small class="text-muted">Последнее обновление 3 мин. назад</small>
+                </p>
+            </div>
+        </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+<script>
+    function toggle_search() {
+        const div = document.getElementById("bookHistoryTable");
+        const link = document.getElementById("toggleLink");
+        if (div.style.display === "none") {
+            div.style.display = "inline-flex";
+            link.textContent = "Скрыть фильтр поиска";
+        } else {
+            div.style.display = "none";
+            link.textContent = "Показать фильтр поиска";
+        }
+    }
+</script>
+
+{% endblock %}
+
+
