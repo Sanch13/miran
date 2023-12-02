@@ -7,6 +7,7 @@ app_name = 'books'
 
 urlpatterns = [
     path("list/", views.list_books, name="list_books"),
+    path("list-2/", views.list_books2, name="book_list_card"),
     path("detail/<slug:slug>/", views.detail, name="detail"),
     path('get_book/', views.get_book, name='get_book'),
     path('return_book/', views.return_book, name='return_book'),
