@@ -20,6 +20,7 @@
 <div class="container-xl position-relative">
     <div class="row">
         <div class="col-12 text-end pe-4">
+            <a id="" onclick="" href="{% url 'books:print_qr' %}">Распечатать все QR</a>
             <a id="toggleLink" onclick="toggle_search()" href="#">Показать фильтр поиска</a>
         </div>
     </div >
@@ -75,14 +76,14 @@
 <div class="container-fluid p-0">
     <table class="table table-hover table-bordered">
         <thead class="table-secondary" style=" height: 50px;">
-        <th class="text-center align-middle">Номер</th>
+        <th class="text-center align-middle">№</th>
         <th class="text-center align-middle">Автор</th>
         <th class="text-center align-middle">Название книги</th>
         <th class="text-center align-middle">Статус книги</th>
         <th class="text-center align-middle">Читатель </th>
 <!--        <th class="text-center align-middle">Краткое описание книги</th>-->
         {% if request.user.is_staff %}
-        <th class="text-center align-middle">На печать</th>
+        <th class="text-center align-middle">Qr-code</th>
         <th class="text-center align-middle">Действия с книгой</th>
         {% endif %}
         </thead>
@@ -111,7 +112,7 @@
                      style="max-width: 100%;"
                      alt="QR-code"
                 >
-            <a href="#" onclick="printQR('{{ book.slug }}')" class="btn btn-sm btn-secondary m-0 p-0">Напечатать QR-code</a>
+            <a href="#" onclick="printQR('{{ book.slug }}')" class="btn btn-sm btn-secondary m-0 p-0">Печать</a>
             </td>
             <td style="white-space: nowrap;" class="text-center align-middle">
                 <a href="{% url 'books:edit' book.slug %}" class="btn btn-sm btn-primary m-0 p-0">Редактировать</a> |

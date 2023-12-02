@@ -1,0 +1,65 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Список книг</title>
+{% endblock title %}
+
+{% block content %}
+<div class="text-center py-2">
+    <button onclick="printBook()" class="btn btn-miran btn-sm">Распечатать QR-code</button>
+</div>
+<div id="printQR" class="my-1">
+    {% for book in books %}
+    <table>
+        <tbody>
+        <tr class="my-1">
+            <td style="width: 160px"class="p-1">
+                <div class="container-fluid">
+                    <img src="{{ book.qr_code.url }}"
+                         width="100"
+                         height="100"
+                         style="max-width: 100%; border: 1px solid #1a1d20"
+                         alt="QR-code"
+                    >
+                </div>
+
+            </td>
+            <td>
+                {{ book.author}} - {{ book.title }}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    {% endfor %}
+</div>
+
+
+<script>
+    function printBook() {
+        const printContent = document.getElementById("printQR").innerHTML;
+
+        const printWindow = window.open('', '_blank');
+        const printDocument = `
+                    <!DOCTYPE html>
+                    <html lang="">
+                    <head>
+                    </head>
+                    <body>
+                        ${printContent}
+                    </body>
+                    </html>
+                `;
+
+        printWindow.document.write(printDocument);
+        printWindow.document.close();
+
+        printWindow.onload = function () {
+            printWindow.print();
+            printWindow.close();
+        };
+    }
+</script>
+
+{% endblock %}
+

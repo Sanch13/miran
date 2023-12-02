@@ -136,6 +136,16 @@ def add_book(request):
                   context=context)
 
 
+def print_qr(request):
+    books = Book.objects.all()
+    context = {
+        "books": books,
+    }
+    return render(request=request,
+                  template_name='books/print_qr.html',
+                  context=context)
+
+
 def edit_book(request, slug):
     book = Book.objects.get(slug=slug)
 
