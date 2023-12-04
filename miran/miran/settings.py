@@ -24,6 +24,7 @@ INSTALLED_APPS = [
 
     'users.apps.UsersConfig',
     'books.apps.BooksConfig',
+    'signs.apps.SignConfig',
 
     'django_extensions',
     'bootstrap5',

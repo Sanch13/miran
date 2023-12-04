@@ -74,6 +74,12 @@
                                href="{% url 'books:add_book' %}">Добавить книгу</a>
                             {% endif %}
                         </li>
+                        <li>
+                            {% if request.user.is_staff %}
+                            <a class="dropdown-item nav-link"
+                               href="{% url 'signs:change_sign' %}">Создать подпись</a>
+                            {% endif %}
+                        </li>
                         <li><a class="dropdown-item nav-link"
                                href="{% url 'users:logout' %}">Выйти</a>
                         </li>

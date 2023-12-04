@@ -143,3 +143,12 @@ main {
     border: none !important;
     outline: none !important;
 }
+
+.sign {
+    border: 1px solid #0f5132;
+}
+
+
+.form-check-input:checked {
+    background-color: #24e80f; /* Цвет фона для выделенного элемента */
+}
