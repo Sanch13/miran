@@ -22,6 +22,9 @@ class Book(models.Model):
                                    verbose_name="Краткое описание книги")
     qr_code = models.ImageField(blank=True,
                                 null=True)
+    label = models.ImageField(upload_to='label',
+                              blank=True,
+                              default='')
     slug = models.SlugField(max_length=250,
                             unique=True,
                             blank=True)

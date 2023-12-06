@@ -11,9 +11,14 @@
 
 <div class="container-xl position-relative">
     <div class="row">
-        <div class="col-12 text-end pe-4">
-            <a id="" onclick="" href="{% url 'books:print_qr' %}">Распечатать все QR</a>
-            <a id="toggleLink" onclick="toggle_search()" href="#">Показать фильтр поиска</a>
+        <div class="col-6 text-start pe-4">
+            {% if request.user.is_staff %}
+                        <a id="toggleLink"  onclick="toggle_search()" href="#">Показать фильтр
+                            поиска</a>
+            {% endif %}
+        </div>
+        <div class="col-6 text-end pe-4">
+            <a id="" onclick="" href="{% url 'books:print_qr' %}">Распечатать QR</a>
         </div>
     </div>
 </div>
@@ -70,30 +75,50 @@
     </div>
 </div>
 
-<div class="container-fluid">
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        {% for book in books %}
-        <div class="col-12 col-md-6 col-lg-4">
-        <div class="card border-success mb-3">
-            <div class="card-header bg-transparent border-success">{{ forloop.counter }}</div>
-            <img src="{{ book.qr_code.url }}"
-                 class="card-img-top"
-                  width="100"
-                  height="100"
-                  style="max-width: 100%;"
-                 alt="...">
+<!--<div class="container-fluid">-->
+<!--    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">-->
+<!--        {% for book in books %}-->
+<!--        <div class="col-12 col-md-6 col-lg-4">-->
+<!--        <div class="card border-success mb-3">-->
+<!--            <div class="card-header bg-transparent border-success">{{ forloop.counter }}</div>-->
+<!--            <img src="{{ book.qr_code.url }}"-->
+<!--                 class="card-img-top"-->
+<!--                  width="100"-->
+<!--                  height="100"-->
+<!--                  style="max-width: 100%;"-->
+<!--                 alt="...">-->
+<!--            <div class="card-body">-->
+<!--                <h5 class="card-title">{{ book.title }}</h5>-->
+<!--                <h5 class="card-title">{{ book.author }}</h5>-->
+<!--                <p class="card-text">Это более широкая карточка с вспомогательным текстом ниже в-->
+<!--                    качестве естественного перехода к дополнительному контенту. Этот контент немного-->
+<!--                    длиннее.</p>-->
+<!--                <p class="card-text"><small class="text-muted">Последнее обновление 3 мин. назад</small>-->
+<!--                </p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        </div>-->
+<!--        {% endfor %}-->
+<!--    </div>-->
+<!--</div>-->
+
+
+<div class="card-group">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+    {% for book in books%}
+        <div class="card card-book h-100">
+            <div style="height: 66.66%;">
+                <img src="/media/{{ book.label }}"
+                 class="card-img-top w-50 img-fluid "
+                 alt="..."
+                >
+            </div>
             <div class="card-body">
-                <h5 class="card-title">{{ book.title }}</h5>
-                <h5 class="card-title">{{ book.author }}</h5>
-                <p class="card-text">Это более широкая карточка с вспомогательным текстом ниже в
-                    качестве естественного перехода к дополнительному контенту. Этот контент немного
-                    длиннее.</p>
-                <p class="card-text"><small class="text-muted">Последнее обновление 3 мин. назад</small>
-                </p>
+              <p class="card-title">{{ book.title }}<br> {{book.author}}, {{book.year}}</p>
+              <p class="card-text"></p>
             </div>
         </div>
-        </div>
-        {% endfor %}
+    {% endfor %}
     </div>
 </div>
 

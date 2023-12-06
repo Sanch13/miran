@@ -70,6 +70,17 @@ main {
     --bs-card-bg: rgba(241, 241, 235, 0.82);
 }
 
+.card-book {
+    background-color: #fcfdfc;
+    border-radius: 0;
+    border: 1px solid #f80707;
+}
+
+.card-book:hover {
+    border: 1px solid #a8a5a5;
+    box-shadow: 0 0 12px rgba(196, 209, 38, 0.1);
+}
+
 .btn-miran {
     background-color: #C4D126;
     color: #000000;
