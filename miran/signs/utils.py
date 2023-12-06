@@ -3,8 +3,8 @@ from django.conf import settings
 
 def create_signs(fio=None, role=None, tel_1=None, tel_2=None, sign=None) -> str:
     file_sign = {
-        "new": str(settings.BASE_DIR) + "/static/files/_signature_example.html",
-        "old": str(settings.BASE_DIR) + "/static/files/_old_signature_example.html",
+        "new": str(settings.BASE_DIR) + "/static/files/example_1.html",
+        "old": str(settings.BASE_DIR) + "/static/files/example_2.html",
     }
     if tel_1 is not None:
         tel_1 = str(tel_1)

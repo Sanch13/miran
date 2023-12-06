@@ -12,7 +12,7 @@ from .forms import UserRegistrationForm, UserLoginForm
 
 
 def home(request):
-    return redirect(to="books:list_books")
+    return redirect(to="books:book_list_card")
 
 
 def registration(request):
