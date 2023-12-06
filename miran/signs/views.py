@@ -1,5 +1,5 @@
+from django.http import HttpResponse
 from django.shortcuts import render
-from django.conf import settings
 
 from .forms import CreateSign
 from .utils import create_signs
@@ -11,7 +11,6 @@ def change_signs(request):
 
 
 def create_sign(request):
-    request.session['sign'] = request.GET.get("sign")
     if request.method == "POST":
         form = CreateSign(data=request.POST)
         if form.is_valid():
@@ -19,17 +18,22 @@ def create_sign(request):
             role = form.cleaned_data.get("role")
             tel_1 = form.cleaned_data.get("tel_1")
             tel_2 = form.cleaned_data.get("tel_2")
-            print(fio, role, tel_1, tel_2)
-            # file =  if request.session['sign'] == "new"
-            # sign = create_signs()
-            # response = HttpResponse(sign, content_type='text/plain')
-            # response['Content-Disposition'] = f'attachment; filename={file_name}'
-            # return response
+            sign = form.cleaned_data.get("sign")
+            sign_user = create_signs(fio=fio,
+                                     role=role,
+                                     tel_1=tel_1,
+                                     tel_2=tel_2,
+                                     sign=sign)
+            response = HttpResponse(content_type='text/html')
+            response['Content-Disposition'] = f'attachment; filename="my_sign.html"'
+            response.write(content=sign_user)
+            return response
 
-    form = CreateSign()
-    context = {
-        "form": form
-    }
+    else:
+        form = CreateSign()
+        context = {
+            "form": form
+        }
     return render(request=request,
                   template_name="signs/create_sign.html",
                   context=context)
