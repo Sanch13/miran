@@ -71,13 +71,13 @@ main {
 }
 
 .card-book {
-    background-color: #fcfdfc;
+    background-color: #ffffff;
     border-radius: 0;
-    border: 1px solid #f80707;
+    /*border: 1px solid #f80707;*/
 }
 
 .card-book:hover {
-    border: 1px solid #a8a5a5;
+    border: 1px solid #6e6b6b;
     box-shadow: 0 0 12px rgba(196, 209, 38, 0.1);
 }
 

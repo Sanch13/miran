@@ -12,13 +12,13 @@
 <div class="container-xl position-relative">
     <div class="row">
         <div class="col-6 text-start pe-4">
-            {% if request.user.is_staff %}
-                        <a id="toggleLink"  onclick="toggle_search()" href="#">Показать фильтр
-                            поиска</a>
-            {% endif %}
+            <a id="toggleLink"  onclick="toggle_search()" href="#">Показать фильтр поиска</a>
+
         </div>
         <div class="col-6 text-end pe-4">
+            {% if request.user.is_staff %}
             <a id="" onclick="" href="{% url 'books:print_qr' %}">Распечатать QR</a>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -106,7 +106,7 @@
 <div class="card-group">
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
     {% for book in books%}
-        <div class="card card-book">
+        <div class="card card-book p-2">
             <div class="card-image">
                 <img src="/media/{{ book.label }}"
                  class="card-img-top w-50"
