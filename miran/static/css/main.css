@@ -81,6 +81,18 @@ main {
     box-shadow: 0 0 12px rgba(196, 209, 38, 0.1);
 }
 
+.card-image {
+    margin: 0 0 0 0;
+    height: 300px;
+
+}
+
+.card-img-top {
+    max-width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .btn-miran {
     background-color: #C4D126;
     color: #000000;

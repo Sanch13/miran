@@ -106,10 +106,10 @@
 <div class="card-group">
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
     {% for book in books%}
-        <div class="card card-book h-100">
-            <div style="height: 66.66%;">
+        <div class="card card-book">
+            <div class="card-image">
                 <img src="/media/{{ book.label }}"
-                 class="card-img-top w-50 img-fluid "
+                 class="card-img-top w-50"
                  alt="..."
                 >
             </div>
