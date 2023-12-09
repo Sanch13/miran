@@ -66,31 +66,38 @@ main {
     --bs-table-color: #212529;
 }
 
-.card {
-    --bs-card-bg: rgba(241, 241, 235, 0.82);
+.card-group .card {
+    height: 500px;
+    /*width: 100%; */
+    display: flex;
+    flex-direction: column;
+    /*border: 1px solid #cc5555;*/
+    border-radius: 0px;
 }
 
-.card-book {
-    background-color: #ffffff;
-    border-radius: 0;
-    /*border: 1px solid #f80707;*/
+
+.card-group .card-book:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Тень при наведении на всю область card-book */
+    border: 1px solid black;
 }
 
-.card-book:hover {
-    border: 1px solid #6e6b6b;
-    box-shadow: 0 0 12px rgba(196, 209, 38, 0.1);
+.card-group .card .card-image {
+    flex: 1; /* Занимает все доступное пространство внутри карточки */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.card-image {
-    margin: 0 0 0 0;
-    height: 300px;
-
-}
-
-.card-img-top {
+.card-group .card .card-image img {
     max-width: 100%;
-    height: 100%;
-    object-fit: cover;
+    max-height: 100%;
+}
+
+.card-group .card .card-body {
+    flex: 1; /* Занимает все доступное пространство внутри карточки */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .btn-miran {
