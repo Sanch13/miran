@@ -12,7 +12,7 @@ from .forms import UserRegistrationForm, UserLoginForm
 
 
 def home(request):
-    return redirect(to="books:list_books")
+    return redirect(to="books:book_list_card")
 
 
 def registration(request):
@@ -35,6 +35,7 @@ def registration(request):
 def login(request):
     if request.method == 'POST':
         form = UserLoginForm(data=request.POST)
+        request.session['email_user'] = request.POST["username"]
         if form.is_valid():
             username = request.POST['username']
             password = request.POST['password']
@@ -61,6 +62,14 @@ class PassResetView(PasswordResetView):
     template_name = 'users/registration/password_reset_form.html'
     email_template_name = 'users/registration/password_reset_email.html'
     success_url = reverse_lazy("users:password_reset_done")
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            "email": request.session.get('email_user', '')
+        }
+        return render(request=request,
+                      template_name='users/registration/password_reset_form.html',
+                      context=context)
 
 
 class PassResetDoneView(PasswordResetDoneView):

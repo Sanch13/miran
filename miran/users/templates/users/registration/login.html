@@ -30,29 +30,42 @@
                 <div class="card-body">
                     <form action="{% url 'users:login' %}" method="post">
                         {% csrf_token %}
-<!--                        <div class="mb-3">-->
-<!--                            <label for="{{ form.email.id_for_label }}" class="form-label">Адрес-->
-<!--                                электронной почты <span class="text-danger"><b>*</b></span></label>-->
-<!--                            {{ form.email }}-->
-<!--                            {% for error in form.email.errors %}-->
-<!--                            <div class="error-message text-danger">{{ error }}</div>-->
-<!--                            {% endfor %}-->
-<!--                        </div>-->
+
                         <div class="mb-3">
                             <label for="{{ form.username.id_for_label }}"
                                    class="form-label">Адрес электронной почты <span
                                     class="text-danger"><b>*</b></span></label>
                             {{ form.username }}
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3 position-relative">
                             <label for="{{ form.password.id_for_label }}"
-                                   class="form-label">Пароль <span
-                                    class="text-danger"><b>*</b></span></label>
-                            {{ form.password }}
+                                   class="form-label">Пароль
+                                <span class="text-danger"><b>*</b></span>
+                            </label>
+                            <div class="password-input">
+                                <input type="password"
+                                       name="password"
+                                       id="password"
+                                       class="form-control"
+                                       placeholder="Введите пароль"
+                                       required="">
+                                <button class="btn eye-icon "
+                                        type="button"
+                                        onclick="togglePassword('password', 'eye-icon2')">
+                                <img src="{% static 'img/invisible.webp' %}"
+                                     id="eye-icon2"
+                                     alt="Toggle Password Visibility">
+                                </button>
+                            </div>
+                            {% for error in form.password1.errors %}
+                            <div class="error-message text-danger">{{ error }}</div>
+                            {% endfor %}
                         </div>
+
                         <div>
                             <p class="text-danger">Обязательное поле к заполнению <span class="text-danger"><b>*</b></span></p>
                         </div>
+
                         <div class="text-center">
                             <button type="submit" class="btn btn-miran ">Войти</button>
                         </div>
@@ -71,4 +84,19 @@
         </div>
     </div>
 </div>
+
+<script>
+    function togglePassword(inputId, iconId) {
+    let input = document.getElementById(inputId);
+    let icon = document.getElementById(iconId);
+    if (input.getAttribute('type') === 'password') {
+        input.setAttribute('type', 'text');
+        icon.setAttribute('src', '{% static "img/eye-open.webp" %}');
+    } else {
+        input.setAttribute('type', 'password');
+        icon.setAttribute('src', '{% static "img/invisible.webp" %}');
+    }
+}
+</script>
+
 {% endblock content %}

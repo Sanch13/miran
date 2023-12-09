@@ -9,6 +9,7 @@ urlpatterns = [
     path('', views.home, name="home"),
     path('users/', include('users.urls', namespace='users')),
     path('books/', include('books.urls', namespace='books')),
+    path('signs/', include('signs.urls', namespace='signs')),
     path('admin/', admin.site.urls),
 ]
 

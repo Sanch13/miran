@@ -7,79 +7,90 @@
 
 {% block content %}
 
-<nav aria-label="breadcrumb"  style="border-bottom: none">
-  <ol class="breadcrumb my-1">
+<!--<nav aria-label="breadcrumb" class="container-xl">-->
+<!--  <ol class="breadcrumb my-1">-->
 <!--    <li class="breadcrumb-item"><a href="#">Главная</a></li>-->
-    <li class="breadcrumb-item active" aria-current="page">Библиотека</li>
+<!--    <li class="breadcrumb-item active" aria-current="page">Библиотека</li>-->
 <!--    <li class="breadcrumb-item">Данные</li>-->
-  </ol>
-</nav>
-
-<div class="container-xl my-1">
-    <form action="{% url 'books:list_books' %}" method="post">
-        {% csrf_token %}
-            <div class="row search">
-                <div>
-                    <h5 class="text-center mt-2">Фильтр поиска</h5>
-                </div>
-                <div class="col-12 col-sm-3">
-                    <p>
-                        <label for="id_author">Автор книги:</label>
-                        <input type="text" name="author" class="form-control" id="id_author" value="{{ author }}">
-                    </p>
-                    <p>
-                        <label for="id_title">Название книги:</label>
-                        <input type="text" name="title" class="form-control" id="id_title" value="{{ title }}">
-                    </p>
-                </div>
-                <div class="col-12 col-sm-3">
-                    <p>
-                        <label for="id_status">Статус книги:</label>
-                        <select name="status" class="form-control" id="id_status">
-                            <option value="" {% if status == '' %}selected{% endif %}>------------------</option>
-                            <option value="OPEN" {% if status == 'OPEN' %} selected {% endif %}>Свободна</option>
-                            <option value="CLOSE" {% if status == 'CLOSE' %}selected{% endif %}>В пользовании</option>
-                        </select>
-                    </p>
-                    <p>
-                        <label for="id_reader">Читатель:</label>
-                        <input type="text" name="reader" maxlength="100" class="form-control"
-                               id="id_reader"  value="{{ reader }}">
-                    </p>
-                </div>
-                <div class="col-12 col-sm-3 d-flex justify-content-center">
-                    <div class="text-center mt-4">
-                        <p>
-                        <button type="submit" class="btn btn-miran btn-block">Применить
-                            фильтр</button>
-                        </p>
-                        <p>
-                        <button type="submit"  class="btn btn-miran mt-4 container-fluid" name="clear_filter"
-                                value="1">Очистить фильтр</button>
-                        </p>
-                    </div>
-                </div>
-            </div>
-    </form>
-</div>
+<!--  </ol>-->
+<!--</nav>-->
 
 <h1 class="text-center">Список книг</h1>
-<div class="container-xl p-0">
+
+<div class="container-xl position-relative">
+    <div class="row">
+        <div class="col-12 text-end pe-4">
+            <a id="" onclick="" href="{% url 'books:print_qr' %}">Распечатать все QR</a>
+            <a id="toggleLink" onclick="toggle_search()" href="#">Показать фильтр поиска</a>
+        </div>
+    </div >
+</div>
+
+<div class="container-fluid my-1 p-0">
+    <div class="row container-fluid p-0 m-0 search"  id="bookHistoryTable" style="display: none; ">
+    <form action="{% url 'books:list_books' %}" method="post" >
+        {% csrf_token %}
+        <div class="row container-fluid px-auto " >
+            <div class="col-12 col-sm-3 py-1">
+                <p>
+                    <label for="id_author">Автор книги:</label>
+                    <input type="text" name="author" class="form-control" id="id_author" value="{{ author }}">
+                </p>
+                <p>
+                    <label for="id_title">Название книги:</label>
+                    <input type="text" name="title" class="form-control" id="id_title" value="{{ title }}">
+                </p>
+            </div>
+            <div class="col-12 col-sm-3 py-1">
+                <p>
+                    <label for="id_status">Статус книги:</label>
+                    <select name="status" class="form-control" id="id_status">
+                        <option value="" {% if status == '' %}selected{% endif %}>------------------</option>
+                        <option value="OPEN" {% if status == 'OPEN' %} selected {% endif %}>Свободна</option>
+                        <option value="CLOSE" {% if status == 'CLOSE' %}selected{% endif %}>В пользовании</option>
+                    </select>
+                </p>
+                <p>
+                    <label for="id_reader">Читатель:</label>
+                    <input type="text" name="reader" maxlength="100" class="form-control"
+                           id="id_reader"  value="{{ reader }}">
+                </p>
+            </div>
+            <div class="col-12 col-sm-3 d-flex justify-content-center py-1">
+                <div class="text-center mt-4">
+                    <p>
+                    <button type="submit" class="btn btn-miran btn-block">Применить
+                        фильтр</button>
+                    </p>
+                    <p>
+                    <button type="submit"  class="btn btn-miran mt-4 container-fluid" name="clear_filter"
+                            value="1">Очистить фильтр</button>
+                    </p>
+                </div>
+            </div>
+            </div>
+    </form>
+    </div>
+</div>
+
+<div class="container-fluid p-0">
     <table class="table table-hover table-bordered">
         <thead class="table-secondary" style=" height: 50px;">
+        <th class="text-center align-middle">№</th>
         <th class="text-center align-middle">Автор</th>
         <th class="text-center align-middle">Название книги</th>
         <th class="text-center align-middle">Статус книги</th>
         <th class="text-center align-middle">Читатель </th>
 <!--        <th class="text-center align-middle">Краткое описание книги</th>-->
         {% if request.user.is_staff %}
-        <th class="text-center align-middle">На печать</th>
+        <th class="text-center align-middle">Qr-code</th>
         <th class="text-center align-middle">Действия с книгой</th>
         {% endif %}
         </thead>
         <tbody>
         {% for book in books %}
         <tr>
+            <td style="width: 100px;" class="text-center">{{ forloop.counter }}</td>
             <td class="align-middle table-row-link" data-href="{{ book.get_absolute_url }}">{{ book.author }}</td>
             <td class="align-middle table-row-link" data-href="{{ book.get_absolute_url }}">{{ book.title }}</td>
             <td style="" class="text-center align-middle table-row-link" data-href="{{ book.get_absolute_url }}">
@@ -101,7 +112,7 @@
                      style="max-width: 100%;"
                      alt="QR-code"
                 >
-            <a href="#" onclick="printQR('{{ book.slug }}')" class="btn btn-sm btn-secondary m-0 p-0">Напечатать QR-code</a>
+            <a href="#" onclick="printQR('{{ book.slug }}')" class="btn btn-sm btn-secondary m-0 p-0">Печать</a>
             </td>
             <td style="white-space: nowrap;" class="text-center align-middle">
                 <a href="{% url 'books:edit' book.slug %}" class="btn btn-sm btn-primary m-0 p-0">Редактировать</a> |
@@ -180,4 +191,18 @@
         };
     }
 </script>
+<script>
+    function toggle_search() {
+    const div = document.getElementById("bookHistoryTable");
+    const link = document.getElementById("toggleLink");
+    if (div.style.display === "none") {
+        div.style.display = "inline-flex";
+        link.textContent = "Скрыть фильтр поиска";
+    } else {
+        div.style.display = "none";
+        link.textContent = "Показать фильтр поиска";
+    }
+}
+</script>
+
 {% endblock content %}

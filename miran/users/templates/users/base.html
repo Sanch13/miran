@@ -42,15 +42,15 @@
 <!--                <li class="nav-item">-->
 <!--                    <a class="nav-link" href="/">Главная</a>-->
 <!--                </li>-->
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link" href="#">Список сотрудников</a>-->
-<!--                </li>-->
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'books:list_books' %}">Библиотека</a>
+                    <a class="nav-link" href="{% url 'signs:create_sign' %}">Создать подпись</a>
                 </li>
 <!--                <li class="nav-item">-->
-<!--                    <a class="nav-link" href="#">Link</a>-->
+<!--                    <a class="nav-link" href="{% url 'books:list_books' %}">Библиотека</a>-->
 <!--                </li>-->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'books:book_list_card' %}">Библиотека</a>
+                </li>
             </ul>
 <!--                  Login/Logout-->
             <div class="me-3 pe-2">
@@ -72,6 +72,12 @@
                             {% if request.user.is_staff %}
                             <a class="dropdown-item nav-link"
                                href="{% url 'books:add_book' %}">Добавить книгу</a>
+                            {% endif %}
+                        </li>
+                        <li>
+                            {% if request.user.is_staff %}
+                            <a class="dropdown-item nav-link"
+                               href="{% url 'signs:create_sign' %}">Создать подпись</a>
                             {% endif %}
                         </li>
                         <li><a class="dropdown-item nav-link"
