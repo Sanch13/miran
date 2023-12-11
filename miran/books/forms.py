@@ -37,8 +37,6 @@ class BookSearchForm(forms.ModelForm):
 
 
 class AddBookForm(forms.ModelForm):
-    # label = forms.FileField()
-
     class Meta:
         model = Book
         fields = ('author', 'title', 'description', 'year', 'label')

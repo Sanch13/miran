@@ -146,14 +146,12 @@ def return_book(request):
 
 def add_book(request):
     if request.method == "POST":
-        form = AddBookForm(data=request.POST)
-        print(form)
+        form = AddBookForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             author = form.cleaned_data.get("author", '')
             title = form.cleaned_data.get("title", '')
             description = form.cleaned_data.get("description", '')
             label = form.cleaned_data.get("label", '')
-            print(label)
             year = form.cleaned_data.get("year", 0)
             try:
                 book = Book.objects.create(author=author,

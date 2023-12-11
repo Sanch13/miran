@@ -25,7 +25,7 @@
 
 <div class="container-fluid my-1 p-0">
     <div class="row container-fluid p-0 m-0 search" id="bookHistoryTable" style="display: none; ">
-        <form action="{% url 'books:list_books' %}" method="post">
+        <form action="{% url 'books:book_list_card' %}" method="post">
             {% csrf_token %}
             <div class="row container-fluid px-auto ">
                 <div class="col-12 col-sm-3 py-1">
@@ -78,7 +78,7 @@
 <div class="card-group">
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
     {% for book in books%}
-        <div class="card card-book p-2 col-6 col-md-4 col-lg-3">
+        <div class="card card-book p-2 col-6 col-md-4 col-lg-3 table-row-link" data-href="{{ book.get_absolute_url }}">
             <div class="card-image">
                 <img src="/media/{{ book.label }}"
                  class="card-img-top w-50"
@@ -86,8 +86,13 @@
                 >
             </div>
             <div class="card-body">
-              <p class="card-title">{{ book.title }}<br> {{book.author}}, {{book.year}}</p>
-              <p class="card-text"></p>
+                <p class="card-title">{{ book.title }}<br> {{book.author}}, {{book.year}}</p>
+                <p class="card-text"></p>
+                <p class="card-text text-center">
+                    <a href="{% url 'books:edit' book.slug %}" class="btn btn-sm btn-primary m-0 p-0">Редактировать</a> |
+                    <a href="#" class="btn btn-danger m-0 p-0"
+                        data-bs-toggle="modal"
+                        data-bs-target="#deleteModal">Удалить</a></p>
             </div>
         </div>
     {% endfor %}
@@ -107,6 +112,20 @@
             link.textContent = "Показать фильтр поиска";
         }
     }
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const tableRows = document.querySelectorAll('.table-row-link');
+        tableRows.forEach((row) => {
+            row.addEventListener('click', function () {
+                const href = this.getAttribute('data-href');
+                if (href) {
+                    window.location.href = href;
+                }
+            });
+        });
+    });
 </script>
 
 {% endblock %}
