@@ -1,4 +1,5 @@
 from django import forms
+
 from .models import Book
 
 
@@ -36,9 +37,11 @@ class BookSearchForm(forms.ModelForm):
 
 
 class AddBookForm(forms.ModelForm):
+    # label = forms.FileField()
+
     class Meta:
         model = Book
-        fields = ('author', 'title', 'description', 'year')
+        fields = ('author', 'title', 'description', 'year', 'label')
 
     def __init__(self, *args, **kwargs):
         super(AddBookForm, self).__init__(*args, **kwargs)

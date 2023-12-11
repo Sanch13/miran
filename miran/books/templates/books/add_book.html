@@ -22,7 +22,7 @@
                 <h5 class="my-2">Добавить книгу в библиотеку</h5>
             </div>
             <div class="card-body">
-                <form action="{% url 'books:add_book' %}" method="post">
+                <form action="{% url 'books:add_book' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="mb-3">
                         <label for="{{ form.author.id_for_label }}"
@@ -48,6 +48,16 @@
                                 class="text-danger"><b>*</b></span></label>
                         {{ form.year }}
                         {% for error in form.year.errors %}
+                        <div class="error-message text-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ form.label.id_for_label }}"
+                               class="form-label"> Обложка книги <span
+                                class="text-danger"><b>*</b></span></label>
+                        <input type="file" name="label" accept="image/*" id="id_label">
+<!--                        {{ form.label }}-->
+                        {% for error in form.label.errors %}
                         <div class="error-message text-danger">{{ error }}</div>
                         {% endfor %}
                     </div>
