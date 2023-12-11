@@ -45,7 +45,7 @@ def login(request):
                 # Если user не авторизован и пытается взять книгу запоминаем его url. После
                 # авторизации перенаправляем его на предыдущую страницу книги. Если user пришел не
                 # с страницы книги перенаправляем его на список книг
-                next_url = request.session.get('next_url', 'books:list_books')
+                next_url = request.session.get('next_url', 'books:book_list_card')
                 return redirect(next_url)
         else:
             messages.error(request=request,

@@ -36,7 +36,7 @@ def list_books(request):
                 'reader': reader
             }
         return render(request=request,
-                      template_name="books/list_books.html",
+                      template_name="books/book_list_card.html",
                       context=context)
 
     context = {
@@ -44,7 +44,7 @@ def list_books(request):
         "form": BookSearchForm(),
     }
     return render(request=request,
-                  template_name="books/list_books.html",
+                  template_name="books/book_list_card.html",
                   context=context)
 
 
@@ -211,6 +211,6 @@ def delete_book(request, slug):
         file = Path(f"{str(settings.MEDIA_ROOT)}/{str(book.qr_code)}")
         file.unlink()
         book.delete()
-        return redirect(to="books:list_books")
+        return redirect(to="books:book_list_card")
     except Exception:
         return HttpResponseNotFound("<h2>Невозможно удалить книгу</h2>")
