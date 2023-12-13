@@ -12,7 +12,7 @@
 <div class="container-xl position-relative">
     <div class="row">
         <div class="col-6 text-start pe-4">
-            <a id="toggleLink"  onclick="toggle_search()" href="#">Показать фильтр поиска</a>
+            <a id="toggleLink" onclick="toggle_search()" href="#">Показать фильтр поиска</a>
 
         </div>
         <div class="col-6 text-end pe-4">
@@ -31,28 +31,26 @@
                 <div class="col-12 col-sm-3 py-1">
                     <p>
                         <label for="id_author">Автор книги:</label>
-                        <input type="text" name="author" class="form-control" id="id_author"
-                               value="{{ author }}">
+                        <input type="text" name="author" class="form-control" id="id_author" value="{{ author }}">
                     </p>
                     <p>
                         <label for="id_title">Название книги:</label>
-                        <input type="text" name="title" class="form-control" id="id_title"
-                               value="{{ title }}">
+                        <input type="text" name="title" class="form-control" id="id_title" value="{{ title }}">
                     </p>
                 </div>
                 <div class="col-12 col-sm-3 py-1">
                     <p>
                         <label for="id_status">Статус книги:</label>
                         <select name="status" class="form-control" id="id_status">
-                            <option value="" {% if status == '' %}selected{% endif %}>------------------</option>
-                            <option value="OPEN" {% if status == 'OPEN' %} selected {% endif %}>Свободна</option>
-                            <option value="CLOSE" {% if status == 'CLOSE' %}selected{% endif %}>В пользовании</option>
+                            <option value="" >{% if status == "" %}selected{% endif %}------------------</option>
+                            <option value="OPEN">{% if status == "OPEN" %} selected {% endif %}Свободна</option>
+                            <option value="CLOSE">{% if status == "CLOSE" %}selected{% endif %}В пользовании</option>
                         </select>
                     </p>
                     <p>
                         <label for="id_reader">Читатель:</label>
-                        <input type="text" name="reader" maxlength="100" class="form-control"
-                               id="id_reader" value="{{ reader }}">
+                        <input type="text" name="reader" maxlength="100" class="form-control" id="id_reader"
+                            value="{{ reader }}">
                     </p>
                 </div>
                 <div class="col-12 col-sm-3 d-flex justify-content-center py-1">
@@ -63,9 +61,8 @@
                             </button>
                         </p>
                         <p>
-                            <button type="submit" class="btn btn-miran mt-4 container-fluid"
-                                    name="clear_filter"
-                                    value="1">Очистить фильтр
+                            <button type="submit" class="btn btn-miran mt-4 container-fluid" name="clear_filter"
+                                value="1">Очистить фильтр
                             </button>
                         </p>
                     </div>
@@ -75,22 +72,20 @@
     </div>
 </div>
 
-<div class="card-group my-1">
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 mx-0">
-    {% for book in books%}
-        <div class="card card-book col-6 col-md-4 col-lg-3 px-1" >
-            <div class="card-image table-row-link text-center my-1" data-href="{{ book.get_absolute_url }}">
-                <img src="/media/{{ book.label }}"
-                 class="card-img-top text-center"
-                 alt="..."
-                 style="width: 150px; height: 220px"
-                >
+<div class="card-group">
+    <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-lg-6"
+         style="margin-left: -5px; margin-right: -5px">
+        {% for book in books%}
+        <div class="card ">
+            <div class="card-image table-row-link text-center" data-href="{{ book.get_absolute_url }}">
+                <img src="/media/{{ book.label }}" class="card-img-top text-center" alt="..."
+                    style="width: 150px; height: 220px">
             </div>
             <div class="card-body table-row-link p-1" data-href="{{ book.get_absolute_url }}">
                 <p class="card-title"><b>{{ book.title }}</b><br> {{book.author}}, {{book.year}}</p>
 
             </div>
-            <div class="text-center">
+            <!-- <div class="text-center">
                 {% if user.is_authenticated %}
                     <a href="{% url 'books:edit' book.slug %}" class="btn btn-sm btn-primary m-0 p-0">Редактировать</a> |
                     <a href="#" class="btn btn-danger m-0 p-0"
@@ -115,11 +110,55 @@
                         </div>
                     </div>
                     {% endif %}
-            </div>
+            </div> -->
+
         </div>
-    {% endfor %}
+        {% endfor %}
     </div>
 </div>
+
+<!--<div class="card-group my-1">-->
+<!--    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 mx-0">-->
+<!--        {% for book in books%}-->
+<!--        <div class="card card-book col-6 col-md-4 col-lg-3 px-1">-->
+<!--            <div class="card-image table-row-link text-center my-1" data-href="{{ book.get_absolute_url }}">-->
+<!--                <img src="/media/{{ book.label }}" class="card-img-top text-center" alt="..."-->
+<!--                    style="width: 150px; height: 220px">-->
+<!--            </div>-->
+<!--            <div class="card-body table-row-link p-1" data-href="{{ book.get_absolute_url }}">-->
+<!--                <p class="card-title"><b>{{ book.title }}</b><br> {{book.author}}, {{book.year}}</p>-->
+
+<!--            </div>-->
+<!--            <div class="text-center">-->
+<!--                {% if user.is_authenticated %}-->
+<!--                    <a href="{% url 'books:edit' book.slug %}" class="btn btn-sm btn-primary m-0 p-0">Редактировать</a> |-->
+<!--                    <a href="#" class="btn btn-danger m-0 p-0"-->
+<!--                        data-bs-toggle="modal"-->
+<!--                        data-bs-target="#deleteModal">Удалить</a></p>-->
+<!--                    <div class="modal fade" id="deleteModal" tabindex="-1"-->
+<!--                    aria-labelledby="deleteModalLabel" aria-hidden="true">-->
+<!--                        <div class="modal-dialog">-->
+<!--                            <div class="modal-content">-->
+<!--                                <div class="modal-body">-->
+<!--                                    Вы уверены что хотите удалить книгу?-->
+<!--                                </div>-->
+<!--                                <div class="modal-footer m-auto">-->
+<!--                                    <a href="{% url 'books:delete' book.slug %}"-->
+<!--                                       class="btn btn-danger">Удалить</a>-->
+<!--                                    <button type="button" class="btn btn-secondary"-->
+<!--                                            data-bs-dismiss="modal">Отмена-->
+<!--                                    </button>-->
+
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    {% endif %}-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        {% endfor %}-->
+<!--    </div>-->
+<!--</div>-->
 
 
 <script>
@@ -151,5 +190,3 @@
 </script>
 
 {% endblock %}
-
-
