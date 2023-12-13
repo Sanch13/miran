@@ -67,8 +67,8 @@ main {
 }
 
 .card-group .card {
-    height: 375px;
-    /*width: 250px;*/
+    height: 345px;
+    width: 180px;
     display: flex;
     flex-direction: column;
     /*border: 1px solid #cc5555;*/
