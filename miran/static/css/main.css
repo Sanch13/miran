@@ -77,7 +77,7 @@ main {
 
 
 .card-group .card-book:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Тень при наведении на всю область card-book */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border: 1px solid black;
 }
 

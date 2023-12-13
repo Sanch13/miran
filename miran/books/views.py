@@ -70,14 +70,15 @@ def list_books2(request):
                 'status': status,
                 'reader': reader
             }
-        return render(request=request,
-                      template_name="books/book_list_card.html",
-                      context=context)
+            return render(request=request,
+                          template_name="books/book_list_card.html",
+                          context=context)
 
-    context = {
-        "books": Book.objects.all(),
-        "form": BookSearchForm(),
-    }
+    else:
+        context = {
+            "books": Book.objects.all(),
+            "form": BookSearchForm(),
+        }
     return render(request=request,
                   template_name="books/book_list_card.html",
                   context=context)
