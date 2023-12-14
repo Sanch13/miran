@@ -66,38 +66,24 @@ main {
     --bs-table-color: #212529;
 }
 
+.card-group .card-book {
+    padding-left: 0px;
+    padding-right: 0px;
+    border-radius: 0;
+}
 
-/* .card-group .card {
-    height: 345px;
-    width: 180px;
-    display: flex;
-    flex-direction: column;
-    border-radius: 0px;
-} */
-
-/* .card-group .card-book:hover {
+.card-group .card-book:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border: 1px solid black;
-} */
+}
 
-/* .card-group .card .card-image {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-} */
+.card-group .card .card-image {
+    padding: 2px 2px 2px 2px;
+}
 
-/* .card-group .card .card-image img {
-    max-width: 100%;
-    max-height: 100%;
-} */
-
-/* .card-group .card .card-body {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-} */
+.card-group .card .card-body {
+    padding: 3px 3px 3px 3px;
+}
 
 .btn-miran {
     background-color: #C4D126;
