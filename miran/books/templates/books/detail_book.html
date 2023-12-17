@@ -16,61 +16,58 @@
 </nav>
 
 <div class="row py-1">
-
     <div class="col-12 py-2">
         <h2 class="text-center">{{ book.title }}</h2>
     </div>
-    <div class="col-lg-12">
+    <div class="col-12">
         <div class="row">
-            <div class="col-2">
-                <p>Автор книги: </p>
+            <div class="col-3 p-1 mb-1">
+                Автор книги:
             </div>
-            <div class="col-10">
-                <p><b>{{ book.author }}</b></p>
+            <div class="col-9 p-1 mb-1">
+                <b>{{ book.author }}</b>
             </div>
         </div>
         <div class="row">
-            <div class="col-2">
-                <p>Дата издания: </p>
+            <div class="col-3 p-1 mb-1">
+                Дата издания:
             </div>
-            <div class="col-10">
-                <p><b>{{ book.year }}</b></p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-2">
-                <p>Краткое описание книги: </p>
-            </div>
-            <div class="col-10">
-                <p><i><b>{{ book.description }}</b></i></p>
+            <div class="col-9 p-1 mb-1">
+                <b>{{ book.year }}</b>
             </div>
         </div>
         <div class="row">
-            <div class="col-2">
-                <p>Статус книги: </p>
+            <div class="col-3 p-1 mb-1">
+                Краткое описание книги:
             </div>
-            <div class="col-10">
-                <p>
-                    <b>{% if book.status == 'CLOSE' %}В пользовании{%else%} Свободна {%endif%}</b>
-                </p>
+            <div class="col-9 p-1 mb-1">
+                <i><b>{{ book.description }}</b></i>
             </div>
         </div>
         <div class="row">
-            <div class="col-2">
+            <div class="col-3 p-1 mb-1">
+                Статус книги:
+            </div>
+            <div class="col-9 p-1 mb-1">
+                <b>{% if book.status == 'CLOSE' %}В пользовании{%else%} Свободна {%endif%}</b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3 p-1 mb-1">
                 {% if reader %}
-                <p>Книгу взял в пользование:</p>
+                Книгу взял в пользование:
                 {% endif %}
             </div>
-            <div class="col-10">
-                <p><b>{{ reader }} </b></p>
+            <div class="col-9 p-1 mb-1">
+                <b>{{ reader }} </b>
             </div>
         </div>
         <div class="row">
-            <div class="col-2">
-                <p>История книги: </p>
+            <div class="col-3 p-1 mb-1">
+                История книги:
             </div>
-            <div class="col-10">
-                <p><a id="toggleLink" onclick="toggle_table()" href="#">Показать</a></p>
+            <div class="col-9 p-1 mb-1">
+                <a id="toggleLink" onclick="toggle_table()" href="#HistoryTable">Показать</a>
             </div>
         </div>
     </div>
@@ -125,7 +122,7 @@
         <th class="text-center align-middle">Дата выдачи</th>
         <th class="text-center align-middle">Дата возврата</th>
         </thead>
-        <tbody>
+        <tbody id="HistoryTable">
         {% for book in book_history %}
         <tr class="text-center">
             <td style="width: 100px;">{{ forloop.counter }}</td>

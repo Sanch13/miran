@@ -11,8 +11,14 @@
 
 <div class="container-xl position-relative">
     <div class="row">
-        <div class="col-6 text-start pe-4">
-            <a id="toggleLink" onclick="toggle_search()" href="#">Показать фильтр поиска</a>
+        <div class="col-6 text-start pe-4 mb-2">
+            <a id="toggleLink" onclick="toggle_search()" href="#">
+                <img src="{% static 'img/funnel.svg' %}"
+                     alt="..."
+                     width="20px"
+                     height="20px"
+                />
+            </a>
 
         </div>
         <div class="col-6 text-end pe-4">
@@ -23,66 +29,70 @@
     </div>
 </div>
 
-<div class="container-fluid my-1 p-0">
-    <div class="row container-fluid p-0 m-0 search" id="bookHistoryTable" style="display: none; ">
-        <form action="{% url 'books:book_list_card' %}" method="post">
-            {% csrf_token %}
-            <div class="row container-fluid px-auto ">
-                <div class="col-12 col-sm-3 py-1">
+
+<div class="row container-fluid search my-1 px-0"
+     id="bookHistoryTable"
+     style="display: none; margin-left: -4px; margin-right: 8px">
+    <form action="{% url 'books:book_list_card' %}" method="post">
+        {% csrf_token %}
+        <div class="row container-fluid px-auto ">
+            <div class="col-12 col-sm-3 py-1">
+                <p>
+                    <label for="id_author">Автор книги:</label>
+                    <input type="text" name="author" class="form-control" id="id_author" value="{{ author }}">
+                </p>
+                <p>
+                    <label for="id_title">Название книги:</label>
+                    <input type="text" name="title" class="form-control" id="id_title" value="{{ title }}">
+                </p>
+            </div>
+            <div class="col-12 col-sm-3 py-1">
+                <p>
+                    <label for="id_status">Статус книги:</label>
+                    <select name="status" class="form-control" id="id_status">
+                        <option value="" >{% if status == "" %}  {% endif %} ------------------ </option>
+                        <option value="OPEN">{% if status == "OPEN" %}  {% endif %}Свободна</option>
+                        <option value="CLOSE">{% if status == "CLOSE" %}{% endif %}В пользовании</option>
+                    </select>
+                </p>
+                <p>
+                    <label for="id_reader">Читатель:</label>
+                    <input type="text" name="reader" maxlength="100" class="form-control" id="id_reader"
+                        value="{{ reader }}">
+                </p>
+            </div>
+            <div class="col-12 col-sm-3 d-flex justify-content-center py-1">
+                <div class="text-center mt-4">
                     <p>
-                        <label for="id_author">Автор книги:</label>
-                        <input type="text" name="author" class="form-control" id="id_author" value="{{ author }}">
-                    </p>
+                        <button type="submit" class="btn btn-miran btn-block">Применить
+                            фильтр
+                        </button>
+
                     <p>
-                        <label for="id_title">Название книги:</label>
-                        <input type="text" name="title" class="form-control" id="id_title" value="{{ title }}">
+                        <button type="submit" class="btn btn-miran mt-4 container-fluid" name="clear_filter"
+                            value="1">Очистить фильтр
+                        </button>
                     </p>
-                </div>
-                <div class="col-12 col-sm-3 py-1">
-                    <p>
-                        <label for="id_status">Статус книги:</label>
-                        <select name="status" class="form-control" id="id_status">
-                            <option value="" >{% if status == "" %}  {% endif %} ------------------ </option>
-                            <option value="OPEN">{% if status == "OPEN" %}  {% endif %}Свободна</option>
-                            <option value="CLOSE">{% if status == "CLOSE" %}{% endif %}В пользовании</option>
-                        </select>
-                    </p>
-                    <p>
-                        <label for="id_reader">Читатель:</label>
-                        <input type="text" name="reader" maxlength="100" class="form-control" id="id_reader"
-                            value="{{ reader }}">
-                    </p>
-                </div>
-                <div class="col-12 col-sm-3 d-flex justify-content-center py-1">
-                    <div class="text-center mt-4">
-                        <p>
-                            <button type="submit" class="btn btn-miran btn-block">Применить
-                                фильтр
-                            </button>
-                        </p>
-                        <p>
-                            <button type="submit" class="btn btn-miran mt-4 container-fluid" name="clear_filter"
-                                value="1">Очистить фильтр
-                            </button>
-                        </p>
-                    </div>
                 </div>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
 
-<div class="card-group">
-    <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6"
-         style="margin-left: -2px; margin-right: -2px">
+
+<div class="row row-cols-2 row-cols-md-4 row-cols-lg-5 row-cols-xl-6"
+     style="margin-left: -4px; margin-right: -4px">
         {% for book in books%}
-        <div class="card card-book">
+        <div class="col card-col">
+        <div class="card card-book h-100">
             <div class="card-image table-row-link text-center"
                  data-href="{{ book.get_absolute_url }}">
                 <img src="/media/{{ book.label }}" class="card-img-top text-center" alt="..."
-                    style="width: 150px; height: 220px">
+                    style="width: 170px; height: 250px">
             </div>
-            <div class="card-body table-row-link" data-href="{{ book.get_absolute_url }}">
+            <div class="card-body table-row-link"
+                 data-href="{{ book.get_absolute_url }}"
+                 style="padding: 3px 3px 3px 3px;">
                 <p class="card-title"><b>{{ book.title }}</b><br> {{book.author}}, {{book.year}}</p>
             </div>
             <div class="text-center">
@@ -113,9 +123,9 @@
             </div>
 
         </div>
+        </div>
         {% endfor %}
     </div>
-</div>
 
 <script>
     function toggle_search() {
@@ -123,10 +133,18 @@
         const link = document.getElementById("toggleLink");
         if (div.style.display === "none") {
             div.style.display = "inline-flex";
-            link.textContent = "Скрыть фильтр поиска";
+            link.innerHTML = `<img src="{% static 'img/funnel-fill.svg' %}"
+                                    alt="..."
+                                    width="20px"
+                                    height="20px"
+            />`;
         } else {
             div.style.display = "none";
-            link.textContent = "Показать фильтр поиска";
+            link.innerHTML = `<img src="{% static 'img/funnel.svg' %}"
+                                    alt="..."
+                                    width="20px"
+                                    height="20px"
+            />`;
         }
     }
 </script>
