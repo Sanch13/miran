@@ -1,21 +1,23 @@
 const message = document.getElementById("message")
-const countdown = document.getElementById("countdown")
-let opacity = 1;
-let timeLeft = 5;
 
-function updateCountdown() {
-    opacity -= 0.08;
-    message.style.opacity = opacity
-    // countdown.innerText = timeLeft + ' сек';
-    timeLeft--;
+if (message) {
+    let opacity = 1;
+    let timeLeft = 5;
 
-    if (timeLeft < 0) {
-        message.style.display = 'none';
+    function updateCountdown() {
+        opacity -= 0.08;
+        message.style.opacity = opacity
+        timeLeft--;
+
+        if (timeLeft < 0) {
+            message.style.display = 'none';
+            clearInterval(countdownTimer);
+        }
     }
+
+    const countdownTimer = setInterval(function () {
+        if (timeLeft >= 0) {
+            updateCountdown();
+        }
+    }, 1000);
 }
-
-const countdownTimer = setInterval(function () {
-    if (timeLeft >= 0) {
-        updateCountdown();
-    }
-}, 1000);

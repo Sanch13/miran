@@ -19,7 +19,16 @@
     <div class="col-12 py-2">
         <h2 class="text-center">{{ book.title }}</h2>
     </div>
-    <div class="col-12">
+    <div class="col-lg-3 py-1">
+        <div style="text-align: center">
+            <img src="/media/{{ book.label }}"
+                width="230"
+                height="330"
+                alt=""
+            >
+        </div>
+    </div>
+    <div class="col-lg-9">
         <div class="row">
             <div class="col-3 p-1 mb-1">
                 Автор книги:
@@ -73,13 +82,11 @@
     </div>
 </div>
 
-
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 10; margin-bottom: 50px;">
     {% if messages %}
     {% for message in messages %}
     <div class="alert alert-success text-center" id="message">
         {{ message }}
-        <span id="countdown"></span>
     </div>
     {% endfor %}
     {% endif %}
@@ -135,8 +142,7 @@
     </table>
 </div>
 
-<script src="{% static 'js/hide_alert_msg.js' %}"></script>
 <script src="{% static 'js/toggle_table.js' %}"></script>
-<script src="{% static 'js/print_image.js' %}"></script>
+<script src="{% static 'js/hide_alert_msg.js' %}"></script>
 
 {% endblock content %}

@@ -19,13 +19,20 @@
     <div class="col-12 py-2">
         <h2 class="text-center">{{ book.title }}</h2>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-3 py-1">
         <div style="text-align: center">
-            <p class="my-0">QR-code книги: </p>
+            <img src="/media/{{ book.label }}"
+                width="230"
+                height="330"
+                alt=""
+            >
+        </div>
+        <div style="text-align: center">
+            QR-code книги:
             <img src="{{ book.qr_code.url }}"
                  id="printableImage"
-                 width="200"
-                 height="200"
+                 width="0"
+                 height="0"
                  style="max-width: 100%;"
                  alt="QR-code"
             >
@@ -96,7 +103,6 @@
     {% for message in messages %}
     <div class="alert alert-success text-center" id="message">
         {{ message }}
-        <span id="countdown"></span>
     </div>
     {% endfor %}
     {% endif %}
