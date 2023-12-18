@@ -30,48 +30,39 @@
 </div>
 
 
-<div class="row container-fluid search my-1 px-0"
+<div class="container search my-1"
      id="bookHistoryTable"
-     style="display: none; margin-left: -4px; margin-right: 8px">
+     style="display: none;">
     <form action="{% url 'books:book_list_card' %}" method="post">
         {% csrf_token %}
         <div class="row container-fluid px-auto ">
-            <div class="col-12 col-sm-3 py-1">
-
+            <div class="col-12 col-sm-3  pb-1 px-2">
                     <label for="id_author">Автор книги:</label>
                     <input type="text" name="author" class="form-control" id="id_author" value="{{ author }}">
-
-
                     <label for="id_title">Название книги:</label>
                     <input type="text" name="title" class="form-control" id="id_title" value="{{ title }}">
-
             </div>
-            <div class="col-12 col-sm-3 py-1">
-
+            <div class="col-12 col-sm-3 pb-1 px-2">
                     <label for="id_status">Статус книги:</label>
                     <select name="status" class="form-control" id="id_status">
                         <option value="" >{% if status == "" %}  {% endif %} ------------------ </option>
                         <option value="OPEN">{% if status == "OPEN" %}  {% endif %}Свободна</option>
                         <option value="CLOSE">{% if status == "CLOSE" %}{% endif %}В пользовании</option>
                     </select>
-
-
                     <label for="id_reader">Читатель:</label>
                     <input type="text" name="reader" maxlength="100" class="form-control" id="id_reader"
                         value="{{ reader }}">
-
             </div>
-            <div class="col-12 col-sm-3 d-flex justify-content-center py-1">
+            <div class="col-12 col-sm-3 d-flex justify-content-center pb-1 px-2">
                 <div class="text-center mt-4">
-
-                        <button type="submit" class="btn btn-miran btn-block">Применить
-                            фильтр
+                        <button type="submit"
+                                class="btn btn-miran btn-block">Применить фильтр
                         </button>
-
-                        <button type="submit" class="btn btn-miran mt-4 " name="clear_filter"
-                            value="1">Очистить фильтр
+                        <button type="submit" class="btn btn-miran "
+                                name="clear_filter"
+                                style="margin-top: 20px; width: 173px;"
+                                value="1">Очистить фильтр
                         </button>
-
                 </div>
             </div>
         </div>
@@ -80,7 +71,7 @@
 
 
 <div class="row row-cols-2 row-cols-md-4 row-cols-lg-5 row-cols-xl-6"
-     style="margin-left: -4px; margin-right: 2px">
+     style="margin-right: 0px; margin-left: 0px;">
         {% for book in books%}
         <div class="col card-col">
         <div class="card card-book h-100">
