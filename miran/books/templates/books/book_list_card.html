@@ -37,42 +37,41 @@
         {% csrf_token %}
         <div class="row container-fluid px-auto ">
             <div class="col-12 col-sm-3 py-1">
-                <p>
+
                     <label for="id_author">Автор книги:</label>
                     <input type="text" name="author" class="form-control" id="id_author" value="{{ author }}">
-                </p>
-                <p>
+
+
                     <label for="id_title">Название книги:</label>
                     <input type="text" name="title" class="form-control" id="id_title" value="{{ title }}">
-                </p>
+
             </div>
             <div class="col-12 col-sm-3 py-1">
-                <p>
+
                     <label for="id_status">Статус книги:</label>
                     <select name="status" class="form-control" id="id_status">
                         <option value="" >{% if status == "" %}  {% endif %} ------------------ </option>
                         <option value="OPEN">{% if status == "OPEN" %}  {% endif %}Свободна</option>
                         <option value="CLOSE">{% if status == "CLOSE" %}{% endif %}В пользовании</option>
                     </select>
-                </p>
-                <p>
+
+
                     <label for="id_reader">Читатель:</label>
                     <input type="text" name="reader" maxlength="100" class="form-control" id="id_reader"
                         value="{{ reader }}">
-                </p>
+
             </div>
             <div class="col-12 col-sm-3 d-flex justify-content-center py-1">
                 <div class="text-center mt-4">
-                    <p>
+
                         <button type="submit" class="btn btn-miran btn-block">Применить
                             фильтр
                         </button>
 
-                    <p>
-                        <button type="submit" class="btn btn-miran mt-4 container-fluid" name="clear_filter"
+                        <button type="submit" class="btn btn-miran mt-4 " name="clear_filter"
                             value="1">Очистить фильтр
                         </button>
-                    </p>
+
                 </div>
             </div>
         </div>
@@ -81,14 +80,14 @@
 
 
 <div class="row row-cols-2 row-cols-md-4 row-cols-lg-5 row-cols-xl-6"
-     style="margin-left: -4px; margin-right: -4px">
+     style="margin-left: -4px; margin-right: 2px">
         {% for book in books%}
         <div class="col card-col">
         <div class="card card-book h-100">
             <div class="card-image table-row-link text-center"
                  data-href="{{ book.get_absolute_url }}">
                 <img src="/media/{{ book.label }}" class="card-img-top text-center" alt="..."
-                    style="width: 170px; height: 250px">
+                    style="width: 150px; height: 220px">
             </div>
             <div class="card-body table-row-link"
                  data-href="{{ book.get_absolute_url }}"
