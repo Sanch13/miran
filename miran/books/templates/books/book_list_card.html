@@ -33,25 +33,19 @@
 <div class="container search my-1"
      id="bookHistoryTable"
      style="display: none;">
-    <form action="{% url 'books:book_list_card' %}" method="post">
-        {% csrf_token %}
+    <form action="{% url 'books:book_list_card' %}" method="get">
         <div class="row container-fluid px-auto ">
             <div class="col-12 col-sm-3  pb-1 px-2">
-                    <label for="id_author">Автор книги:</label>
-                    <input type="text" name="author" class="form-control" id="id_author" value="{{ author }}">
-                    <label for="id_title">Название книги:</label>
-                    <input type="text" name="title" class="form-control" id="id_title" value="{{ title }}">
+                <label for="id_author">Автор книги:</label>
+                    {{ form.author }}
+                <label for="id_title">Название книги:</label>
+                    {{ form.title}}
             </div>
             <div class="col-12 col-sm-3 pb-1 px-2">
-                    <label for="id_status">Статус книги:</label>
-                    <select name="status" class="form-control" id="id_status">
-                        <option value="" >{% if status == "" %}  {% endif %} ------------------ </option>
-                        <option value="OPEN">{% if status == "OPEN" %}  {% endif %}Свободна</option>
-                        <option value="CLOSE">{% if status == "CLOSE" %}{% endif %}В пользовании</option>
-                    </select>
-                    <label for="id_reader">Читатель:</label>
-                    <input type="text" name="reader" maxlength="100" class="form-control" id="id_reader"
-                        value="{{ reader }}">
+                <label for="id_status">Статус книги:</label>
+                    {{ form.status }}
+                <label for="id_reader">Читатель:</label>
+                    {{ form.reader }}
             </div>
             <div class="col-12 col-sm-3 d-flex justify-content-center pb-1 px-2">
                 <div class="text-center mt-4">

@@ -14,71 +14,29 @@ from users.models import User
 
 
 def list_books(request):
-    if request.method == "POST":
-        form = BookSearchForm(data=request.POST)
-        if 'clear_filter' in request.POST:
-            context = {
-                "books": Book.objects.all(),
-                "form": BookSearchForm(),
-            }
-        elif form.is_valid():
+    books = Book.objects.all()
+
+    if request.GET:
+        if 'clear_filter' in request.GET:
+            return redirect('books:book_list_card')
+
+        form = BookSearchForm(data=request.GET)
+        if form.is_valid():
             author = form.cleaned_data.get('author', '')
             title = form.cleaned_data.get('title', '')
             status = form.cleaned_data.get('status', '')
             reader = form.cleaned_data.get('reader', '')
-            books = form.filter_books(Book.objects.all())
-            context = {
-                "books": books,
-                "form": form,
-                'author': author,
-                'title': title,
-                'status': status,
-                'reader': reader
-            }
-        return render(request=request,
-                      template_name="books/book_list_card.html",
-                      context=context)
+            books = form.filter_books(queryset=books)
 
-    context = {
-        "books": Book.objects.all(),
-        "form": BookSearchForm(),
-    }
-    return render(request=request,
-                  template_name="books/book_list_card.html",
-                  context=context)
-
-
-def list_books2(request):
-    if request.method == "POST":
-        form = BookSearchForm(data=request.POST)
-        if 'clear_filter' in request.POST:
-            context = {
-                "books": Book.objects.all(),
-                "form": BookSearchForm(),
-            }
-        elif form.is_valid():
-            author = form.cleaned_data.get('author', '')
-            title = form.cleaned_data.get('title', '')
-            status = form.cleaned_data.get('status', '')
-            reader = form.cleaned_data.get('reader', '')
-            books = form.filter_books(Book.objects.all())
-            context = {
-                "books": books,
-                "form": form,
-                'author': author,
-                'title': title,
-                'status': status,
-                'reader': reader
-            }
-            return render(request=request,
-                          template_name="books/book_list_card.html",
-                          context=context)
-
+            form = BookSearchForm(initial={
+                "author": author,
+                "title": title,
+                "status": status,
+                "reader": reader
+            })
     else:
-        context = {
-            "books": Book.objects.all(),
-            "form": BookSearchForm(),
-        }
+        form = BookSearchForm()
+    context = {'books': books, 'form': form}
     return render(request=request,
                   template_name="books/book_list_card.html",
                   context=context)
