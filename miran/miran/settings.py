@@ -12,7 +12,7 @@ ALLOWED_HOSTS = [settings.ALLOWED_HOSTS, ]
 
 AUTH_USER_MODEL = "users.User"
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = 'books:list_books'
+LOGOUT_REDIRECT_URL = 'books:book_list_card'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
