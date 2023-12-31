@@ -38,7 +38,7 @@
             >
             <div>
                 {% if request.user.is_staff %}
-                <a href="#" onclick="printImage()">Напечатать QR-code</a>
+                <a onclick="printImage()" class="link-underline" style="cursor: pointer">Напечатать QR-code</a>
                 {% endif %}
             </div>
         </div>
