@@ -82,34 +82,51 @@
             <div class="text-center">
                 {% if user.is_authenticated %}
                     <a href="{% url 'books:edit' book.slug %}" class="btn btn-sm btn-primary m-0 p-0">Редактировать</a> |
-                    <a href="#" class="btn btn-danger m-0 p-0"
-                        data-bs-toggle="modal"
-                        data-bs-target="#deleteModal">Удалить</a></p>
-                    <div class="modal fade" id="deleteModal" tabindex="-1"
-                    aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <button class="btn btn-sm btn-danger m-0 p-0"
+                    onclick="deleteBook(
+                        '{{ book.title }}',
+                        '{% url 'books:delete' book.slug %}'
+                        )">Удалить
+                    </button>
+                    <div class="modal fade"
+                         id="deleteModal"
+                         tabindex="-1"
+                         aria-labelledby="deleteModalLabel"
+                         aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-body">
-                                    Вы уверены что хотите удалить книгу?
+                                    Вы уверены что хотите удалить книгу <span
+                                        id="deleteBookTitle"></span>?
                                 </div>
                                 <div class="modal-footer m-auto">
-                                    <a href="{% url 'books:delete' book.slug %}"
+                                    <a href="#" id="deleteBookLink"
                                        class="btn btn-danger">Удалить</a>
                                     <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Отмена
                                     </button>
-
                                 </div>
                             </div>
                         </div>
                     </div>
                     {% endif %}
             </div>
-
         </div>
         </div>
         {% endfor %}
     </div>
+
+<script>
+    function deleteBook(bookTitle, bookUrl) {
+        document.getElementById('deleteBookTitle').innerText = bookTitle;
+
+        const deleteLink = document.getElementById('deleteBookLink');
+        deleteLink.href = bookUrl;
+
+        const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+        deleteModal.show();
+    }
+</script>
 
 <script>
     function toggle_search() {

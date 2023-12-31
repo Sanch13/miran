@@ -168,7 +168,9 @@ def delete_book(request, slug):
     try:
         book = Book.objects.get(slug=slug)
         file = Path(f"{str(settings.MEDIA_ROOT)}/{str(book.qr_code)}")
-        file.unlink()
+        file.unlink(missing_ok=True)
+        label = Path(f"{str(settings.MEDIA_ROOT)}/{str(book.label)}")
+        label.unlink(missing_ok=True)
         book.delete()
         return redirect(to="books:book_list_card")
     except Exception:
