@@ -160,7 +160,25 @@ main {
     border: 1px solid #0f5132;
 }
 
-
 .form-check-input:checked {
     background-color: #24e80f;
 }
+
+.change-sign:hover {
+    border: 1px solid #007bff;
+    /*border-color: #C4D126;*/
+    /*box-shadow: 0 0 6px rgba(196, 209, 38, 0.1);*/
+}
+
+
+.change-sign:hover input,
+.change-sign input:checked {
+    outline: 1px solid #007bff;
+}
+
+/* Дополнительные стили для input при выборе */
+.change-sign input:checked + .col-9 {
+    border: 1px solid #C4D126; /* Любой цвет рамки, который вам нужен */
+    padding: 10px; /* Дополнительный отступ при выборе */
+}
+
