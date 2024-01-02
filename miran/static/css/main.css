@@ -63,7 +63,7 @@ main {
     padding-left: 0px;
     padding-right: 0px;
     border-radius: 0;
-    border: 1px solid #c9c7c7;
+    border: 1px solid #e1e1e1;
     font-family: 'Calibri', serif;
     font-size: 15px;
 }
@@ -166,8 +166,6 @@ main {
 
 .change-sign:hover {
     border: 1px solid #007bff;
-    /*border-color: #C4D126;*/
-    /*box-shadow: 0 0 6px rgba(196, 209, 38, 0.1);*/
 }
 
 
@@ -176,9 +174,8 @@ main {
     outline: 1px solid #007bff;
 }
 
-/* Дополнительные стили для input при выборе */
 .change-sign input:checked + .col-9 {
-    border: 1px solid #C4D126; /* Любой цвет рамки, который вам нужен */
-    padding: 10px; /* Дополнительный отступ при выборе */
+    border: 1px solid #C4D126;
+    padding: 10px;
 }
 
