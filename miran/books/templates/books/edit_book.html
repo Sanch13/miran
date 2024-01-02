@@ -22,7 +22,7 @@
                 <h5 class="my-2">Редактировать книгу</h5>
             </div>
             <div class="card-body">
-                <form method="post">
+                <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.as_p }}
                     <div class="text-center">

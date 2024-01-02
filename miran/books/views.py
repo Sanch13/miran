@@ -118,9 +118,9 @@ def add_book(request):
                                            description=description,
                                            label=label,
                                            year=year)
+                return redirect(reverse(viewname="books:detail", args=[book.slug], ))
             except Exception:
                 return 'Не удалось'
-            return redirect(reverse(viewname="books:detail", args=[book.slug], ))
 
     else:
         form = AddBookForm()
@@ -143,15 +143,16 @@ def print_qr(request):
 
 
 def edit_book(request, slug):
-    book = Book.objects.get(slug=slug)
+    book = get_object_or_404(Book, slug=slug)
 
     if request.method == "POST":
-        form = EditBookForm(data=request.POST)
+        form = EditBookForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             book.author = form.cleaned_data.get("author")
             book.title = form.cleaned_data.get("title")
             book.year = form.cleaned_data.get("year")
             book.description = form.cleaned_data.get("description")
+            book.label = form.cleaned_data.get("label") or book.label
             book.save()
             return redirect(reverse(viewname="books:detail", args=[book.slug], ))
 
@@ -166,7 +167,7 @@ def edit_book(request, slug):
 
 def delete_book(request, slug):
     try:
-        book = Book.objects.get(slug=slug)
+        book = get_object_or_404(Book, slug=slug)
         file = Path(f"{str(settings.MEDIA_ROOT)}/{str(book.qr_code)}")
         file.unlink(missing_ok=True)
         label = Path(f"{str(settings.MEDIA_ROOT)}/{str(book.label)}")
