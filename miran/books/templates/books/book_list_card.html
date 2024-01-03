@@ -25,9 +25,10 @@
             <a id="sendSelectedBooks"
                class="link-underline"
                style="cursor: pointer">
-                Распечатать выбранные книги
+                Распечатать QR-code выбранных книг
             </a>
-            <a id="" onclick="" href="{% url 'books:print_qr' %}">Распечатать QR</a>
+            <span style="color: red"> <--- | ---> </span>
+            <a id="" onclick="" href="{% url 'books:print_qr' %}"> Распечатать QR-code всех книг</a>
             {% endif %}
         </div>
     </div>
