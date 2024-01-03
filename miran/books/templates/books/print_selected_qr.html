@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block title %}
-<title>Список всех книг</title>
+<title>Выбранные книги</title>
 {% endblock title %}
 
 {% block content %}
 
-<h1 class="text-center py-2">Список всех книг</h1>
+<h1 class="text-center py-2">Выбранные книги</h1>
 
 <div id="printQR" class="my-1">
     {% for book in books %}
@@ -41,4 +41,3 @@
 <script src="{% static 'js/print_books.js' %}"></script>
 
 {% endblock %}
-

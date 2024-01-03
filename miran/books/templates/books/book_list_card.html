@@ -19,10 +19,14 @@
                      height="20px"
                 />
             </a>
-
         </div>
         <div class="col-6 text-end pe-4">
             {% if request.user.is_staff %}
+            <a id="sendSelectedBooks"
+               class="link-underline"
+               style="cursor: pointer">
+                Распечатать выбранные книги
+            </a>
             <a id="" onclick="" href="{% url 'books:print_qr' %}">Распечатать QR</a>
             {% endif %}
         </div>
@@ -31,7 +35,7 @@
 
 
 <div class="container search my-1"
-     id="bookHistoryTable"
+     id="search_book"
      style="display: none;">
     <form action="{% url 'books:book_list_card' %}" method="get">
         <div class="row container-fluid px-auto ">
@@ -63,58 +67,70 @@
     </form>
 </div>
 
-
 <div class="row row-cols-2 row-cols-md-4 row-cols-lg-5 row-cols-xl-6"
      style="margin-right: 0px; margin-left: 0px;">
-        {% for book in books%}
-        <div class="col card-col">
+    {% for book in books%}
+    <div class="col card-col">
         <div class="card card-book h-100">
-            <div class="card-image table-row-link text-center"
+            <div class="card-image card-link text-center"
                  data-href="{{ book.get_absolute_url }}">
                 <img src="/media/{{ book.label }}" class="card-img-top text-center" alt="..."
                     style="width: 150px; height: 220px">
             </div>
-            <div class="card-body table-row-link"
-                 data-href="{{ book.get_absolute_url }}"
-                 style="padding: 3px 3px 3px 3px;">
-                <p class="card-title mb-0"><b>{{ book.title }}</b><br> {{book.author}}, {{book.year}}</p>
-            </div>
-            <div class="text-center mb-1">
+                <div class="card-body card-link"
+                     data-href="{{ book.get_absolute_url }}"
+                     style="padding: 3px 3px 3px 3px;">
+                    <p class="card-title mb-0"><b>{{ book.title }}</b><br> {{book.author}}, {{book.year}}</p>
+                </div>
                 {% if user.is_authenticated %}
-                    <a href="{% url 'books:edit' book.slug %}" class="btn btn-sm btn-primary m-0 p-0">Редактировать</a> |
-                    <button class="btn btn-sm btn-danger m-0 p-0"
-                    onclick="deleteBook(
-                        '{{ book.title }}',
-                        '{% url 'books:delete' book.slug %}'
-                        )">Удалить
-                    </button>
-                    <div class="modal fade"
-                         id="deleteModal"
-                         tabindex="-1"
-                         aria-labelledby="deleteModalLabel"
-                         aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    Вы уверены что хотите удалить книгу <b><span
-                                        id="deleteBookTitle"></span></b>?
-                                </div>
-                                <div class="modal-footer m-auto">
-                                    <a href="#" id="deleteBookLink"
-                                       class="btn btn-danger">Удалить</a>
-                                    <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Отмена
-                                    </button>
+                <div class="row m-0" >
+                    <div class="col-2 p-0">
+                        <div class="d-flex align-items-center justify-content-center h-100"
+                             style="font-size: 16px;">
+                            <b>{{ forloop.counter }}</b>
+                        </div>
+                    </div>
+                    <div class="col-8 p-0">
+                        <div class="text-center mb-1">
+                        <a href="{% url 'books:edit' book.slug %}" style="font-size: 14px;"
+                           class="btn btn-sm btn-primary m-0 p-0">Редактировать</a>
+                        <button class="btn btn-sm btn-danger m-0 p-0" style="font-size: 14px;"
+                        onclick="deleteBook('{{ book.title }}','{% url 'books:delete' book.slug %}')">Удалить
+                        </button>
+                        <div class="modal fade"
+                             id="deleteModal"
+                             tabindex="-1"
+                             aria-labelledby="deleteModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        Вы уверены что хотите удалить книгу <b><span
+                                            id="deleteBookTitle"></span></b>?
+                                    </div>
+                                    <div class="modal-footer m-auto">
+                                        <a href="#" id="deleteBookLink"
+                                           class="btn btn-danger">Удалить</a>
+                                        <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Отмена
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        </div>
                     </div>
-                    {% endif %}
-            </div>
+                    <div class="col-2 p-0">
+                        <div class="d-flex align-items-center justify-content-center h-100">
+                        <input type="checkbox" class="book-checkbox card-checkbox" data-id="{{ book.id }}">
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
         </div>
-        </div>
-        {% endfor %}
     </div>
+    {% endfor %}
+</div>
 
 <script>
     function deleteBook(bookTitle, bookUrl) {
@@ -130,7 +146,7 @@
 
 <script>
     function toggle_search() {
-        const div = document.getElementById("bookHistoryTable");
+        const div = document.getElementById("search_book");
         const link = document.getElementById("toggleLink");
         if (div.style.display === "none") {
             div.style.display = "inline-flex";
@@ -152,7 +168,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const tableRows = document.querySelectorAll('.table-row-link');
+        const tableRows = document.querySelectorAll('.card-link');
         tableRows.forEach((row) => {
             row.addEventListener('click', function () {
                 const href = this.getAttribute('data-href');
@@ -162,6 +178,27 @@
             });
         });
     });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('sendSelectedBooks').addEventListener('click', function () {
+
+        const checkboxes = document.querySelectorAll('.book-checkbox:checked');
+        const selectedBooks = Array.from(checkboxes).map(function (checkbox) {
+            return checkbox.dataset.id;
+        });
+
+        const params = new URLSearchParams();
+        selectedBooks.forEach(id => params.append('selectedBooks[]', id));
+
+        const url = '{% url "books:print_selected_qr" %}' + '?' + params.toString();
+
+        window.location.href = url;
+
+    });
+});
+
 </script>
 
 {% endblock %}

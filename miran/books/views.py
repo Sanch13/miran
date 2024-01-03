@@ -142,6 +142,17 @@ def print_qr(request):
                   context=context)
 
 
+def print_selected_qr(request):
+    if request.method == 'GET':
+        selected_books = request.GET.getlist('selectedBooks[]')
+        context = {
+            "books": Book.objects.filter(id__in=selected_books)
+        }
+        return render(request=request,
+                      template_name='books/print_selected_qr.html',
+                      context=context)
+
+
 def edit_book(request, slug):
     book = get_object_or_404(Book, slug=slug)
 

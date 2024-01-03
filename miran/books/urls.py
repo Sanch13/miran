@@ -12,6 +12,7 @@ urlpatterns = [
     path('return_book/', views.return_book, name='return_book'),
     path('add_book/', views.add_book, name='add_book'),
     path('print_qr/', views.print_qr, name='print_qr'),
+    path('print_selected_qr/', views.print_selected_qr, name='print_selected_qr'),
     path('edit/<slug:slug>/', views.edit_book, name='edit'),
     path('delete/<slug:slug>/', views.delete_book, name='delete'),
 ]

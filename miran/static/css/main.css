@@ -179,3 +179,7 @@ main {
     padding: 10px;
 }
 
+.card-checkbox {
+    width: 20px;
+    height: 20px;
+}
