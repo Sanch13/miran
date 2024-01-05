@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, SetPasswordForm
 from django import forms
 
 from .models import User
@@ -34,5 +34,15 @@ class UserLoginForm(AuthenticationForm):  # Унаследовали форму 
 
     def __init__(self, *args, **kwargs):
         super(UserLoginForm, self).__init__(*args, **kwargs)
+        for field_name, filed in self.fields.items():
+            filed.widget.attrs['class'] = 'form-control'
+
+
+class UserChangePassForm(SetPasswordForm):
+    new_password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Введите новый пароль'}))
+    new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Подтвердите новый пароль'}))
+
+    def __init__(self, *args, **kwargs):
+        super(UserChangePassForm, self).__init__(*args, **kwargs)
         for field_name, filed in self.fields.items():
             filed.widget.attrs['class'] = 'form-control'
