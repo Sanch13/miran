@@ -183,8 +183,11 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('sendSelectedBooks').addEventListener('click', function () {
-
+    const linkSelectedBooks = document.getElementById('sendSelectedBooks');
+    if (!linkSelectedBooks) {
+        return;
+    }
+    linkSelectedBooks.addEventListener('click', function () {
         const checkboxes = document.querySelectorAll('.book-checkbox:checked');
         const selectedBooks = Array.from(checkboxes).map(function (checkbox) {
             return checkbox.dataset.id;
@@ -194,9 +197,7 @@
         selectedBooks.forEach(id => params.append('selectedBooks[]', id));
 
         const url = '{% url "books:print_selected_qr" %}' + '?' + params.toString();
-
         window.location.href = url;
-
     });
 });
 
