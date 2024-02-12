@@ -6,12 +6,12 @@ class Settings(BaseSettings):
     DEBUG: bool
     ALLOWED_HOSTS: str
 
-    # ENGINE: str
-    # NAME_DB: str
-    # USER: str
-    # PASSWORD: str
-    # HOST: str
-    # PORT: str
+    ENGINE: str
+    NAME_DB: str
+    USER: str
+    PASSWORD: str
+    HOST: str
+    PORT: str
 
     EMAIL_HOST: str
     EMAIL_PORT: int
