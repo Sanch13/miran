@@ -1,7 +1,7 @@
 venv
 *pycache*
 .idea
-
+miran/media
 *.sqlite3
 
 *.pyc
