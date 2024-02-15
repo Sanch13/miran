@@ -20,7 +20,8 @@ class Book(models.Model):
     description = models.TextField(max_length=1000,
                                    blank=True,
                                    verbose_name="Краткое описание книги")
-    qr_code = models.ImageField(blank=True,
+    qr_code = models.ImageField(max_length=250,
+                                blank=True,
                                 null=True)
     label = models.ImageField(upload_to='label',
                               blank=True,
