@@ -11,7 +11,7 @@
 
 <div class="container-xl position-relative">
     <div class="row">
-        <div class="col-6 text-start pe-4 mb-2">
+        <div class="col-2 text-start pe-4 mb-2">
             <a id="toggleLink" onclick="toggle_search()">
                 <img src="{% static 'img/funnel.svg' %}"
                      alt="..."
@@ -20,8 +20,10 @@
                 />
             </a>
         </div>
-        <div class="col-6 text-end pe-4">
+        <div class="col-10 text-end pe-4">
             {% if request.user.is_staff %}
+            <a href="{% url 'books:taken_books' %}" >Список книг в пользовании</a>
+            <span style="color: red"> <--- | ---> </span>
             <a id="sendSelectedBooks"
                class="link-underline"
                style="cursor: pointer">

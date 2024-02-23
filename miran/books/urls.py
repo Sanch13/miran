@@ -15,4 +15,5 @@ urlpatterns = [
     path('print_selected_qr/', views.print_selected_qr, name='print_selected_qr'),
     path('edit/<slug:slug>/', views.edit_book, name='edit'),
     path('delete/<slug:slug>/', views.delete_book, name='delete'),
+    path("taken_books/", views.show_taken_books, name="taken_books")
 ]

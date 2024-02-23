@@ -187,3 +187,12 @@ def delete_book(request, slug):
         return redirect(to="books:book_list_card")
     except Exception:
         return HttpResponseNotFound("<h2>Невозможно удалить книгу</h2>")
+
+
+def show_taken_books(request):
+    context = {
+        "books": Book.objects.filter(status='CLOSE')
+    }
+    return render(request=request,
+                  template_name="books/taken_books.html",
+                  context=context)

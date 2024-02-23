@@ -1,0 +1,43 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Книги в пользовании</title>
+{% endblock title %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb my-1">
+        <!--    <li class="breadcrumb-item"><a href="#">Главная</a></li>-->
+        <li class="breadcrumb-item"><a href="{% url 'books:book_list_card' %}">Список книг</a></li>
+<!--        <li class="breadcrumb-item active" aria-current="page">{{ book.title }}</li>-->
+    </ol>
+</nav>
+
+{% for book in books %}
+<table class="table table-sm caption-top">
+    <caption class="text-center dark"><b>Список пользователей взявших книги</b></caption>
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Обложка</th>
+        <th scope="col">ФИО</th>
+        <th scope="col">Книга</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="table-success" style="vertical-align: middle">
+        <th scope="row">{{ forloop.counter }}</th>
+        <td><img src="/media/{{ book.label }}" class="card-img-top text-center" alt="..."
+                    style="width: 75px; height: 110px"></td>
+        <td>{{ book.reader }}</td>
+        <td>{{ book.author}} - {{ book.title }}</td>
+    </tr>
+    </tbody>
+</table>
+{% endfor %}
+
+
+{% endblock %}
+
