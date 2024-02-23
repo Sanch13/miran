@@ -15,7 +15,6 @@
     </ol>
 </nav>
 
-{% for book in books %}
 <table class="table table-sm caption-top">
     <caption class="text-center dark"><b>Список пользователей взявших книги</b></caption>
     <thead>
@@ -27,6 +26,7 @@
     </tr>
     </thead>
     <tbody>
+{% for book in books %}
     <tr class="table-success" style="vertical-align: middle">
         <th scope="row">{{ forloop.counter }}</th>
         <td><img src="/media/{{ book.label }}" class="card-img-top text-center" alt="..."
@@ -35,8 +35,8 @@
         <td>{{ book.author}} - {{ book.title }}</td>
     </tr>
     </tbody>
-</table>
 {% endfor %}
+</table>
 
 
 {% endblock %}
