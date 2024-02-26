@@ -1,5 +1,5 @@
 from django.contrib import auth, messages
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.views import (
     PasswordResetView,
@@ -8,7 +8,8 @@ from django.contrib.auth.views import (
     PasswordResetCompleteView
 )
 
-from .forms import UserRegistrationForm, UserLoginForm, UserChangePassForm
+from .forms import UserRegistrationForm, UserLoginForm, UserChangePassForm, EditUserForm
+from .models import User
 
 
 def home(request):
@@ -55,6 +56,25 @@ def login(request):
     context = {'form': form}
     return render(request=request,
                   template_name='users/registration/login.html',
+                  context=context)
+
+
+def user_profile(request):
+    user = get_object_or_404(User, email=request.user.email)
+    form = EditUserForm(instance=user)
+
+    if request.method == "POST":
+        form = EditUserForm(data=request.POST)
+        if form.is_valid():
+            user.first_name = form.cleaned_data.get("first_name")
+            user.last_name = form.cleaned_data.get("last_name")
+            user.save()
+
+    context = {
+        "form": form
+    }
+    return render(request=request,
+                  template_name="users/my_profile.html",
                   context=context)
 
 

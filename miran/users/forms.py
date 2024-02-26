@@ -46,3 +46,14 @@ class UserChangePassForm(SetPasswordForm):
         super(UserChangePassForm, self).__init__(*args, **kwargs)
         for field_name, filed in self.fields.items():
             filed.widget.attrs['class'] = 'form-control'
+
+
+class EditUserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ("first_name", "last_name")
+
+    def __init__(self, *args, **kwargs):
+        super(EditUserForm, self).__init__(*args, **kwargs)
+        for field_name, filed in self.fields.items():
+            filed.widget.attrs['class'] = 'form-control'

@@ -5,8 +5,8 @@ from django.db import models
 class User(AbstractUser):
     username = models.CharField(max_length=150, unique=True)
     email = models.EmailField(unique=True)
-    first_name = models.CharField(max_length=150)
-    last_name = models.CharField(max_length=150)
+    first_name = models.CharField(max_length=150, verbose_name="Имя")
+    last_name = models.CharField(max_length=150, verbose_name="Фамилия")
 
     def save(self, *args, **kwargs):
         if not self.username:
