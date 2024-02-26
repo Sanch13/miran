@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}" >
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}">
     <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet"/>
     <link href="{% static 'css/main.css' %}" rel="stylesheet"/>
 
@@ -20,90 +20,73 @@
 <body>
 
 <header>
-<nav class="navbar navbar-expand-md fixed-top py-0">
-    <div class="container-fluid">
-<!--              Logo-->
-        <a  class="navbar-brand mx-5 px-5"
-            href="https://www.miran-bel.com/"
-            target="_blank">
-            <img src="{% static 'img/miran-logo2.png' %}"
-                 width="80px"
-                 height="56px"
-                 alt="logo" />
-        </a>
-        <button class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarID"
-                aria-controls="navbarID"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-<!--              Menu-->
-        <div class="collapse navbar-collapse" id="navbarID">
-            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link" href="/">Главная</a>-->
-<!--                </li>-->
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link" href="{% url 'signs:create_sign' %}">Создать подпись</a>-->
-<!--                </li>-->
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link" href="">Библиотека</a>-->
-<!--                </li>-->
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'books:book_list_card' %}">Библиотека</a>
-                </li>
-            </ul>
-<!--                  Login/Logout-->
-            <div class="me-3 pe-2">
-                {% if user.is_authenticated %}
-                <div class="dropdown">
-                    <a class="dropdown-toggle-no-caret nav-link"
-                       id="navbarDropdownMenuAvatar"
-                       type="button"
-                       data-bs-toggle="dropdown"
-                       aria-expanded="false">
-                        {{ user.email }}
-                    </a>
-                    <ul class="dropdown-menu"
-                        aria-labelledby="navbarDropdownMenuAvatar">
-<!--                        <li><h1 class="dropdown-header">{{user}}</h1></li>-->
-<!--                        <li><hr class="dropdown-divider"></li>-->
-                        <li><a class="dropdown-item nav-link" href="{% url 'users:user_profile' %}">Мой профиль</a></li>
-                        <li>
-                            {% if request.user.is_staff %}
-                            <a class="dropdown-item nav-link"
-                               href="{% url 'books:add_book' %}">Добавить книгу</a>
-                            {% endif %}
-                        </li>
-                        <li>
-                            {% if request.user.is_staff %}
-                            <a class="dropdown-item nav-link"
-                               href="{% url 'signs:create_sign' %}">Создать подпись</a>
-                            {% endif %}
-                        </li>
-                        <li><a class="dropdown-item nav-link"
-                               href="{% url 'users:logout' %}">Выйти</a>
-                        </li>
-                    </ul>
+    <nav class="navbar navbar-expand-md fixed-top py-0">
+        <div class="container-fluid">
+            <!--              Logo-->
+            <a class="navbar-brand text-end" style="margin-left: 20px; width: 250px;"
+               href="https://www.miran-bel.com/"
+               target="_blank">
+                <img src="{% static 'img/miran-logo2.png' %}"
+                     width="80px"
+                     height="56px"
+                     alt="logo"/>
+            </a>
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarID"
+                    aria-controls="navbarID"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!--              Menu-->
+            <div class="collapse navbar-collapse container-fluid" id="navbarID">
+                <ul class="navbar-nav mx-auto mb-1">
+                    <li class="nav-item">
+                        <a class="nav-link py-1" href="{% url 'books:book_list_card' %}">Библиотека
+                        </a>
+                    </li>
+                </ul>
+                <!--                  Login/Logout-->
+                <div style="margin-right: 20px; width: 250px">
+                    {% if user.is_authenticated %}
+                    <div class="dropdown">
+                        <a class="dropdown-toggle-no-caret nav-link py-1"
+                           id="navbarDropdownMenuAvatar"
+                           type="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            {{ user.email }}
+                        </a>
+                        <ul class="dropdown-menu"
+                            aria-labelledby="navbarDropdownMenuAvatar">
+                            <li><a class="dropdown-item nav-link"
+                                   href="{% url 'users:user_profile' %}">Мой профиль</a></li>
+                            <li>
+                                {% if request.user.is_staff %}
+                                <a class="dropdown-item nav-link"
+                                   href="{% url 'books:add_book' %}">Добавить книгу</a>
+                                {% endif %}
+                            </li>
+                            <li>
+                                {% if request.user.is_staff %}
+                                <a class="dropdown-item nav-link"
+                                   href="{% url 'signs:create_sign' %}">Создать подпись</a>
+                                {% endif %}
+                            </li>
+                            <li><a class="dropdown-item nav-link"
+                                   href="{% url 'users:logout' %}">Выйти</a>
+                            </li>
+                        </ul>
+                    </div>
+                    {% else %}
+                    <a class="nav-link" href="{% url 'users:login' %}">Войти</a>
+                    {% endif %}
                 </div>
-                {% else %}
-                <a class="nav-link" href="{% url 'users:login' %}">Войти</a>
-                {% endif %}
             </div>
-<!--                  Search-->
-            <form class="d-flex my-2">
-            <input class="form-control me-2 "
-                   type="search"
-                   placeholder="Поиск"
-                   aria-label="Поиск">
-            <button class="btn btn-miran" type="submit">Поиск</button>
-            </form>
         </div>
-    </div>
-</nav>
+    </nav>
 </header>
 
 <main class="container">
